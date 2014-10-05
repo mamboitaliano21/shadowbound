@@ -138,7 +138,7 @@ namespace Lab
             basicEffect.SpecularPower = 5.0f;
             basicEffect.AmbientLightColor = new Vector3(0.4f, 0.4f, 0.4f);
         }
-
+        
         public override void Draw(GameTime gameTime)
         {
             // Setup the vertices

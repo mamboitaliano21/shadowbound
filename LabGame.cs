@@ -39,12 +39,13 @@ namespace Lab
         private KeyboardManager keyboardManager;
         public KeyboardState keyboardState;
         private Player player;
+        private Landscape landscape;
 
         // Represents the camera's position and orientation
         public Camera camera;
 
         // Graphics assets
-        public Assets assets;
+        //public Assets assets;
 
         // Random number generator
         public Random random;
@@ -69,15 +70,10 @@ namespace Lab
 
             // Create the keyboard manager
             keyboardManager = new KeyboardManager(this);
-            assets = new Assets(this);
+            //assets = new Assets(this);
             random = new Random();
 
 
-            // Set boundaries.
-            boundaryLeft = -4.5f;
-            boundaryRight = 4.5f;
-            boundaryTop = 4;
-            boundaryBottom = -4.5f;
         }
 
         protected override void LoadContent()
@@ -89,7 +85,10 @@ namespace Lab
 
             // Create game objects.
             player = new Player(this);
+            landscape = new Landscape(this);
+
             gameObjects.Add(player);
+            gameObjects.Add(landscape);
             //gameObjects.Add(new EnemyController(this));
 
             // Create an input layout from the vertices
@@ -101,7 +100,7 @@ namespace Lab
         {
             Window.Title = "Lab 4";
             camera = new Camera(this);
-
+    
             base.Initialize();
         }
 
@@ -129,9 +128,11 @@ namespace Lab
         {
             // Clears the screen with the Color.CornflowerBlue
             GraphicsDevice.Clear(Color.CornflowerBlue);
+         
 
             for (int i = 0; i < gameObjects.Count; i++)
             {
+                
                 gameObjects[i].Draw(gameTime);
             }
             // Handle base.Draw

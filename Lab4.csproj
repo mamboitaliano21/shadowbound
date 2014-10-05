@@ -92,7 +92,6 @@
     <Compile Include="GameObject.cs" />
     <Compile Include="LabGame.cs" />
     <Compile Include="Landscape.cs" />
-    <Compile Include="MyModel.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="TerrainGenerator.cs" />
