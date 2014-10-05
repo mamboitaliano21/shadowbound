@@ -13,10 +13,11 @@ namespace Lab
     // Player class.
     class Player : GameObject
     {
-
+        public Vector3 pos;
 
         public Player(LabGame game)
         {
+            this.pos = new Vector3(0,0,-10);
             this.game = game;
             type = GameObjectType.Player;
             pos = new SharpDX.Vector3(0, game.boundaryBottom + 0.5f, 0);
@@ -30,10 +31,12 @@ namespace Lab
         // Frame update.
         public override void Update(GameTime gameTime)
         {
+            var time = (float)gameTime.ElapsedGameTime.TotalSeconds;
             //TODO bad coding removing fire
             if (game.keyboardState.IsKeyDown(Keys.Space)) {  } 
 
             // Determine velocity based on keys being pressed.
+            if (game.keyboardState.IsKeyDown(Keys.W)) { pos += 1 * time; }
             if (game.keyboardState.IsKeyDown(Keys.Left)) { }
             if (game.keyboardState.IsKeyDown(Keys.Right)) {  }
 

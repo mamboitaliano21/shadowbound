@@ -38,7 +38,7 @@ namespace Lab
         private Stack<GameObject> removedGameObjects;
         private KeyboardManager keyboardManager;
         public KeyboardState keyboardState;
-        private Player player;
+        public Player player;
         private Landscape landscape;
 
         // Represents the camera's position and orientation

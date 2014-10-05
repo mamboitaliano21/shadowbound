@@ -12,10 +12,14 @@ namespace Lab
         public Matrix View;
         public Matrix Projection;
         public Game game;
+        public Vector3 cameraPos;
+
 
         // Ensures that all objects are being rendered from a consistent viewpoint
         public Camera(Game game) {
-            View = Matrix.LookAtLH(new Vector3(0, 0, -10), new Vector3(0, 0, 0), Vector3.UnitY);
+
+            this.cameraPos = game.player.pos;
+            View = Matrix.LookAtLH(cameraPos, new Vector3(0, 0, 0), Vector3.UnitY);
             Projection = Matrix.PerspectiveFovLH((float)Math.PI / 4.0f, (float)game.GraphicsDevice.BackBuffer.Width / game.GraphicsDevice.BackBuffer.Height, 0.1f, 100.0f);
             this.game = game;
         }
@@ -24,6 +28,7 @@ namespace Lab
         public void Update()
         {
             Projection = Matrix.PerspectiveFovLH((float)Math.PI / 4.0f, (float)game.GraphicsDevice.BackBuffer.Width / game.GraphicsDevice.BackBuffer.Height, 0.1f, 100.0f);
+            
         }
     }
 }
