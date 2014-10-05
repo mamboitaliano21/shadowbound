@@ -90,7 +90,7 @@ namespace Lab
             // Create game objects.
             player = new Player(this);
             gameObjects.Add(player);
-            gameObjects.Add(new EnemyController(this));
+            //gameObjects.Add(new EnemyController(this));
 
             // Create an input layout from the vertices
 

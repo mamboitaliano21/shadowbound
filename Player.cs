@@ -37,20 +37,21 @@ namespace Lab
         }
 
         // Shoot a projectile.
-        private void fire()
-        {
-            game.Add(new Projectile(game,
-                game.assets.GetModel("player projectile", CreatePlayerProjectileModel),
-                pos,
-                new Vector3(0, projectileSpeed, 0),
-                GameObjectType.Enemy
-            ));
-        }
+        //private void fire()
+        //{
+        //    game.Add(new Projectile(game,
+        //        game.assets.GetModel("player projectile", CreatePlayerProjectileModel),
+        //        pos,
+        //        new Vector3(0, projectileSpeed, 0),
+        //        GameObjectType.Enemy
+        //    ));
+        //}
 
         // Frame update.
         public override void Update(GameTime gameTime)
         {
-            if (game.keyboardState.IsKeyDown(Keys.Space)) { fire(); }
+            //TODO bad coding removing fire
+            if (game.keyboardState.IsKeyDown(Keys.Space)) { int i = 0; } //fire(); 
 
             // Determine velocity based on keys being pressed.
             if (game.keyboardState.IsKeyDown(Keys.Left)) { pos.X -= speed * gameTime.ElapsedGameTime.Milliseconds; }

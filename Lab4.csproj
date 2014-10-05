@@ -76,6 +76,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -85,10 +86,12 @@
   <ItemGroup>
     <Compile Include="Assets.cs" />
     <Compile Include="Camera.cs" />
+    <Compile Include="ColoredGameObject.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="EnemyController.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="LabGame.cs" />
+    <Compile Include="Landscape.cs" />
     <Compile Include="MyModel.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />

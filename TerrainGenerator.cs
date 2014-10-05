@@ -8,7 +8,7 @@ using System.Text;
 // and also http://en.wikipedia.org/wiki/Diamond-square_algorithm
 // Uses generate fracatl terrain using diamond square algorithm
 
-namespace Project1
+namespace Lab
 {
     using System.Drawing;
     class TerrainGenerator

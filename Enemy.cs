@@ -56,12 +56,7 @@ namespace Lab
 
         private void fire()
         {
-            game.Add(new Projectile(game,
-                game.assets.GetModel("enemy projectile", CreateEnemyProjectileModel),
-                pos,
-                new Vector3(0, -projectileSpeed, 0),
-                GameObjectType.Player
-            ));
+            int y = 0;
         }
 
         public void Hit()
