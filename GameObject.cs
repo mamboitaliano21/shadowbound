@@ -20,7 +20,6 @@ namespace Lab
         public VertexInputLayout inputLayout;
         public LabGame game;
         public GameObjectType type = GameObjectType.None;
-        public Vector3 pos;
         public BasicEffect basicEffect;
 
         public abstract void Update(GameTime gametime);

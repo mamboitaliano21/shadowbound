@@ -13,7 +13,7 @@ namespace Lab
     class Enemy : GameObject
     {
 
-
+        public Vector3 pos;
         public Enemy(LabGame game, Vector3 pos)
         {
             this.game = game;

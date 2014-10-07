@@ -11,12 +11,12 @@ namespace Lab
     {
         public Matrix View;
         public Matrix Projection;
-        public Game game;
+        public LabGame game;
         public Vector3 cameraPos;
 
 
         // Ensures that all objects are being rendered from a consistent viewpoint
-        public Camera(Game game) {
+        public Camera(LabGame game) {
 
             this.cameraPos = game.player.pos;
             View = Matrix.LookAtLH(cameraPos, new Vector3(0, 0, 0), Vector3.UnitY);

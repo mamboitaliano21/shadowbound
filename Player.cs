@@ -11,7 +11,7 @@ namespace Lab
     using SharpDX.Toolkit.Graphics;
     using SharpDX.Toolkit.Input;
     // Player class.
-    class Player : GameObject
+    public class Player : GameObject
     {
         public Vector3 pos;
 
@@ -20,7 +20,7 @@ namespace Lab
             this.pos = new Vector3(0,0,-10);
             this.game = game;
             type = GameObjectType.Player;
-            pos = new SharpDX.Vector3(0, game.boundaryBottom + 0.5f, 0);
+            
 
         }
 

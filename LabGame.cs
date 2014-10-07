@@ -41,6 +41,7 @@ namespace Lab
         public Player player;
         private Landscape landscape;
 
+
         // Represents the camera's position and orientation
         public Camera camera;
 
@@ -83,9 +84,11 @@ namespace Lab
             addedGameObjects = new Stack<GameObject>();
             removedGameObjects = new Stack<GameObject>();
 
+
             // Create game objects.
             player = new Player(this);
             landscape = new Landscape(this);
+            camera = new Camera(this);
 
             gameObjects.Add(player);
             gameObjects.Add(landscape);
@@ -99,7 +102,7 @@ namespace Lab
         protected override void Initialize()
         {
             Window.Title = "Lab 4";
-            camera = new Camera(this);
+            
     
             base.Initialize();
         }
