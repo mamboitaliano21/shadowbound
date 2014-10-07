@@ -115,6 +115,7 @@ namespace Lab
             for (int i = 0; i < gameObjects.Count; i++)
             {
                 gameObjects[i].Update(gameTime);
+                if (gameObjects[i].basicEffect != null) { gameObjects[i].basicEffect.View = camera.View; }
             }
 
             if (keyboardState.IsKeyDown(Keys.Escape))
