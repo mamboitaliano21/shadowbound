@@ -13,7 +13,6 @@ namespace Lab
         private int mapWidth = 513;
         private int mapHeight = 513;
         private int mountainHeight = 200;
-        private int maxDepth = -100;
 
         private Vector3 initialPos = new Vector3(0, 100, -20);
         private Vector3 initialCamera = new Vector3(0, 100, 0);
@@ -28,11 +27,11 @@ namespace Lab
 
             
             //H-value,mapwidth,mapheight,iteration,maximum depth,maximum height
-            TerrainGenerator tg = new TerrainGenerator(0.5, mapWidth, mapHeight, 100, maxDepth, mountainHeight);
+            TerrainGenerator tg = new TerrainGenerator(10);
             float[,] arr = tg.generateTerrain();
-            
+            VertexPositionNormalColor[] landscapeVertices = tg.generateVertex(arr);
 
-            List<VertexPositionNormalColor> list = new List<VertexPositionNormalColor>();
+            /*List<VertexPositionNormalColor> list = new List<VertexPositionNormalColor>();
             for (int j = 0; j<mapHeight; j++){
                 if (j + 1 < mapHeight)
                 {
@@ -63,47 +62,7 @@ namespace Lab
                     }
                 }
             }
-            
-
-            //add the water
-            int waterHeight = (mountainHeight + maxDepth)/3;
-            Vector3 waterP1 = new Vector3(0, waterHeight , 0);
-            Vector3 waterP2 = new Vector3(mapWidth,waterHeight, 0);
-            Vector3 waterP3 = new Vector3(mapWidth, waterHeight, mapHeight);
-            Vector3 waterP4 = new Vector3(0, waterHeight, mapHeight);
-
-            Vector3 waterNormal = Vector3.Cross(waterP2 - waterP1, waterP4 - waterP1);
-
-            VertexPositionNormalColor water1 = new VertexPositionNormalColor(waterP1, waterNormal, new Color(10, 105, 148, 125));
-            VertexPositionNormalColor water2 = new VertexPositionNormalColor(waterP4, waterNormal, new Color(10, 105, 148, 125));
-            VertexPositionNormalColor water3 = new VertexPositionNormalColor(waterP3, waterNormal, new Color(10, 105, 148, 125));
-            VertexPositionNormalColor water4 = new VertexPositionNormalColor(waterP1, waterNormal, new Color(10, 105, 148, 125));
-            VertexPositionNormalColor water5 = new VertexPositionNormalColor(waterP3, waterNormal, new Color(10, 105, 148, 125));
-            VertexPositionNormalColor water6 = new VertexPositionNormalColor(waterP2, waterNormal, new Color(10, 105, 148, 125));
-
-            VertexPositionNormalColor reverseWater1 = new VertexPositionNormalColor(waterP1, -waterNormal, new Color(10, 105, 148, 125));
-            VertexPositionNormalColor reverseWater2 = new VertexPositionNormalColor(waterP3, -waterNormal, new Color(10, 105, 148, 125));
-            VertexPositionNormalColor reverseWater3 = new VertexPositionNormalColor(waterP4, -waterNormal, new Color(10, 105, 148, 125));
-            VertexPositionNormalColor reverseWater4 = new VertexPositionNormalColor(waterP1, -waterNormal, new Color(10, 105, 148, 125));
-            VertexPositionNormalColor reverseWater5 = new VertexPositionNormalColor(waterP2, -waterNormal, new Color(10, 105, 148, 125));
-            VertexPositionNormalColor reverseWater6 = new VertexPositionNormalColor(waterP3, -waterNormal, new Color(10, 105, 148, 125));
-
-            list.Add(water1);
-            list.Add(water2);
-            list.Add(water3);
-            list.Add(water4);
-            list.Add(water5);
-            list.Add(water6);
-
-            list.Add(reverseWater1);
-            list.Add(reverseWater2);
-            list.Add(reverseWater3);
-            list.Add(reverseWater4);
-            list.Add(reverseWater5);
-            list.Add(reverseWater6);
-
-
-            VertexPositionNormalColor[] landscapeVertices = list.ToArray();
+           */
             vertices = Buffer.Vertex.New(
                 game.GraphicsDevice,
                landscapeVertices);
