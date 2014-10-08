@@ -13,27 +13,30 @@ namespace Lab
     // Player class.
     public class Player : GameObject
     {
-
         private const int MS = 100;
-        // player position at eye target
+        private const float SENSITIVITY = 0.05f;
+
+        // player position and eye target
         public Vector3 pos;
         public Vector3 target;
 
-        private Vector3 eyeX;
+        // direction x, y, z axis of the player
+        private Vector3 XAxis;
+        private Vector3 YAxis; // TODO kyknya ga penting
+        private Vector3 ZAxis;
 
         public Player(LabGame game)
         {
             this.pos = new Vector3(0,0,0);
             this.target = new Vector3(0, 0, 10);
+            this.XAxis = Vector3.UnitX;
+            this.YAxis = Vector3.UnitY;
+            this.ZAxis = Vector3.UnitZ;
             this.game = game;
             type = GameObjectType.Player;
             
 
         }
-
-
-
-
 
         // Frame update.
         public override void Update(GameTime gameTime)
@@ -44,16 +47,43 @@ namespace Lab
             if (game.keyboardState.IsKeyDown(Keys.Space)) {  } 
 
             // Determine velocity based on keys being pressed.
-            if (game.keyboardState.IsKeyDown(Keys.W)) { pos.Z += MS * time;  }
-            if (game.keyboardState.IsKeyDown(Keys.A)) { pos.X -= MS * time; }
-            if (game.keyboardState.IsKeyDown(Keys.D)) { pos.X += MS * time; }
-            if (game.keyboardState.IsKeyDown(Keys.S)) { pos.Z -= MS * time; }
+            int dz = 0, dx = 0;
+            if (game.keyboardState.IsKeyDown(Keys.W)) {
+                dz += 1;
+            }
+            if (game.keyboardState.IsKeyDown(Keys.S))
+            {
+                dz -= 1;
+            }
+            if (game.keyboardState.IsKeyDown(Keys.D))
+            {
+                dx += 1;
+            }
+            if (game.keyboardState.IsKeyDown(Keys.A)) {
+                dx -= 1;
+            }
 
+            // Update pos and target based on velocity
+            Vector3 change = (dx * MS * time * XAxis) + (dz * MS * time * ZAxis);
+            pos += change;
+            target += change;
 
+            // Change direction player is facing
+            int dRotation = 0;
+            if (game.keyboardState.IsKeyDown(Keys.Left)) {
+                dRotation--;
+            }
+            if (game.keyboardState.IsKeyDown(Keys.Right))
+            {
+                dRotation++;
+            }
+            Matrix rotationMatrix = Matrix.RotationAxis(YAxis, dRotation*SENSITIVITY);
+            target = Vector3.TransformCoordinate(target - pos, rotationMatrix) + pos; // rotation of target about pos
+            XAxis = Vector3.TransformCoordinate(XAxis, rotationMatrix);
+            //YAxis = Vector3.TransformCoordinate(YAxis, rotationMatrix); // TODO kyknya ga perlu
+            ZAxis = Vector3.TransformCoordinate(ZAxis, rotationMatrix);
 
-            //if (game.keyboardState.IsKeyDown(Keys.Left)) { }
-            //if (game.keyboardState.IsKeyDown(Keys.Right)) {  }
-
+            // TODO
             // Keep within the boundaries.
             if (pos.X < game.boundaryLeft) { }
             if (pos.X > game.boundaryRight) {  }

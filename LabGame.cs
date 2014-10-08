@@ -111,13 +111,12 @@ namespace Lab
         {
             keyboardState = keyboardManager.GetState();
             flushAddedAndRemovedGameObjects();
-            camera.Update();
             for (int i = 0; i < gameObjects.Count; i++)
             {
                 gameObjects[i].Update(gameTime);
                 if (gameObjects[i].basicEffect != null) { gameObjects[i].basicEffect.View = camera.View; }
             }
-
+            camera.Update();
             if (keyboardState.IsKeyDown(Keys.Escape))
             {
                 this.Exit();

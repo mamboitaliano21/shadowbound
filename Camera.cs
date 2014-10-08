@@ -29,8 +29,9 @@ namespace Lab
         // If the screen is resized, the projection matrix will change
         public void Update()
         {
+            // Camera is based on player
             this.cameraPos = game.player.pos;
-            this.cameraTarget = cameraPos + new Vector3(0, 0, 10);
+            this.cameraTarget = game.player.target;
 
             Projection = Matrix.PerspectiveFovLH((float)Math.PI / 4.0f, (float)game.GraphicsDevice.BackBuffer.Width / game.GraphicsDevice.BackBuffer.Height, 0.1f, 100.0f);
             View = Matrix.LookAtLH(cameraPos, cameraTarget , Vector3.UnitY);
