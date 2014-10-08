@@ -3,31 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SharpDX.Toolkit;
 using SharpDX;
+using SharpDX.Toolkit;
+
 namespace Lab
 {
-    // Portal class
-    // Portal 
     using SharpDX.Toolkit.Graphics;
-    class Portal : GameObject
+    public class Portal : ColoredGameObject
     {
-
         public Vector3 pos;
-        public Portal(LabGame game, Vector3 pos)
+        public LabGame game;
+        public GameObjectType type;
+        public BasicEffect basicEffect;
+        Random r = new Random();
+
+        public Portal(LabGame game)
         {
             this.game = game;
-            type = GameObjectType.Enemy;
-            this.pos = pos;
+            type = GameObjectType.Portal;
+            pos = new Vector3(r.Next(0, 200), 0, r.Next(0, 200));
 
         }
-
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gametime)
         {
-
+            if (Vector3.Distance(game.player.pos, this.pos) < 1)
+            {
+                Console.WriteLine("Game Over");
+            }
         }
 
-        public override void Draw(GameTime gameTime)
+        public void Draw(GameTime gametime)
         {
 
         }
