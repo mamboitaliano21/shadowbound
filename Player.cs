@@ -13,11 +13,18 @@ namespace Lab
     // Player class.
     public class Player : GameObject
     {
+
+        private const int MS = 100;
+        // player position at eye target
         public Vector3 pos;
+        public Vector3 target;
+
+        private Vector3 eyeX;
 
         public Player(LabGame game)
         {
-            this.pos = new Vector3(0,0,-10);
+            this.pos = new Vector3(0,0,0);
+            this.target = new Vector3(0, 0, 10);
             this.game = game;
             type = GameObjectType.Player;
             
@@ -31,14 +38,21 @@ namespace Lab
         // Frame update.
         public override void Update(GameTime gameTime)
         {
+            
             var time = (float)gameTime.ElapsedGameTime.TotalSeconds;
             //TODO bad coding removing fire
             if (game.keyboardState.IsKeyDown(Keys.Space)) {  } 
 
             // Determine velocity based on keys being pressed.
-            if (game.keyboardState.IsKeyDown(Keys.W)) { pos += 1 * time; }
-            if (game.keyboardState.IsKeyDown(Keys.Left)) { }
-            if (game.keyboardState.IsKeyDown(Keys.Right)) {  }
+            if (game.keyboardState.IsKeyDown(Keys.W)) { pos.Z += MS * time;  }
+            if (game.keyboardState.IsKeyDown(Keys.A)) { pos.X -= MS * time; }
+            if (game.keyboardState.IsKeyDown(Keys.D)) { pos.X += MS * time; }
+            if (game.keyboardState.IsKeyDown(Keys.S)) { pos.Z -= MS * time; }
+
+
+
+            //if (game.keyboardState.IsKeyDown(Keys.Left)) { }
+            //if (game.keyboardState.IsKeyDown(Keys.Right)) {  }
 
             // Keep within the boundaries.
             if (pos.X < game.boundaryLeft) { }
