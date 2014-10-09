@@ -69,15 +69,23 @@ namespace Lab
             target += change;
 
             // Change direction player is facing
-            int dRotation = 0;
+            int dRotationY = 0, dRotationX = 0;
             if (game.keyboardState.IsKeyDown(Keys.Left)) {
-                dRotation--;
+                dRotationY--;
             }
             if (game.keyboardState.IsKeyDown(Keys.Right))
             {
-                dRotation++;
+                dRotationY++;
             }
-            Matrix rotationMatrix = Matrix.RotationAxis(YAxis, dRotation*SENSITIVITY);
+            if (game.keyboardState.IsKeyDown(Keys.Up))
+            {
+                dRotationX--;
+            }
+            if (game.keyboardState.IsKeyDown(Keys.Down))
+            {
+                dRotationX++;
+            }
+            Matrix rotationMatrix = Matrix.RotationAxis(YAxis, dRotationY*SENSITIVITY) * Matrix.RotationAxis(XAxis, dRotationX*SENSITIVITY);
             target = Vector3.TransformCoordinate(target - pos, rotationMatrix) + pos; // rotation of target about pos
             XAxis = Vector3.TransformCoordinate(XAxis, rotationMatrix);
             //YAxis = Vector3.TransformCoordinate(YAxis, rotationMatrix); // TODO kyknya ga perlu
