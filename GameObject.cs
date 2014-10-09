@@ -20,6 +20,8 @@ namespace Lab
         public VertexInputLayout inputLayout;
         public LabGame game;
         public GameObjectType type = GameObjectType.None;
+        // two effects , landscape is still using basic effect for now
+        public Effect effect;
         public BasicEffect basicEffect;
 
         public abstract void Update(GameTime gametime);
