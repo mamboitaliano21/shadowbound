@@ -88,7 +88,7 @@ namespace Lab
                     new VertexPositionNormalColor(frontTopRight, rightNormal, Color.DarkOrange),
                     new VertexPositionNormalColor(backTopRight, rightNormal, Color.DarkOrange),
                 });
-            effect = game.Content.Load<Effect>("Phong.fx");
+            effect = game.Content.Load<Effect>("Phong");
 
             inputLayout = VertexInputLayout.FromBuffer(0, vertices);
             this.game = game;

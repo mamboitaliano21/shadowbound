@@ -60,7 +60,7 @@ namespace Lab
         /// <summary>
         /// Initializes a new instance of the <see cref="LabGame" /> class.
         /// </summary>
-        public LabGame()
+        public LabGame(MainPage mainPage)
         {
             // Creates a graphics manager. This is mandatory.
             graphicsDeviceManager = new GraphicsDeviceManager(this);
