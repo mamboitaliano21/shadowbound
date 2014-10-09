@@ -27,7 +27,7 @@ namespace Lab
 
             
             //H-value,mapwidth,mapheight,iteration,maximum depth,maximum height
-            TerrainGenerator tg = new TerrainGenerator(10);
+            TerrainGenerator tg = new TerrainGenerator(5);
             float[,] arr = tg.generateTerrain();
             VertexPositionNormalColor[] landscapeVertices = tg.generateVertex(arr);
 

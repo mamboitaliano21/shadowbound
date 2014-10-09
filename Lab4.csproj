@@ -87,6 +87,7 @@
     <Compile Include="Assets.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="ColoredGameObject.cs" />
+    <Compile Include="Portal.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="EnemyController.cs" />
     <Compile Include="GameObject.cs" />
@@ -125,6 +126,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\enemy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Phong.fx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\player projectile.png">

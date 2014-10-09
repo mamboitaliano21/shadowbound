@@ -89,6 +89,7 @@ namespace Lab
             player = new Player(this);
             landscape = new Landscape(this);
             camera = new Camera(this);
+            Enemy enemy = new Enemy(this, new Vector3(0,0,0));
 
             gameObjects.Add(player);
             gameObjects.Add(landscape);
@@ -115,6 +116,7 @@ namespace Lab
             {
                 gameObjects[i].Update(gameTime);
                 if (gameObjects[i].basicEffect != null) { gameObjects[i].basicEffect.View = camera.View; }
+                else if (gameObjects[i].effect != null) { }
             }
             camera.Update();
             if (keyboardState.IsKeyDown(Keys.Escape))
