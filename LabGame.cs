@@ -89,10 +89,11 @@ namespace Lab
             player = new Player(this);
             landscape = new Landscape(this);
             camera = new Camera(this);
-            Enemy enemy = new Enemy(this, new Vector3(0,0,0));
+            Enemy enemy = new Enemy(this, new Vector3(0,100,0));
 
             gameObjects.Add(player);
             gameObjects.Add(landscape);
+            gameObjects.Add(enemy);
             //gameObjects.Add(new EnemyController(this));
 
             // Create an input layout from the vertices
