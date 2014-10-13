@@ -40,6 +40,7 @@ namespace Lab
         public KeyboardState keyboardState;
         public Player player;
         private Landscape landscape;
+        private Portal portal;
 
 
         // Represents the camera's position and orientation
@@ -90,9 +91,11 @@ namespace Lab
             landscape = new Landscape(this);
             camera = new Camera(this);
             Enemy enemy = new Enemy(this, new Vector3(0,0,0));
+            portal = new Portal(this);
 
             gameObjects.Add(player);
             gameObjects.Add(landscape);
+            gameObjects.Add(portal);
             //gameObjects.Add(new EnemyController(this));
 
             // Create an input layout from the vertices
