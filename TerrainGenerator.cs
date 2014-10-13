@@ -218,45 +218,52 @@ namespace Lab
             int sideLength = size - 1;
             int halfLength = sideLength / 2;
             float avg = 0;
-            int x, y;
             float adding = 0;
 
-            while (sideLength > 1)
+            for (int x = 0; x < size; x++)
             {
-                // Square Algoritm
-                for (x = 0; x < size - 1; x += sideLength)
+                for (int y = 0; y < size; y++)
                 {
-
-                    for (y = 0; y < size - 1; y += sideLength)
-                    {
-                        adding = (float)r.NextDouble(-ran / 2, ran);
-                        avg = (arr[x, y] + arr[x, y + sideLength]
-                            + arr[x + sideLength, y] + arr[x + sideLength, y + sideLength]) / 4;
-                        arr[x + halfLength, y + halfLength] = avg + adding;
-                    }
+                    arr[x, y] = 10;
                 }
-                ran++;
-
-                // Diamond Algorithm
-                for (x = 0; x < size; x += halfLength)
-                {
-
-                    for (y = (x + halfLength) % sideLength; y < size; y += sideLength)
-                    {
-                        adding = (float)r.NextDouble(-ran / 2, ran);
-                        avg = (arr[(x - halfLength + size) % size, y] +
-                              arr[(x + halfLength) % size, y] +
-                              arr[x, (y + halfLength) % size] +
-                              arr[x, (y - halfLength + size) % size]) / 4;
-                        arr[x, y] = avg + adding;
-                    }
-                }
-
-                sideLength /= 2;
-                halfLength = sideLength / 2;
-                ran /= 2;
             }
-            return this.arr;
+
+                /*while (sideLength > 1)
+                {
+                    // Square Algoritm
+                    for (x = 0; x < size - 1; x += sideLength)
+                    {
+
+                        for (y = 0; y < size - 1; y += sideLength)
+                        {
+                            adding = (float)r.NextDouble(-ran / 2, ran);
+                            avg = (arr[x, y] + arr[x, y + sideLength]
+                                + arr[x + sideLength, y] + arr[x + sideLength, y + sideLength]) / 4;
+                            arr[x + halfLength, y + halfLength] = avg + adding;
+                        }
+                    }
+                    ran++;
+
+                    // Diamond Algorithm
+                    for (x = 0; x < size; x += halfLength)
+                    {
+
+                        for (y = (x + halfLength) % sideLength; y < size; y += sideLength)
+                        {
+                            adding = (float)r.NextDouble(-ran / 2, ran);
+                            avg = (arr[(x - halfLength + size) % size, y] +
+                                  arr[(x + halfLength) % size, y] +
+                                  arr[x, (y + halfLength) % size] +
+                                  arr[x, (y - halfLength + size) % size]) / 4;
+                            arr[x, y] = avg + adding;
+                        }
+                    }
+
+                    sideLength /= 2;
+                    halfLength = sideLength / 2;
+                    ran /= 2;
+                }*/
+                return this.arr;
         }
 
 
