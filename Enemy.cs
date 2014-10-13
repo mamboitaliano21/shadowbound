@@ -117,7 +117,7 @@ namespace Lab
             game.GraphicsDevice.SetVertexInputLayout(inputLayout);
 
             // Apply the basic effect technique and draw the rotating cube
-   
+            effect.CurrentTechnique.Passes[0].Apply();
             game.GraphicsDevice.Draw(PrimitiveType.TriangleList, vertices.ElementCount);
         }
 
