@@ -40,7 +40,8 @@ namespace Lab
         public KeyboardState keyboardState;
         public Player player;
         private Landscape landscape;
-        private Portal portal;
+        //private Portal portal;
+        private Effect effect1;
 
 
         // Represents the camera's position and orientation
@@ -75,6 +76,7 @@ namespace Lab
             //assets = new Assets(this);
             random = new Random();
 
+            
 
         }
 
@@ -84,18 +86,20 @@ namespace Lab
             gameObjects = new List<GameObject>();
             addedGameObjects = new Stack<GameObject>();
             removedGameObjects = new Stack<GameObject>();
-
+          
 
             // Create game objects.
             player = new Player(this);
             landscape = new Landscape(this);
             camera = new Camera(this);
-            Enemy enemy = new Enemy(this, new Vector3(0,0,0));
-            portal = new Portal(this);
+            Enemy enemy = new Enemy(this, new Vector3(30,30,0));
+            //portal = new Portal(this);
 
             gameObjects.Add(player);
             gameObjects.Add(landscape);
-            gameObjects.Add(portal);
+            //gameObjects.Add(portal);
+            gameObjects.Add(enemy);
+            initEffect();
             //gameObjects.Add(new EnemyController(this));
 
             // Create an input layout from the vertices
@@ -118,8 +122,7 @@ namespace Lab
             for (int i = 0; i < gameObjects.Count; i++)
             {
                 gameObjects[i].Update(gameTime);
-                if (gameObjects[i].basicEffect != null) { gameObjects[i].basicEffect.View = camera.View; }
-                else if (gameObjects[i].effect != null) { }
+                
             }
             camera.Update();
             if (keyboardState.IsKeyDown(Keys.Escape))
@@ -141,7 +144,7 @@ namespace Lab
             for (int i = 0; i < gameObjects.Count; i++)
             {
                 
-                gameObjects[i].Draw(gameTime);
+                gameObjects[i].Draw(gameTime, effect1);
             }
             // Handle base.Draw
             base.Draw(gameTime);
@@ -180,6 +183,14 @@ namespace Lab
         {
             while (addedGameObjects.Count > 0) { gameObjects.Add(addedGameObjects.Pop()); }
             while (removedGameObjects.Count > 0) { gameObjects.Remove(removedGameObjects.Pop()); }
+        }
+
+        private void initEffect()
+        {
+            this.effect1 = Content.Load<Effect>("Phong");
+            this.effect1.Parameters["Projection"].SetValue(this.camera.Projection);
+            this.effect1.Parameters["View"].SetValue(this.camera.View);
+            this.effect1.Parameters["cameraPos"].SetValue(this.camera.cameraPos);
         }
     }
 }

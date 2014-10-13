@@ -12,7 +12,7 @@ namespace Lab
     using SharpDX.Toolkit.Graphics;
     class Enemy : ColoredGameObject
     {
-        private Matrix World;
+        private Matrix World = Matrix.Identity;
         private Matrix WorldInverseTranspose;
 
         public Vector3 pos;
@@ -88,7 +88,7 @@ namespace Lab
                     new VertexPositionNormalColor(frontTopRight, rightNormal, Color.DarkOrange),
                     new VertexPositionNormalColor(backTopRight, rightNormal, Color.DarkOrange),
                 });
-            effect = game.Content.Load<Effect>("Phong");
+            //effect = game.Content.Load<Effect>("Phong");
 
             inputLayout = VertexInputLayout.FromBuffer(0, vertices);
             this.game = game;
@@ -98,26 +98,28 @@ namespace Lab
         public override void Update(GameTime gameTime)
         {
             var time = (float)gameTime.TotalGameTime.TotalSeconds;
-            World = Matrix.Translation(pos);
+            
+            World *= Matrix.Translation(pos);
             WorldInverseTranspose = Matrix.Transpose(Matrix.Invert(World));
 
         }
 
-        public override void Draw(GameTime gameTime)
+        public override void Draw(GameTime gameTime, Effect effect)
         {
+            this.effect = effect;
             // Setup the effect parameters
-            effect.Parameters["World"].SetValue(World);
-            effect.Parameters["Projection"].SetValue(game.camera.Projection);
-            effect.Parameters["View"].SetValue(game.camera.View);
-            effect.Parameters["cameraPos"].SetValue(game.camera.cameraPos);
-            effect.Parameters["worldInvTrp"].SetValue(WorldInverseTranspose);
+            this.effect.Parameters["World"].SetValue(World);
+            //effect.Parameters["Projection"].SetValue(game.camera.Projection);
+            //effect.Parameters["View"].SetValue(game.camera.View);
+            //effect.Parameters["cameraPos"].SetValue(game.camera.cameraPos);
+            this.effect.Parameters["worldInvTrp"].SetValue(WorldInverseTranspose);
 
             // Setup the vertices
             game.GraphicsDevice.SetVertexBuffer(vertices);
             game.GraphicsDevice.SetVertexInputLayout(inputLayout);
 
             // Apply the basic effect technique and draw the rotating cube
-            effect.CurrentTechnique.Passes[0].Apply();
+            this.effect.CurrentTechnique.Passes[0].Apply();
             game.GraphicsDevice.Draw(PrimitiveType.TriangleList, vertices.ElementCount);
         }
 

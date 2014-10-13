@@ -32,7 +32,7 @@ namespace Lab
 
         }
 
-        public override void Draw(GameTime gameTime) { }
+        public override void Draw(GameTime gameTime, Effect effect) { }
 
     }
 

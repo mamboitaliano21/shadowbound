@@ -11,8 +11,11 @@ namespace Lab
     using SharpDX.Toolkit.Graphics;
     public class Portal : ColoredGameObject
     {
+
         public Vector3 pos;
         Random r = new Random();
+        private Matrix World = Matrix.Identity;
+        private Matrix WorldInverseTranspose;
 
         public Portal(LabGame game)
         {
@@ -88,48 +91,54 @@ namespace Lab
                     new VertexPositionNormalColor(backTopRight, rightNormal, Color.DarkOrange),
                 });
 
-            basicEffect = new BasicEffect(game.GraphicsDevice)
-            {
-                VertexColorEnabled = true,
-                View = Matrix.LookAtLH(game.camera.cameraPos, game.camera.cameraTarget, Vector3.UnitY),
-                Projection = Matrix.PerspectiveFovLH((float)Math.PI / 4.0f, (float)game.GraphicsDevice.BackBuffer.Width / game.GraphicsDevice.BackBuffer.Height, 0.1f, 1000.0f),
-                World = Matrix.Identity
+            //basicEffect = new BasicEffect(game.GraphicsDevice)
+            //{
+            //    VertexColorEnabled = true,
+            //    View = Matrix.LookAtLH(game.camera.cameraPos, game.camera.cameraTarget, Vector3.UnitY),
+            //    Projection = Matrix.PerspectiveFovLH((float)Math.PI / 4.0f, (float)game.GraphicsDevice.BackBuffer.Width / game.GraphicsDevice.BackBuffer.Height, 0.1f, 1000.0f),
+            //    World = Matrix.Identity
 
-            };
+            //};
             
             inputLayout = VertexInputLayout.FromBuffer(0, vertices);
 
         }
-        public override void Update(GameTime gametime)
+     
+
+
+        public override void Update(GameTime gameTime)
         {
-            var time = (float)gametime.TotalGameTime.TotalSeconds;
-    
-            basicEffect.Projection = Matrix.PerspectiveFovLH((float)Math.PI / 4.0f, (float)game.GraphicsDevice.BackBuffer.Width / game.GraphicsDevice.BackBuffer.Height, 0.1f, 1000.0f);
+            var time = (float)gameTime.TotalGameTime.TotalSeconds;
 
-            basicEffect.LightingEnabled = true;
-            basicEffect.PreferPerPixelLighting = true;
-            basicEffect.VertexColorEnabled = true;
-
-            basicEffect.DirectionalLight0.DiffuseColor = new Vector3(0.35f, 0.35f, 0.35f);
-            basicEffect.DirectionalLight0.Direction = new Vector3(0, (float) Math.Sin(time), 0);
-            basicEffect.DirectionalLight0.SpecularColor = new Vector3(0.5f, 0.5f, 0.5f);
-            basicEffect.SpecularPower = 5.0f;
-            basicEffect.AmbientLightColor = new Vector3(0.4f, 0.4f, 0.4f);
+            World *= Matrix.Translation(pos);
+            WorldInverseTranspose = Matrix.Transpose(Matrix.Invert(World));
             if (Vector3.Distance(game.player.pos, this.pos) < 1)
             {
                 gameEnd();
             }
+
         }
-            
-        public override void Draw(GameTime gametime)
+
+        public override void Draw(GameTime gameTime, Effect effect)
         {
+            this.effect = effect;
+            // Setup the effect parameters
+            this.effect.Parameters["World"].SetValue(World);
+            //effect.Parameters["Projection"].SetValue(game.camera.Projection);
+            //effect.Parameters["View"].SetValue(game.camera.View);
+            //effect.Parameters["cameraPos"].SetValue(game.camera.cameraPos);
+            this.effect.Parameters["worldInvTrp"].SetValue(WorldInverseTranspose);
+
+            // Setup the vertices
             game.GraphicsDevice.SetVertexBuffer(vertices);
             game.GraphicsDevice.SetVertexInputLayout(inputLayout);
-            game.GraphicsDevice.SetBlendState(game.GraphicsDevice.BlendStates.AlphaBlend);
+
             // Apply the basic effect technique and draw the rotating cube
-            basicEffect.CurrentTechnique.Passes[0].Apply();
+            this.effect.CurrentTechnique.Passes[0].Apply();
             game.GraphicsDevice.Draw(PrimitiveType.TriangleList, vertices.ElementCount);
         }
+
+
 
         private void gameEnd()
         {

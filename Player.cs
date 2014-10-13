@@ -10,6 +10,7 @@ namespace Lab
 {
     using SharpDX.Toolkit.Graphics;
     using SharpDX.Toolkit.Input;
+    using System.Diagnostics;
     // Player class.
     public class Player : GameObject
     {
@@ -42,7 +43,7 @@ namespace Lab
         public override void Update(GameTime gameTime)
         {
             //Enable debugging of position
-            //Console.WriteLine(pos);
+            Debug.WriteLine(pos);
             var time = (float)gameTime.ElapsedGameTime.TotalSeconds;
             //TODO bad coding removing fire
             if (game.keyboardState.IsKeyDown(Keys.Space)) {  } 
@@ -100,7 +101,7 @@ namespace Lab
             //basicEffect.World = Matrix.Translation(pos);
         }
 
-        public override void Draw(GameTime gameTime)
+        public override void Draw(GameTime gameTime,Effect effect)
         {
 
         }
