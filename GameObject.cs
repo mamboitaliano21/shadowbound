@@ -10,7 +10,7 @@ namespace Lab
     using SharpDX.Toolkit.Graphics;
     public enum GameObjectType
     {
-        None, Player, Enemy, Controller, Portal
+        None, Player, Enemy, Controller, Portal, Landscape
     }
 
     // Super class for all game objects.

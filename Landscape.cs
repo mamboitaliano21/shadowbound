@@ -23,8 +23,8 @@ namespace Lab
 
         public Landscape(LabGame game)
         {
-     
-            
+
+            type = GameObjectType.Landscape;
             //H-value,mapwidth,mapheight,iteration,maximum depth,maximum height
             TerrainGenerator tg = new TerrainGenerator(5);
             float[,] arr = tg.generateTerrain();
