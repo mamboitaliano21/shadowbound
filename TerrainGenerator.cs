@@ -26,12 +26,8 @@ namespace Lab
         private Double maxHeight;
         private Random random;*/
 
-        private int N;
+        private int N = 2;
         private int size;
-        Random r = new Random();
-        private int range;
-        private int ran;
-        private int init;
         
         List<VertexPositionNormalColor> result = new List<VertexPositionNormalColor>();
       
@@ -43,15 +39,11 @@ namespace Lab
 
         //Constructor
         //dimension should be a power of two, plus one (e.g. 33x33, 65x65, 129x129, etc.).
-        public TerrainGenerator(int N)
+        public TerrainGenerator(int size)
         {
-            this.N = N;
-            this.size = (int)(Math.Pow(2, N)) + 1;
-            this.range = N * N;
-            this.ran = r.Next(-range / 2, range / 2);
-            this.init = r.Next(-range / 2, N);
+            this.size = size;
             this.arr = new float[size, size];
-            this.vectArr = new Vector3[size, size];
+            this.vectArr = new Vector3[N, N];
             this.turn = false;
         }
 
@@ -210,19 +202,11 @@ namespace Lab
             Array.Clear(this.arr, 0, arr.Length);
 
             // Initial value of the 4 corner sides
-            arr[0, 0] = init;
-            arr[0, size - 1] = init;
-            arr[size - 1, 0] = init;
-            arr[size - 1, size - 1] = init;
-
-            int sideLength = size - 1;
-            int halfLength = sideLength / 2;
-            float avg = 0;
-            float adding = 0;
-
-            for (int x = 0; x < size; x++)
+            
+            
+            for (int x = 0; x < N; x++)
             {
-                for (int y = 0; y < size; y++)
+                for (int y = 0; y < N; y++)
                 {
                     arr[x, y] = 10;
                 }
@@ -278,14 +262,14 @@ namespace Lab
             generateNormal(arr);
 
             // Iteration goes bottom up
-            for (int x = size - 1; x >= 1; x--)
+            for (int x = N - 1; x >= 1; x--)
             {
                 // Iteration goes forward
                 if (x % 2 == 0)
                 {
                     turn = true;
 
-                    for (int y = 0; y < size - 1; y++)
+                    for (int y = 0; y < N - 1; y++)
                     {
 
                         // First Triangle
@@ -302,7 +286,7 @@ namespace Lab
                 else
                 {
                     turn = false;
-                    for (int y = size - 1; y >= 1; y--)
+                    for (int y = N - 1; y >= 1; y--)
                     {
                         // First Triangle
                         result.Add(new VertexPositionNormalColor(new Vector3(x, arr[x, y], y), vectArr[x, y], makeColor(arr[x, y])));
