@@ -42,6 +42,7 @@ namespace Lab
         private Landscape landscape;
         //private Portal portal;
         private Effect effect1;
+        private Effect effect2;
 
 
         // Represents the camera's position and orientation
@@ -139,7 +140,13 @@ namespace Lab
         {
             // Clears the screen with the Color.CornflowerBlue
             GraphicsDevice.Clear(Color.CornflowerBlue);
-         
+
+            this.effect1.Parameters["Projection"].SetValue(this.camera.Projection);
+            this.effect1.Parameters["View"].SetValue(this.camera.View);
+            this.effect1.Parameters["cameraPos"].SetValue(this.camera.cameraPos);
+            this.effect2.Parameters["Projection"].SetValue(this.camera.Projection);
+            this.effect2.Parameters["View"].SetValue(this.camera.View);
+            this.effect2.Parameters["cameraPos"].SetValue(this.camera.cameraPos);
 
             for (int i = 0; i < gameObjects.Count; i++)
             {
@@ -188,9 +195,13 @@ namespace Lab
         private void initEffect()
         {
             this.effect1 = Content.Load<Effect>("Phong");
+            this.effect2 = Content.Load<Effect>("Spotlight");
             this.effect1.Parameters["Projection"].SetValue(this.camera.Projection);
             this.effect1.Parameters["View"].SetValue(this.camera.View);
             this.effect1.Parameters["cameraPos"].SetValue(this.camera.cameraPos);
+            this.effect2.Parameters["Projection"].SetValue(this.camera.Projection);
+            this.effect2.Parameters["View"].SetValue(this.camera.View);
+            this.effect2.Parameters["cameraPos"].SetValue(this.camera.cameraPos);
         }
     }
 }

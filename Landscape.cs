@@ -46,7 +46,7 @@ namespace Lab
         public override void Update(GameTime gameTime)
         {
             var time = (float)gameTime.TotalGameTime.TotalSeconds;
-            World = game.camera.View;
+            World = Matrix.Identity;
             WorldInverseTranspose = Matrix.Transpose(Matrix.Invert(World));
 
         }
@@ -56,9 +56,7 @@ namespace Lab
             this.effect = effect;
             // Setup the effect parameters
             this.effect.Parameters["World"].SetValue(World);
-            //effect.Parameters["Projection"].SetValue(game.camera.Projection);
-            //effect.Parameters["View"].SetValue(game.camera.View);
-            //effect.Parameters["cameraPos"].SetValue(game.camera.cameraPos);
+            
             this.effect.Parameters["worldInvTrp"].SetValue(WorldInverseTranspose);
 
             // Setup the vertices

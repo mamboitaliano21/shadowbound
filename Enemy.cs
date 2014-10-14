@@ -99,7 +99,7 @@ namespace Lab
         {
             var time = (float)gameTime.TotalGameTime.TotalSeconds;
             
-            World *= Matrix.Translation(pos);
+            World = Matrix.Translation(pos);
             WorldInverseTranspose = Matrix.Transpose(Matrix.Invert(World));
 
         }
