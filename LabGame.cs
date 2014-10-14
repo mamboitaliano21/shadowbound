@@ -93,7 +93,7 @@ namespace Lab
             player = new Player(this);
             landscape = new Landscape(this);
             camera = new Camera(this);
-            Enemy enemy = new Enemy(this, new Vector3(30,30,0));
+            Enemy enemy = new Enemy(this, new Vector3(10,20,10));
             //portal = new Portal(this);
 
             gameObjects.Add(player);

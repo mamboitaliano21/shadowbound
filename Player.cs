@@ -14,8 +14,8 @@ namespace Lab
     // Player class.
     public class Player : GameObject
     {
-        private const int MS = 100;
-        private const float SENSITIVITY = 0.05f;
+        private const int MS = 90;
+        private const float SENSITIVITY = 0.03f;
 
         // player position and eye target
         public Vector3 pos;
@@ -28,8 +28,8 @@ namespace Lab
 
         public Player(LabGame game)
         {
-            this.pos = new Vector3(0,10,0);
-            this.target = new Vector3(0, 10, 10);
+            this.pos = new Vector3(16,20,0);
+            this.target = new Vector3(16, 20, 10);
             this.XAxis = Vector3.UnitX;
             this.YAxis = Vector3.UnitY;
             this.ZAxis = Vector3.UnitZ;
