@@ -26,15 +26,23 @@ namespace Lab
 
             type = GameObjectType.Landscape;
             //H-value,mapwidth,mapheight,iteration,maximum depth,maximum height
-            TerrainGenerator tg = new TerrainGenerator(5);
-            float[,] arr = tg.generateTerrain();
-            VertexPositionNormalColor[] landscapeVertices = tg.generateVertex(arr);
+            //TerrainGenerator tg = new TerrainGenerator(200);
+            //float[,] arr = tg.generateTerrain();
+            //VertexPositionNormalColor[] landscapeVertices = tg.generateVertex(arr);
 
-       
+
+            List<VertexPositionNormalColor> landscapeVertices = new List<VertexPositionNormalColor>();
+            landscapeVertices.Add(new VertexPositionNormalColor(new Vector3(0.0f, 10.0f,0.0f), new Vector3(0.0f, 1.0f,0.0f), Color.Green));
+            landscapeVertices.Add(new VertexPositionNormalColor(new Vector3(0.0f, 10.0f, 200.0f), new Vector3(0.0f, 1.0f, 0.0f), Color.Green));
+            landscapeVertices.Add(new VertexPositionNormalColor(new Vector3(200.0f, 10.0f, 200.0f), new Vector3(0.0f, 1.0f, 0.0f), Color.Green));
+            
+            landscapeVertices.Add(new VertexPositionNormalColor(new Vector3(0.0f, 10.0f, 0.0f), new Vector3(0.0f, 1.0f, 0.0f), Color.Green));
+            landscapeVertices.Add(new VertexPositionNormalColor(new Vector3(200.0f, 10.0f, 200.0f), new Vector3(0.0f, 1.0f, 0.0f), Color.Green));
+            landscapeVertices.Add(new VertexPositionNormalColor(new Vector3(200.0f, 10.0f, 0.0f), new Vector3(0.0f, 1.0f, 0.0f), Color.Green));
            
             vertices = Buffer.Vertex.New(
                 game.GraphicsDevice,
-               landscapeVertices);
+               landscapeVertices.ToArray());
 
 
            
