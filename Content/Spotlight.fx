@@ -49,18 +49,16 @@ struct VS_IN
 {
 	float4 pos : SV_POSITION;
 	float4 nrm : NORMAL;
-	float4 col : COLOR;
-	float2 Texture : TEXCOORD2;
+	float2 Texture : TEXCOORD0;
 // Other vertex properties, e.g. texture co-ords, surface Kd, Ks, etc
 };
 
 struct PS_IN
 {
 	float4 pos : SV_POSITION; //Position in camera co-ords
-	float4 col : COLOR;
-	float4 wpos : TEXCOORD0; //Position in world co-ords
-	float3 wnrm : TEXCOORD1; //Normal in world co-ords 
-	float2 Texture : TEXCOORD2;
+	float4 wpos : TEXCOORD1; //Position in world co-ords
+	float3 wnrm : TEXCOORD2; //Normal in world co-ords 
+	float2 uv : TEXCOORD0;
 };
 
 
@@ -78,10 +76,9 @@ PS_IN VS( VS_IN input )
 	// Transform vertex in world coordinates to camera coordinates
 	float4 viewPos = mul(output.wpos, View);
     output.pos = mul(viewPos, Projection);
-
+	output.uv = input.Texture;
 	// Just pass along the colour at the vertex
-	output.col = input.col;
-	//output.Texture = input.Texture;
+	//output.col = input.col;
 	return output;
 }
 
@@ -93,17 +90,18 @@ float4 PS( PS_IN input ) : SV_Target
 
 	// Task 4 Edit Your Shader to Work With 3 Lights
 	// Be careful about shader operations 
-	
+	float4 returnCol = Texture.Sample(Sampler, input.uv);
+
 	// Calculate ambient RGB intensities
 	float Ka = 0.2f;
-	float3 amb = input.col.rgb*lightAmbCol.rgb*Ka;
+	float3 amb = returnCol.rgb*lightAmbCol.rgb*Ka;
 
 	// Calculate diffuse RBG reflections
 	float fAtt = 1;
 	float Kd = 1.0f;
 	float3 L = normalize(lightPntPos.xyz - input.wpos.xyz);
 	float LdotN = saturate(dot(L,interpNormal.xyz));
-	float3 dif = fAtt*lightPntCol.rgb*Kd*input.col.rgb*LdotN;
+	float3 dif = fAtt*lightPntCol.rgb*Kd*returnCol.rgb*LdotN;
 
 	// Calculate specular reflections
 	float Ks = 0.3f;
@@ -116,7 +114,7 @@ float4 PS( PS_IN input ) : SV_Target
 	// Combine reflection components
 	//float4 returnCol = float4(0.0f,0.0f,0.0f,0.0f);
 
-	float4 returnCol = Texture.Sample(Sampler, input.Texture);
+	
 	float spotScale = pow(max(dot(L, -lightDir), 0), spotPower);
 
 	//float angle = acos(dot(L, -lightDir.xyz));
@@ -125,7 +123,7 @@ float4 PS( PS_IN input ) : SV_Target
 	//else returnCol.rgb = amb.rgb + dif.rgb + spe.rgb;		//float3(0.7f, 0.7f, 0.7f);	//amb.rgb+dif.rgb+spe.rgb;
 	float3 light = amb.rgb + (dif.rgb + spe.rgb)*spotScale;
 	returnCol.a = 1.0f;	//input.col.a;
-	returnCol.rgb *= light;
+	returnCol.rgb = light;
 
 	return returnCol;
 }

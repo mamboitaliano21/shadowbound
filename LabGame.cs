@@ -43,7 +43,9 @@ namespace Lab
         //private Portal portal;
         private Effect cubeEffect;
         private Effect spotLightEffect;
+        //private Texture2D texture;
         private Texture2D texture;
+
         private Enemy enemy;
 
 
@@ -104,7 +106,8 @@ namespace Lab
             gameObjects.Add(enemy);
             initEffect();
             //gameObjects.Add(new EnemyController(this));
-            texture = Content.Load<Texture2D>("texture.jpg");
+            
+            
             // Create an input layout from the vertices
 
             base.LoadContent();
@@ -142,7 +145,7 @@ namespace Lab
         {
             // Clears the screen with the Color.CornflowerBlue
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            
             //texture = Content.Load<Texture2D>("texture");
 
             this.cubeEffect.Parameters["Projection"].SetValue(this.camera.Projection);
@@ -152,11 +155,16 @@ namespace Lab
             this.spotLightEffect.Parameters["View"].SetValue(this.camera.View);
             this.spotLightEffect.Parameters["cameraPos"].SetValue(this.camera.cameraPos);
 
-            this.spotLightEffect.Parameters["Texture"].SetResource(texture);
+            //this.spotLightEffect.Parameters["Texture"].SetResource(texture);
             this.spotLightEffect.Parameters["lightAmbCol"].SetValue(Color.White.ToVector3());
             this.spotLightEffect.Parameters["lightPntPos"].SetValue(enemy.pos);
             this.spotLightEffect.Parameters["lightPntCol"].SetValue(Color.White.ToVector3());
             this.spotLightEffect.Parameters["lightDir"].SetValue(-Vector3.UnitY);
+
+            this.texture = Content.Load<Texture2D>("texture.jpg");
+            this.spotLightEffect.Parameters["Texture"].SetResource(texture);
+            this.spotLightEffect.CurrentTechnique = this.spotLightEffect.Techniques["Lighting"];
+            
 
             for (int i = 0; i < gameObjects.Count; i++)
             {
@@ -212,6 +220,10 @@ namespace Lab
             this.spotLightEffect.Parameters["Projection"].SetValue(this.camera.Projection);
             this.spotLightEffect.Parameters["View"].SetValue(this.camera.View);
             this.spotLightEffect.Parameters["cameraPos"].SetValue(this.camera.cameraPos);
+
+            this.texture = Content.Load<Texture2D>("enemy.png");
+            this.spotLightEffect.Parameters["Texture"].SetResource(texture);
+            this.spotLightEffect.CurrentTechnique = this.spotLightEffect.Techniques["Lighting"];
         }
     }
 }
