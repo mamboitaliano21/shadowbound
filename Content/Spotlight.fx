@@ -23,13 +23,21 @@
 
 // these won't change in a given iteration of the shader
 float4 lightAmbCol;
-float4 lightPntPos;
 float4 lightPntCol;
 float4 lightDir;
-float theta = 20.0f;
-float spotPower = 10.0f;
-Texture2D Texture;
 
+//float4 lightPntPos0;
+//float4 lightPntPos1;
+//float4 lightPntPos2;
+//float4 lightPntPos3;
+//float4 lightPntPos4;
+
+float4 lightArr[2];
+
+//int MAX_LIGHT;
+int lightCount;
+
+Texture2D Texture;
 float4x4 World;
 float4x4 View;
 float4x4 Projection;
@@ -92,40 +100,58 @@ float4 PS( PS_IN input ) : SV_Target
 	// Be careful about shader operations 
 	float4 returnCol = Texture.Sample(Sampler, input.uv);
 
-	// Calculate ambient RGB intensities
+
 	float Ka = 0.2f;
-	float3 amb = returnCol.rgb*lightAmbCol.rgb*Ka;
-
-	// Calculate diffuse RBG reflections
-	float fAtt = 1;
+	float fAtt = 1;		
 	float Kd = 1.0f;
-	float3 L = normalize(lightPntPos.xyz - input.wpos.xyz);
-	float LdotN = saturate(dot(L,interpNormal.xyz));
-	float3 dif = fAtt*lightPntCol.rgb*Kd*returnCol.rgb*LdotN;
-
-	// Calculate specular reflections
 	float Ks = 0.3f;
 	float specN = 5; // Numbers>>1 give more mirror-like highlights
+	//float theta = 20.0f;
+	float spotPower = 10.0f;
+
+	// Calculate ambient RGB intensities
+	float3 amb = returnCol.rgb*lightAmbCol.rgb*Ka;
+
+	// Combine lights into an array
+	//float4 lightArr[2];
+	//lightArr[0] = lightPntPos0;
+	//lightArr[1] = lightPntPos1;
+	//lightArr[2] = lightPntPos2;
+	//lightArr[3] = lightPntPos3;
+	//lightArr[4] = lightPntPos4;
+
+	float3 light = float3(0.0f,0.0f,0.0f);
 	float3 V = normalize(cameraPos.xyz - input.wpos.xyz);
-	float3 R = normalize(2 * LdotN*interpNormal.xyz - L.xyz);
-	//float3 R = normalize(0.5*(L.xyz+V.xyz)); //Blinn-Phong equivalent
-	float3 spe = fAtt*lightPntCol.rgb*Ks*pow(saturate(dot(V, R)), specN);
+	float3 R;
+	float3 L;
+	float LdotN;
+	float3 dif;
+	float3 spe;
+	float spotScale;
 
-	// Combine reflection components
-	//float4 returnCol = float4(0.0f,0.0f,0.0f,0.0f);
+	for (int i=0; i<lightCount; i++) {
+		// Calculate diffuse RBG reflections 
+		L = normalize(lightArr[i].xyz - input.wpos.xyz);
+		LdotN = saturate(dot(L,interpNormal.xyz));
+		dif = fAtt*lightPntCol.rgb*Kd*returnCol.rgb*LdotN;
+		// Calculate specular reflections
+		R = normalize(2 * LdotN*interpNormal.xyz - L.xyz);
+		//float3 R = normalize(0.5*(L.xyz+V.xyz)); //Blinn-Phong equivalent
+		spe = fAtt*lightPntCol.rgb*Ks*pow(saturate(dot(V, R)), specN);
 
+		// Combine reflection components
+		//float4 returnCol = float4(0.0f,0.0f,0.0f,0.0f);
 	
-	float spotScale = pow(max(dot(L, -lightDir), 0), spotPower);
+		spotScale = pow(max(dot(L, -lightDir), 0), spotPower);
 
-	//float angle = acos(dot(L, -lightDir.xyz));
-	//angle = max(angle, 0);
-	//if (angle > radians(theta)) returnCol.rgb = amb.rgb;	//float3(0.3f, 0.3f, 0.3f);	//amb.rgb;
-	//else returnCol.rgb = amb.rgb + dif.rgb + spe.rgb;		//float3(0.7f, 0.7f, 0.7f);	//amb.rgb+dif.rgb+spe.rgb;
-	float3 light = amb.rgb + (dif.rgb + spe.rgb)*spotScale;
-	returnCol.a = 1.0f;	//input.col.a;
-	returnCol.rgb = light;
+		//float angle = acos(dot(L, -lightDir.xyz));
+		//angle = max(angle, 0);
+		//if (angle > radians(theta)) returnCol.rgb = amb.rgb;	//float3(0.3f, 0.3f, 0.3f);	//amb.rgb;
+		//else returnCol.rgb = amb.rgb + dif.rgb + spe.rgb;		//float3(0.7f, 0.7f, 0.7f);	//amb.rgb+dif.rgb+spe.rgb;
+		light += amb.rgb + (dif.rgb + spe.rgb)*spotScale;
+	}
 
-	return returnCol;
+	return float4(light,1);
 }
 
 

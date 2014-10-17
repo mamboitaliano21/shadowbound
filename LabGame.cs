@@ -32,6 +32,7 @@ namespace Lab
 
     public class LabGame : Game
     {
+        private int MAX_LIGHT = 5;
         private GraphicsDeviceManager graphicsDeviceManager;
         public List<GameObject> gameObjects;
         private Stack<GameObject> addedGameObjects;
@@ -47,6 +48,11 @@ namespace Lab
         private Texture2D texture;
 
         private Enemy enemy;
+        private Enemy enemy2;
+        private Enemy enemy3;
+        private Enemy enemy4;
+        private Enemy enemy5;
+
 
 
         // Represents the camera's position and orientation
@@ -98,12 +104,19 @@ namespace Lab
             landscape = new Landscape(this);
             camera = new Camera(this);
             enemy = new Enemy(this, new Vector3(10,20,10));
+            enemy2 = new Enemy(this, new Vector3(100, 20, 100));
+            enemy3 = new Enemy(this, new Vector3(10, 20, 100));
+            enemy4 = new Enemy(this, new Vector3(100, 20, 10));
+            enemy5 = new Enemy(this, new Vector3(50, 20, 50));
+
             //portal = new Portal(this);
 
             gameObjects.Add(player);
             gameObjects.Add(landscape);
             //gameObjects.Add(portal);
             gameObjects.Add(enemy);
+            gameObjects.Add(enemy2);
+
             initEffect();
             //gameObjects.Add(new EnemyController(this));
             
@@ -157,7 +170,20 @@ namespace Lab
 
             //this.spotLightEffect.Parameters["Texture"].SetResource(texture);
             this.spotLightEffect.Parameters["lightAmbCol"].SetValue(Color.White.ToVector3());
-            this.spotLightEffect.Parameters["lightPntPos"].SetValue(enemy.pos);
+            //this.spotLightEffect.Parameters["lightPntPos0"].SetValue(enemy.pos);
+            //this.spotLightEffect.Parameters["lightPntPos1"].SetValue(enemy2.pos);
+            Vector3[] lightArr = new Vector3[2];
+            lightArr[0] = enemy.pos;
+            lightArr[1] = enemy2.pos;
+            //lightArr[2] = enemy3.pos;
+            //lightArr[3] = enemy4.pos;
+            //lightArr[4] = enemy5.pos;
+
+            this.spotLightEffect.Parameters["lightArr"].SetValue(lightArr);
+            this.spotLightEffect.Parameters["lightCount"].SetValue(2);
+            //this.spotLightEffect.Parameters["MAX_LIGHT"].SetValue(MAX_LIGHT);
+
+            
             this.spotLightEffect.Parameters["lightPntCol"].SetValue(Color.White.ToVector3());
             this.spotLightEffect.Parameters["lightDir"].SetValue(-Vector3.UnitY);
 
