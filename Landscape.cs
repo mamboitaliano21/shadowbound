@@ -8,7 +8,7 @@ using SharpDX.Toolkit;
 namespace Lab
 {
     using SharpDX.Toolkit.Graphics;
-    class Landscape : TextureGameObject
+    public class Landscape : TextureGameObject
     {
         private Matrix World;
         private Matrix WorldInverseTranspose;

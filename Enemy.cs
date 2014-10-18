@@ -166,5 +166,14 @@ namespace Lab
 
         }
 
+        public Boolean isBlock(Vector3 newPos)
+        {
+            if (newPos.X < 0 || newPos.X > game.landscape.getWidth() || newPos.Z < 0 || newPos.Z > game.landscape.getWidth())
+            {
+                return false;
+            }
+            return true;
+        }
+
     }
 }
