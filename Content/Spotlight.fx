@@ -110,7 +110,7 @@ float4 PS( PS_IN input ) : SV_Target
 	float spotPower = 10.0f;
 
 	// Calculate ambient RGB intensities
-	float3 amb = returnCol.rgb*lightAmbCol.rgb*Ka;
+	float3 light = returnCol.rgb*lightAmbCol.rgb*Ka;
 
 	// Combine lights into an array
 	//float4 lightArr[2];
@@ -120,7 +120,6 @@ float4 PS( PS_IN input ) : SV_Target
 	//lightArr[3] = lightPntPos3;
 	//lightArr[4] = lightPntPos4;
 
-	float3 light = float3(0.0f,0.0f,0.0f);
 	float3 V = normalize(cameraPos.xyz - input.wpos.xyz);
 	float3 R;
 	float3 L;
@@ -148,7 +147,7 @@ float4 PS( PS_IN input ) : SV_Target
 		//angle = max(angle, 0);
 		//if (angle > radians(theta)) returnCol.rgb = amb.rgb;	//float3(0.3f, 0.3f, 0.3f);	//amb.rgb;
 		//else returnCol.rgb = amb.rgb + dif.rgb + spe.rgb;		//float3(0.7f, 0.7f, 0.7f);	//amb.rgb+dif.rgb+spe.rgb;
-		light += amb.rgb + (dif.rgb + spe.rgb)*spotScale;
+		light += (dif.rgb + spe.rgb)*spotScale;
 	}
 
 	return float4(light,1);
