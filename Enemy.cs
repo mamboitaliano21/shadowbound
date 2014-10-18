@@ -10,10 +10,17 @@ namespace Lab
     // Enemy class
     // Basically just move randomly, see EnemyController for enemy movement.
     using SharpDX.Toolkit.Graphics;
+
+    public enum EnemyType
+    {
+        Follower, Wanderer
+    }
+
     public class Enemy : ColoredGameObject
     {
         private Matrix World = Matrix.Identity;
         private Matrix WorldInverseTranspose;
+        private int Speed;
 
         public Vector3 pos { get; set; }
 
@@ -22,11 +29,12 @@ namespace Lab
             this.pos = new Vector3(x, y, z);
         }
 
-        public Enemy(LabGame game, Vector3 pos)
+        public Enemy(LabGame game, Vector3 pos,EnemyType enemyType)
         {
             this.game = game;
             type = GameObjectType.Enemy;
             this.pos = pos;
+            setAttribute(enemyType);
 
             Vector3 frontBottomLeft = new Vector3(-1.0f, -1.0f, -1.0f);
             Vector3 frontTopLeft = new Vector3(-1.0f, 1.0f, -1.0f);
@@ -127,6 +135,20 @@ namespace Lab
             // Apply the basic effect technique and draw the rotating cube
             this.effect.CurrentTechnique.Passes[0].Apply();
             game.GraphicsDevice.Draw(PrimitiveType.TriangleList, vertices.ElementCount);
+        }
+
+        private void setAttribute(EnemyType enemyType)
+        {
+            if (enemyType == EnemyType.Follower)
+            {
+                this.Speed = 20;
+
+            }
+            else if (enemyType == EnemyType.Wanderer)
+            {
+                this.Speed = 50;
+            }
+
         }
 
     }
