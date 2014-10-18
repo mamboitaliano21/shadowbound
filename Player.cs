@@ -186,10 +186,22 @@ namespace Lab
                 // check collision with lights
                 for (int i = 0; i < game.enemies.Count; i++)
                 {
-                    Debug.WriteLine("kena");
-                    //if (game.enemies[i].pos.x)
+                    if (horizontalDistance(this.pos, game.enemies[i].pos) < game.enemies[i].pos.Y)
+                    {
+                        Debug.WriteLine("kena sama" + i.ToString());
+                    }
+                    else
+                    {
+                        Debug.WriteLine("ga");
+                    }
 
-                }
+            }
+        }
+
+        private float horizontalDistance(Vector3 a, Vector3 b)
+        {
+            return Vector2.Distance(new Vector2(a.X, a.Z), new Vector2(b.X, b.Z));
+        }
                 // TODO
                 // Keep within the boundaries.
                 if (pos.X < game.boundaryLeft) { }
