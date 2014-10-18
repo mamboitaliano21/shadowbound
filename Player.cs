@@ -101,13 +101,7 @@ namespace Lab
             //basicEffect.World = Matrix.Translation(pos);
 
 
-            // check collision with lights
-            for (int i=0; i < game.enemies.Count; i++)
-            {
-                Debug.WriteLine("kena");
-                //if (game.enemies[i].pos.x)
-
-            }
+            
         }
 
         public override void Draw(GameTime gameTime,Effect effect)
