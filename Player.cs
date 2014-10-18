@@ -111,7 +111,7 @@ namespace Lab
                 //basicEffect.World = Matrix.Translation(pos);
             } else {
                 //Enable debugging of position
-                //Debug.WriteLine(pos);
+                Debug.WriteLine(pos);
                 var time = (float)gameTime.ElapsedGameTime.TotalSeconds;
                 //TODO bad coding removing fire
                 if (game.keyboardState.IsKeyDown(Keys.Space)) {  } 
@@ -140,17 +140,16 @@ namespace Lab
                 }
 
                 // Update pos and target based on velocity
-                Vector3 changeX = dx * MS * time * XAxis;
-                Vector3 changeZ = dz * MS * time * ZAxis;
-                if ((changeX.X >= 0) && (changeX.X <= this.game.landscape.getHeight()))
+                Vector3 change = (dx * MS * time * XAxis) + (dz * MS * time * ZAxis);
+                if ((pos.X + change.X >= 0) && (pos.X + change.X <= this.game.landscape.getWidth()))
                 {
-                    pos += changeX;
-                    target += changeX;
+                    pos.X += change.X;
+                    target.X += change.X;
                 }
-                if ((changeZ.Z >= 0) && (changeX.X <= this.game.landscape.getWidth()))
+                if ((pos.Z + change.Z >= 0) && (pos.Z + change.Z <= this.game.landscape.getWidth()))
                 {
-                    pos += changeZ;
-                    target += changeZ;
+                    pos.Z += change.Z;
+                    target.Z += change.Z;
                 }
 
                 // Change direction player is facing
@@ -173,7 +172,8 @@ namespace Lab
                 Matrix rotationMatrixX = Matrix.RotationAxis(XAxis, dRotationX * SENSITIVITY);
                 Matrix rotationMatrixY = Matrix.RotationAxis(YAxis, dRotationY * SENSITIVITY);
                 Vector3 eyeDirection = Vector3.TransformCoordinate(target - pos, rotationMatrixX * rotationMatrixY);
-                float theta = (float) Math.Acos(Vector3.Dot(eyeDirection, Vector3.UnitZ) / (eyeDirection.Length() * Vector3.UnitZ.Length())) * (float) (180 / Math.PI);
+                float theta = (float) Math.Acos(Vector3.Dot(eyeDirection, ZAxis) / (eyeDirection.Length() * ZAxis.Length())) * (float) (180 / Math.PI);
+                Debug.WriteLine(theta);
                 if (!(theta >= 90))
                 {
                     target = eyeDirection + pos; // rotation of target about pos
