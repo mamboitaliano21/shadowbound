@@ -16,26 +16,18 @@ namespace Lab
     // A singleton 
     public class EnemyController : GameObject
     {
-        private static EnemyController instance = null;
+
 
         private static float CircleDist = 1.0f;
         private static float angleChange = (float)(Math.PI / 180)*90.0f;
         // Constructor.
-        private EnemyController(LabGame game)
+        public EnemyController(LabGame game)
         {
             this.type = GameObjectType.Controller;
             this.game = game;
 
         }
 
-        public static EnemyController getInstance(LabGame game)
-        {
-            if (instance == null)
-            {
-                instance = new EnemyController(game);
-            }
-            return instance;
-        }
 
         // Frame update method.
         public override void Update(GameTime gameTime)

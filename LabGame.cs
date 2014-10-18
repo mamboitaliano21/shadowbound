@@ -107,7 +107,7 @@ namespace Lab
             player = new Player(this);
             landscape = new Landscape(this);
             camera = new Camera(this);
-            enemyController = EnemyController.getInstance(this);
+            enemyController = new EnemyController(this);
             //portal = new Portal(this);
 
             gameObjects.Add(player);
