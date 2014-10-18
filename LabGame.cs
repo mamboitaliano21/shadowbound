@@ -113,11 +113,11 @@ namespace Lab
 
             // add enemies
             enemies = new List<Enemy>();
-            enemies.Add(new Enemy(this, new Vector3(10,20,10)));
-            enemies.Add(new Enemy(this, new Vector3(100, 20, 100)));
-            enemies.Add(new Enemy(this, new Vector3(10, 20, 100)));
-            enemies.Add(new Enemy(this, new Vector3(100, 20, 10)));
-            enemies.Add(new Enemy(this, new Vector3(50, 20, 50)));
+            enemies.Add(new Enemy(this, new Vector3(10,50,10), EnemyType.Follower);
+            enemies.Add(new Enemy(this, new Vector3(100, 20, 100), EnemyType.Wanderer));
+            enemies.Add(new Enemy(this, new Vector3(10, 20, 100), EnemyType.Wanderer));
+            enemies.Add(new Enemy(this, new Vector3(100, 20, 10), EnemyType.Wanderer));
+            enemies.Add(new Enemy(this, new Vector3(50, 100, 50), EnemyType.Wanderer));
 
 
 
@@ -180,8 +180,8 @@ namespace Lab
 
             //this.spotLightEffect.Parameters["Texture"].SetResource(texture);
             this.spotLightEffect.Parameters["lightAmbCol"].SetValue(Color.White.ToVector3());
-            //this.spotLightEffect.Parameters["lightPntPos0"].SetValue(enemy.pos);
-            //this.spotLightEffect.Parameters["lightPntPos1"].SetValue(enemy2.pos);
+
+            // pass lights to soptlight.fx and draw enemies
             Vector3[] lightArr = new Vector3[enemies.Count];
             for (int i = 0; i < enemies.Count; i++)
             {
