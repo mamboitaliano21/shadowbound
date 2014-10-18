@@ -35,6 +35,7 @@ namespace Lab
         private int MAX_LIGHT = 5;
         private GraphicsDeviceManager graphicsDeviceManager;
         public List<GameObject> gameObjects;
+        public List<Enemy> enemies;
         private Stack<GameObject> addedGameObjects;
         private Stack<GameObject> removedGameObjects;
         private KeyboardManager keyboardManager;
@@ -47,7 +48,7 @@ namespace Lab
         //private Texture2D texture;
         private Texture2D texture;
 
-        private Enemy enemy;
+        private Enemy enemy1;
         private Enemy enemy2;
         private Enemy enemy3;
         private Enemy enemy4;
@@ -103,22 +104,20 @@ namespace Lab
             player = new Player(this);
             landscape = new Landscape(this);
             camera = new Camera(this);
-            enemy = new Enemy(this, new Vector3(10,20,10));
-            enemy2 = new Enemy(this, new Vector3(100, 20, 100));
-            enemy3 = new Enemy(this, new Vector3(10, 20, 100));
-            enemy4 = new Enemy(this, new Vector3(100, 20, 10));
-            enemy5 = new Enemy(this, new Vector3(50, 20, 50));
 
             //portal = new Portal(this);
 
             gameObjects.Add(player);
             gameObjects.Add(landscape);
             //gameObjects.Add(portal);
-            gameObjects.Add(enemy);
-            gameObjects.Add(enemy2);
-            gameObjects.Add(enemy3);
-            gameObjects.Add(enemy4);
-            gameObjects.Add(enemy5);
+
+            // add enemies
+            enemies = new List<Enemy>();
+            enemies.Add(new Enemy(this, new Vector3(10,20,10)));
+            enemies.Add(new Enemy(this, new Vector3(100, 20, 100)));
+            enemies.Add(new Enemy(this, new Vector3(10, 20, 100)));
+            enemies.Add(new Enemy(this, new Vector3(100, 20, 10)));
+            enemies.Add(new Enemy(this, new Vector3(50, 20, 50)));
 
 
 
@@ -143,6 +142,12 @@ namespace Lab
         {
             keyboardState = keyboardManager.GetState();
             flushAddedAndRemovedGameObjects();
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                enemies[i].Update(gameTime);
+
+            }
+
             for (int i = 0; i < gameObjects.Count; i++)
             {
                 gameObjects[i].Update(gameTime);
@@ -162,7 +167,7 @@ namespace Lab
         protected override void Draw(GameTime gameTime)
         {
             // Clears the screen with the Color.CornflowerBlue
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
             
             //texture = Content.Load<Texture2D>("texture");
 
@@ -177,15 +182,15 @@ namespace Lab
             this.spotLightEffect.Parameters["lightAmbCol"].SetValue(Color.White.ToVector3());
             //this.spotLightEffect.Parameters["lightPntPos0"].SetValue(enemy.pos);
             //this.spotLightEffect.Parameters["lightPntPos1"].SetValue(enemy2.pos);
-            Vector3[] lightArr = new Vector3[5];
-            lightArr[0] = enemy.pos;
-            lightArr[1] = enemy2.pos;
-            lightArr[2] = enemy3.pos;
-            lightArr[3] = enemy4.pos;
-            lightArr[4] = enemy5.pos;
+            Vector3[] lightArr = new Vector3[enemies.Count];
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                lightArr[i] = enemies[i].pos;
+                enemies[i].Draw(gameTime, cubeEffect);
+            }
 
             this.spotLightEffect.Parameters["lightArr"].SetValue(lightArr);
-            this.spotLightEffect.Parameters["lightCount"].SetValue(5);
+            this.spotLightEffect.Parameters["lightCount"].SetValue(enemies.Count);
             //this.spotLightEffect.Parameters["MAX_LIGHT"].SetValue(MAX_LIGHT);
 
             
