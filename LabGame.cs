@@ -71,6 +71,8 @@ namespace Lab
         public float boundaryRight;
         public float boundaryTop;
         public float boundaryBottom;
+        public bool started = false;
+        public float difficulty;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LabGame" /> class.
