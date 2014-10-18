@@ -19,7 +19,9 @@ namespace Lab
 
 
         private static float CircleDist = 1.0f;
-        private static float angleChange = (float)(Math.PI / 180)*90.0f;
+        private static float CircleRadius = 1.0f;
+        private static float angleChange = 10.0f;
+        private Random r = new Random();
         // Constructor.
         public EnemyController(LabGame game)
         {
@@ -35,7 +37,8 @@ namespace Lab
         
             for (int i = 0; i < game.enemies.Count; i++)
             {
-               // updateMovement(game.enemies[i]);
+                //game.enemies[i].pos += new Vector3(1, 0, 0);
+               updateMovement(game.enemies[i]);
             }
         
         }
@@ -52,55 +55,49 @@ namespace Lab
         {
             
             float len = displacement.Length();
-            displacement.X = (float)Math.Cos(wanderAngle) * len;
-            displacement.Z = (float)Math.Cos(wanderAngle) * len;
+            displacement.X = (float)(Math.Cos(wanderAngle) * len);
+            displacement.Z = (float)(Math.Cos(wanderAngle) * len);
             return displacement;
         }
 
         private Vector3 wanderMove(Enemy e)
         {
             Vector3 circle = circle3D(e.velocity);
-            Random r = new Random();
-            e.displacement *= CircleDist;
-            
-            e.displacement = setAngle(e.displacement, e.wanderAngle);
 
-            double circleMag = Math.Sqrt(Math.Pow(circle.X, 2) + Math.Pow(circle.Y, 2) + Math.Pow(circle.Z, 2));
+            Vector3 displacement = new Vector3(0, 0, -1);
+            displacement *= CircleDist;
 
-            double displacementMag = Math.Sqrt(Math.Pow(e.displacement.X, 2) + Math.Pow(e.displacement.Y, 2) + Math.Pow(e.displacement.Z, 2));
+            displacement = setAngle(displacement, e.wanderAngle);
 
-            e.wanderAngle = Math.Acos(Vector3.Dot(circle, e.displacement) / (circleMag * displacementMag));
+            e.wanderAngle += (r.NextDouble() * angleChange) - (angleChange * 0.5);
 
-
-            e.wanderAngle += (Math.PI / 180) * ((r.NextDouble() * angleChange) - (angleChange * 0.5));
-
-            Vector3 wanderForce;
-            wanderForce = circle + e.displacement;
+            Vector3 wanderForce = circle + displacement;
 
             return wanderForce;
         }
 
         // Update the enemy movement
-        //private void updateMovement(Enemy e)
-        //{
-        //    if (e.enemyType == EnemyType.Follower)
-        //    {
+        private void updateMovement(Enemy e)
+        {
+            if (e.enemyType == EnemyType.Follower)
+            {
                 
-        //    }
+            }
 
-        //    else if (e.enemyType == EnemyType.Wanderer)
-        //    {
-        //        e.velocity = wanderMove(e);
-        //        e.pos += e.velocity;
-        //    }
-        //}
+            else if (e.enemyType == EnemyType.Wanderer)
+            {
+                //e.pos += e.pos;
+                Vector3 steering = wanderMove(e);
+                steering.Normalize();
+                steering *= 2.0f;
+                e.velocity += steering;
+                e.velocity.Normalize();
+                e.velocity *= e.Speed;
+                e.pos += e.velocity;
+            }
+        }
 
         public override void Draw(GameTime gameTime, Effect effect) { }
 
     }
-
-
-        // TASK 2.
-        // Move all the enemies, changing directions and stepping down when the edge of the screen is reached.
-
 }

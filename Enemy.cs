@@ -21,13 +21,14 @@ namespace Lab
     {
         private Matrix World = Matrix.Identity;
         private Matrix WorldInverseTranspose;
-        public int Speed;
+        public float Speed;
         public EnemyType enemyType;
 
         public Vector3 pos { get; set; }
         public Vector3 velocity { get; set; }
-        public Vector3 displacement { get; set; }
         public double wanderAngle { get; set; }
+
+        private static Random r = new Random();
 
         public void setPos(float x, float y, float z)
         {
@@ -39,9 +40,12 @@ namespace Lab
             this.game = game;
             type = GameObjectType.Enemy;
             this.pos = pos;
-            
             this.enemyType = enemyType;
-           
+
+            this.wanderAngle = 0;
+            this.velocity = new Vector3((float)r.NextDouble(), 0, (float)r.NextDouble());
+
+            //this.velocity = new Vector3(0, 0, 0);
 
             setAttribute(enemyType);
 
@@ -155,7 +159,7 @@ namespace Lab
             }
             else if (enemyType == EnemyType.Wanderer)
             {
-                this.Speed = 1;
+                this.Speed = 0.3f;
             }
 
         }
