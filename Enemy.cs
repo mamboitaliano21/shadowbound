@@ -20,7 +20,8 @@ namespace Lab
     {
         private Matrix World = Matrix.Identity;
         private Matrix WorldInverseTranspose;
-        private int Speed;
+        public int Speed;
+        public EnemyType enemyType;
 
         public Vector3 pos { get; set; }
 
@@ -34,6 +35,7 @@ namespace Lab
             this.game = game;
             type = GameObjectType.Enemy;
             this.pos = pos;
+            this.enemyType = enemyType;
             setAttribute(enemyType);
 
             Vector3 frontBottomLeft = new Vector3(-1.0f, -1.0f, -1.0f);
@@ -141,12 +143,12 @@ namespace Lab
         {
             if (enemyType == EnemyType.Follower)
             {
-                this.Speed = 20;
+                this.Speed = 1;
 
             }
             else if (enemyType == EnemyType.Wanderer)
             {
-                this.Speed = 50;
+                this.Speed = 1;
             }
 
         }
