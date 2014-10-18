@@ -32,7 +32,7 @@ float4 lightDir;
 //float4 lightPntPos3;
 //float4 lightPntPos4;
 
-float4 lightArr[2];
+float4 lightArr[5];
 
 //int MAX_LIGHT;
 int lightCount;
@@ -160,7 +160,7 @@ technique Lighting
 {
     pass Pass1
     {
-		Profile = 9.1;
+		Profile = 9.3;
         VertexShader = VS;
         PixelShader = PS;
     }

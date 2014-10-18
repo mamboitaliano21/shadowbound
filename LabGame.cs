@@ -116,6 +116,11 @@ namespace Lab
             //gameObjects.Add(portal);
             gameObjects.Add(enemy);
             gameObjects.Add(enemy2);
+            gameObjects.Add(enemy3);
+            gameObjects.Add(enemy4);
+            gameObjects.Add(enemy5);
+
+
 
             initEffect();
             //gameObjects.Add(new EnemyController(this));
@@ -172,15 +177,15 @@ namespace Lab
             this.spotLightEffect.Parameters["lightAmbCol"].SetValue(Color.White.ToVector3());
             //this.spotLightEffect.Parameters["lightPntPos0"].SetValue(enemy.pos);
             //this.spotLightEffect.Parameters["lightPntPos1"].SetValue(enemy2.pos);
-            Vector3[] lightArr = new Vector3[2];
+            Vector3[] lightArr = new Vector3[5];
             lightArr[0] = enemy.pos;
             lightArr[1] = enemy2.pos;
-            //lightArr[2] = enemy3.pos;
-            //lightArr[3] = enemy4.pos;
-            //lightArr[4] = enemy5.pos;
+            lightArr[2] = enemy3.pos;
+            lightArr[3] = enemy4.pos;
+            lightArr[4] = enemy5.pos;
 
             this.spotLightEffect.Parameters["lightArr"].SetValue(lightArr);
-            this.spotLightEffect.Parameters["lightCount"].SetValue(2);
+            this.spotLightEffect.Parameters["lightCount"].SetValue(5);
             //this.spotLightEffect.Parameters["MAX_LIGHT"].SetValue(MAX_LIGHT);
 
             
