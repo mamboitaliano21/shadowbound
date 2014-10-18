@@ -27,48 +27,39 @@ namespace Lab
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainPage
+
+    public sealed partial class MainMenu
     {
-        public LabGame game;
-        public MainMenu mainMenu;
-
-        public MainPage()
+        private MainPage parent;
+        public MainMenu(MainPage parent)
         {
+            this.parent = parent;
             InitializeComponent();
-            game = new LabGame(this);
-            game.Run(this);
-            mainMenu = new MainMenu(this);
-            this.Children.Add(mainMenu);
         }
-
-        public void UpdateScore(int score)
+        private void StartGame(object sender, RoutedEventArgs e)
         {
-            
+          
+            parent.StartGame();
         }
 
-        private void GoBack(object sender, RoutedEventArgs e)
+        private void LoadInstructions(object sender, RoutedEventArgs e)
         {
-            game.started = false;
-            mainMenu = new MainMenu(this);
-            this.Children.Add(mainMenu);
+            parent.Children.Add(new Instructions(parent));
+            parent.Children.Remove(this);
         }
 
-        public void StartGame()
+        private void LoadOptions(object sender, RoutedEventArgs e)
         {
-            this.Children.Remove(mainMenu);
-            game.started = true;
+            parent.Children.Add(new Options(parent));
+            parent.Children.Remove(this);
         }
 
-        public void restartGame()
+        private void RestartGame(object sender, RoutedEventArgs e)
         {
-            game.started = false;
-  
-            game = null;
-            game = new LabGame(this);
-            game.Run(this);
 
-            this.Children.Remove(mainMenu);
-            game.started = true;
+            parent.restartGame();
         }
+
+   
     }
 }

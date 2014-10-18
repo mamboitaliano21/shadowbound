@@ -99,6 +99,9 @@ namespace Lab
             if (pos.X > game.boundaryRight) {  }
 
             //basicEffect.World = Matrix.Translation(pos);
+
+
+            
         }
 
         public override void Draw(GameTime gameTime,Effect effect)

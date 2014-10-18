@@ -1,0 +1,17 @@
+﻿<Page
+    x:Class="Lab.MainMenu"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Lab"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Button x:Name="cmdStart" Content="Start" HorizontalAlignment="Left" Height="77" Margin="321,247,0,0" VerticalAlignment="Top" Width="163" Click="StartGame"/>
+        
+        <Button x:Name="cmdInstructions" Content="Instructions" HorizontalAlignment="Left" Height="77" Margin="570,247,0,0" VerticalAlignment="Top" Width="163" Click="LoadInstructions" FontFamily="Global User Interface"/>
+        <Button x:Name="cmdOptions" Content="Options" HorizontalAlignment="Left" Height="77" Margin="836,247,0,0" VerticalAlignment="Top" Width="163" Click="LoadOptions"/>
+        <Button x:Name="cmdRestart" Content="Restart" HorizontalAlignment="Left" Height="77" Margin="652,537,0,0" VerticalAlignment="Top" Width="163" Click="RestartGame"/>
+    </Grid>
+</Page>
