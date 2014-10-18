@@ -18,8 +18,8 @@ namespace Lab
     {
 
 
-        private static float CircleDist = 1.0f;
-        private static float CircleRadius = 1.0f;
+        private static float CircleDist = 10.0f;
+        private static float CircleRadius = 5.0f;
         private static float angleChange = 10.0f;
         private Random r = new Random();
         // Constructor.
@@ -53,10 +53,10 @@ namespace Lab
 
         private Vector3 setAngle(Vector3 displacement, double wanderAngle)
         {
-            
+            Random r = new Random();
             float len = displacement.Length();
-            displacement.X = (float)(Math.Cos(wanderAngle) * len);
-            displacement.Z = (float)(Math.Cos(wanderAngle) * len);
+            displacement.X = (float)(Math.Cos(wanderAngle) * len) * r.NextFloat(-1,1);
+            displacement.Z = (float)(Math.Cos(wanderAngle) * len) * r.NextFloat(-1, 1);
             return displacement;
         }
 
@@ -64,12 +64,12 @@ namespace Lab
         {
             Vector3 circle = circle3D(e.velocity);
 
-            Vector3 displacement = new Vector3(0, 0, -1);
+            Vector3 displacement = new Vector3(e.r.NextFloat(-1, 1), 0, e.r.NextFloat(-1, 1));
             displacement *= CircleDist;
 
             displacement = setAngle(displacement, e.wanderAngle);
 
-            e.wanderAngle += (r.NextDouble() * angleChange) - (angleChange * 0.5);
+            e.wanderAngle += ((r.NextFloat(-1,1) * angleChange) - (angleChange * 0.5f));
 
             Vector3 wanderForce = circle + displacement;
 
@@ -86,10 +86,9 @@ namespace Lab
 
             else if (e.enemyType == EnemyType.Wanderer)
             {
-                //e.pos += e.pos;
                 Vector3 steering = wanderMove(e);
                 steering.Normalize();
-                steering *= 2.0f;
+                steering *= 5.0f;
                 e.velocity += steering;
                 e.velocity.Normalize();
                 e.velocity *= e.Speed;

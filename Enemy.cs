@@ -28,7 +28,7 @@ namespace Lab
         public Vector3 velocity { get; set; }
         public double wanderAngle { get; set; }
 
-        private static Random r = new Random();
+        public Random r = new Random();
 
         public void setPos(float x, float y, float z)
         {
@@ -43,10 +43,10 @@ namespace Lab
             this.enemyType = enemyType;
 
             this.wanderAngle = 0;
-            this.velocity = new Vector3((float)r.NextDouble(), 0, (float)r.NextDouble());
+            //this.velocity = new Vector3(this.r.NextFloat(-1, 0), 0, this.r.NextFloat(-1, 0));
+            this.velocity = new Vector3(0, 0, 0);
 
-            //this.velocity = new Vector3(0, 0, 0);
-
+            
             setAttribute(enemyType);
 
             Vector3 frontBottomLeft = new Vector3(-1.0f, -1.0f, -1.0f);
@@ -159,7 +159,7 @@ namespace Lab
             }
             else if (enemyType == EnemyType.Wanderer)
             {
-                this.Speed = 0.3f;
+                this.Speed = 0.1f;
             }
 
         }
