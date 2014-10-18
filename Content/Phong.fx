@@ -76,12 +76,12 @@ float4 PS( PS_IN input ) : SV_Target
 	float3 interpNormal = normalize(input.wnrm);
 
 	// Calculate ambient RGB intensities
-	float Ka = 0.2;
+	float Ka = 0.3;
 	float3 amb = input.col.rgb*lightAmbCol.rgb*Ka;
 
 	// Emissive
-	float Ke = 0.3;
-	float3 emissive = Ke;
+	//loat Ke = 0.3;
+	//float3 emissive = Ke;
 
 	// Calculate diffuse RBG reflections
 	float fAtt = 1;
@@ -100,7 +100,7 @@ float4 PS( PS_IN input ) : SV_Target
 
 	// Combine reflection components
 	float4 returnCol = float4(0.0f,0.0f,0.0f,0.0f);
-	returnCol.rgb = emissive+amb.rgb+dif.rgb+spe.rgb;
+	returnCol.rgb = amb.rgb+dif.rgb+spe.rgb;
 	returnCol.a = input.col.a;
 
 	return returnCol;

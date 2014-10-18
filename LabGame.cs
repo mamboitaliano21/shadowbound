@@ -41,7 +41,7 @@ namespace Lab
         private KeyboardManager keyboardManager;
         public KeyboardState keyboardState;
         public Player player;
-        private Landscape landscape;
+        public Landscape landscape;
         //private Portal portal;
         private Effect cubeEffect;
         private Effect spotLightEffect;
