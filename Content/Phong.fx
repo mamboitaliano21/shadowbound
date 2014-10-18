@@ -91,7 +91,7 @@ float4 PS( PS_IN input ) : SV_Target
 	float3 dif = fAtt*lightPntCol.rgb*Kd*input.col.rgb*LdotN;
 
 	// Calculate specular reflections
-	float Ks = 0.4;
+	float Ks = 1;
 	float specN = 5; // Numbers>>1 give more mirror-like highlights
 	float3 V = normalize(cameraPos.xyz - input.wpos.xyz);
 	float3 R = normalize(2*LdotN*interpNormal.xyz - L.xyz);

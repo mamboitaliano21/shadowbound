@@ -48,14 +48,6 @@ namespace Lab
         //private Texture2D texture;
         private Texture2D texture;
 
-        private Enemy enemy1;
-        private Enemy enemy2;
-        private Enemy enemy3;
-        private Enemy enemy4;
-        private Enemy enemy5;
-
-
-
         // Represents the camera's position and orientation
         public Camera camera;
 
