@@ -12,15 +12,25 @@ namespace Lab
 
     
     // Enemy Controller class.
-    class EnemyController : GameObject
+    // A singleton 
+    public class EnemyController : GameObject
     {
-
-
+        private static EnemyController instance = null;
         // Constructor.
-        public EnemyController(LabGame game)
+        private EnemyController(LabGame game)
         {
+            this.type = GameObjectType.Controller;
             this.game = game;
 
+        }
+
+        public static EnemyController getInstance(LabGame game)
+        {
+            if (instance == null)
+            {
+                instance = new EnemyController(game);
+            }
+            return instance;
         }
 
 
@@ -29,7 +39,25 @@ namespace Lab
         // Frame update method.
         public override void Update(GameTime gameTime)
         {
+        
+            for (int i = 0; i < game.enemies.Count; i++)
+            {
+                updateMovement(game.enemies[i]);
+            }
+        
+        }
+        // Update the enemy movement
+        private void updateMovement(Enemy e)
+        {
+            if (e.enemyType == EnemyType.Follower)
+            {
+                e.pos += new Vector3(e.Speed, 0, 0);
+            }
 
+            else if (e.enemyType == EnemyType.Wanderer)
+            {
+                e.pos += new Vector3(-e.Speed, 0, 0);
+            }
         }
 
         public override void Draw(GameTime gameTime, Effect effect) { }
