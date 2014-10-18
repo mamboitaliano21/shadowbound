@@ -74,46 +74,48 @@ namespace Lab
             Vector3 backTopLeftNormal = new Vector3(-0.333f, 0.333f, 0.333f);
             Vector3 backTopRightNormal = new Vector3(0.333f, 0.333f, 0.333f);
 
+            Color enemyColor = Color.Crimson;
+            Color bottomColor = Color.White;
             vertices = Buffer.Vertex.New(
                 game.GraphicsDevice,
                 new[]
                     {
-                    new VertexPositionNormalColor(frontBottomLeft, frontNormal, Color.Orange), // Front
-                    new VertexPositionNormalColor(frontTopLeft, frontNormal, Color.Orange),
-                    new VertexPositionNormalColor(frontTopRight, frontNormal, Color.Orange),
-                    new VertexPositionNormalColor(frontBottomLeft, frontNormal, Color.Orange),
-                    new VertexPositionNormalColor(frontTopRight, frontNormal, Color.Orange),
-                    new VertexPositionNormalColor(frontBottomRight, frontNormal, Color.Orange),
-                    new VertexPositionNormalColor(backBottomLeft, backNormal, Color.Orange), // BACK
-                    new VertexPositionNormalColor(backTopRight, backNormal, Color.Orange),
-                    new VertexPositionNormalColor(backTopLeft, backNormal, Color.Orange),
-                    new VertexPositionNormalColor(backBottomLeft, backNormal, Color.Orange),
-                    new VertexPositionNormalColor(backBottomRight, backNormal, Color.Orange),
-                    new VertexPositionNormalColor(backTopRight, backNormal, Color.Orange),
-                    new VertexPositionNormalColor(frontTopLeft, topNormal, Color.Orange), // Top
-                    new VertexPositionNormalColor(backTopLeft, topNormal, Color.Orange),
-                    new VertexPositionNormalColor(backTopRight, topNormal, Color.Orange),
-                    new VertexPositionNormalColor(frontTopLeft, topNormal, Color.Orange),
-                    new VertexPositionNormalColor(backTopRight, topNormal, Color.Orange),
-                    new VertexPositionNormalColor(frontTopRight, topNormal, Color.Orange),
-                    new VertexPositionNormalColor(frontBottomLeft, bottomNormal, Color.Orange), // Bottom
-                    new VertexPositionNormalColor(backBottomRight, bottomNormal, Color.Orange),
-                    new VertexPositionNormalColor(backBottomLeft, bottomNormal, Color.Orange),
-                    new VertexPositionNormalColor(frontBottomLeft,bottomNormal, Color.Orange),
-                    new VertexPositionNormalColor(frontBottomRight, bottomNormal, Color.Orange),
-                    new VertexPositionNormalColor(backBottomRight, bottomNormal, Color.Orange),
-                    new VertexPositionNormalColor(frontBottomLeft, leftNormal, Color.Orange), // Left
-                    new VertexPositionNormalColor(backBottomLeft, leftNormal, Color.Orange),
-                    new VertexPositionNormalColor(backTopLeft, leftNormal, Color.Orange),
-                    new VertexPositionNormalColor(frontBottomLeft, leftNormal, Color.Orange),
-                    new VertexPositionNormalColor(backTopLeft, leftNormal, Color.Orange),
-                    new VertexPositionNormalColor(frontTopLeft, leftNormal, Color.Orange),
-                    new VertexPositionNormalColor(frontBottomRight, rightNormal, Color.Orange), // Right
-                    new VertexPositionNormalColor(backTopRight, rightNormal, Color.Orange),
-                    new VertexPositionNormalColor(backBottomRight, rightNormal, Color.Orange),
-                    new VertexPositionNormalColor(frontBottomRight, rightNormal, Color.Orange),
-                    new VertexPositionNormalColor(frontTopRight, rightNormal, Color.Orange),
-                    new VertexPositionNormalColor(backTopRight, rightNormal, Color.Orange),
+                    new VertexPositionNormalColor(frontBottomLeft, frontNormal, enemyColor), // Front
+                    new VertexPositionNormalColor(frontTopLeft, frontNormal, enemyColor),
+                    new VertexPositionNormalColor(frontTopRight, frontNormal, enemyColor),
+                    new VertexPositionNormalColor(frontBottomLeft, frontNormal, enemyColor),
+                    new VertexPositionNormalColor(frontTopRight, frontNormal, enemyColor),
+                    new VertexPositionNormalColor(frontBottomRight, frontNormal, enemyColor),
+                    new VertexPositionNormalColor(backBottomLeft, backNormal, enemyColor), // BACK
+                    new VertexPositionNormalColor(backTopRight, backNormal, enemyColor),
+                    new VertexPositionNormalColor(backTopLeft, backNormal, enemyColor),
+                    new VertexPositionNormalColor(backBottomLeft, backNormal, enemyColor),
+                    new VertexPositionNormalColor(backBottomRight, backNormal, enemyColor),
+                    new VertexPositionNormalColor(backTopRight, backNormal, enemyColor),
+                    new VertexPositionNormalColor(frontTopLeft, topNormal, enemyColor), // Top
+                    new VertexPositionNormalColor(backTopLeft, topNormal, enemyColor),
+                    new VertexPositionNormalColor(backTopRight, topNormal, enemyColor),
+                    new VertexPositionNormalColor(frontTopLeft, topNormal, enemyColor),
+                    new VertexPositionNormalColor(backTopRight, topNormal, enemyColor),
+                    new VertexPositionNormalColor(frontTopRight, topNormal, enemyColor),
+                    new VertexPositionNormalColor(frontBottomLeft, bottomNormal, bottomColor), // Bottom
+                    new VertexPositionNormalColor(backBottomRight, bottomNormal, bottomColor),
+                    new VertexPositionNormalColor(backBottomLeft, bottomNormal, bottomColor),
+                    new VertexPositionNormalColor(frontBottomLeft,bottomNormal, bottomColor),
+                    new VertexPositionNormalColor(frontBottomRight, bottomNormal, bottomColor),
+                    new VertexPositionNormalColor(backBottomRight, bottomNormal, bottomColor),
+                    new VertexPositionNormalColor(frontBottomLeft, leftNormal, enemyColor), // Left
+                    new VertexPositionNormalColor(backBottomLeft, leftNormal, enemyColor),
+                    new VertexPositionNormalColor(backTopLeft, leftNormal, enemyColor),
+                    new VertexPositionNormalColor(frontBottomLeft, leftNormal, enemyColor),
+                    new VertexPositionNormalColor(backTopLeft, leftNormal, enemyColor),
+                    new VertexPositionNormalColor(frontTopLeft, leftNormal, enemyColor),
+                    new VertexPositionNormalColor(frontBottomRight, rightNormal, enemyColor), // Right
+                    new VertexPositionNormalColor(backTopRight, rightNormal, enemyColor),
+                    new VertexPositionNormalColor(backBottomRight, rightNormal, enemyColor),
+                    new VertexPositionNormalColor(frontBottomRight, rightNormal, enemyColor),
+                    new VertexPositionNormalColor(frontTopRight, rightNormal, enemyColor),
+                    new VertexPositionNormalColor(backTopRight, rightNormal, enemyColor),
                 });
             //effect = game.Content.Load<Effect>("Phong");
 
