@@ -15,7 +15,13 @@ namespace Lab
         private Matrix World = Matrix.Identity;
         private Matrix WorldInverseTranspose;
 
-        public Vector3 pos;
+        public Vector3 pos { get; set; }
+
+        public void setPos(float x, float y, float z)
+        {
+            this.pos = new Vector3(x, y, z);
+        }
+
         public Enemy(LabGame game, Vector3 pos)
         {
             this.game = game;
