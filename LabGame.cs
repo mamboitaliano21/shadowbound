@@ -47,6 +47,7 @@ namespace Lab
         private Effect spotLightEffect;
         //private Texture2D texture;
         private Texture2D texture;
+        private EnemyController enemyController;
 
         private Enemy enemy1;
         private Enemy enemy2;
@@ -104,7 +105,7 @@ namespace Lab
             player = new Player(this);
             landscape = new Landscape(this);
             camera = new Camera(this);
-
+            enemyController = EnemyController.getInstance(this);
             //portal = new Portal(this);
 
             gameObjects.Add(player);
@@ -113,7 +114,7 @@ namespace Lab
 
             // add enemies
             enemies = new List<Enemy>();
-            enemies.Add(new Enemy(this, new Vector3(10,50,10), EnemyType.Follower);
+            enemies.Add(new Enemy(this, new Vector3(10,50,10), EnemyType.Follower));
             enemies.Add(new Enemy(this, new Vector3(100, 20, 100), EnemyType.Wanderer));
             enemies.Add(new Enemy(this, new Vector3(10, 20, 100), EnemyType.Wanderer));
             enemies.Add(new Enemy(this, new Vector3(100, 20, 10), EnemyType.Wanderer));
@@ -142,6 +143,7 @@ namespace Lab
         {
             keyboardState = keyboardManager.GetState();
             flushAddedAndRemovedGameObjects();
+            enemyController.Update(gameTime);
             for (int i = 0; i < enemies.Count; i++)
             {
                 enemies[i].Update(gameTime);
