@@ -12,5 +12,6 @@
         
         <Button x:Name="cmdInstructions" Content="Instructions" HorizontalAlignment="Left" Height="77" Margin="570,247,0,0" VerticalAlignment="Top" Width="163" Click="LoadInstructions" FontFamily="Global User Interface"/>
         <Button x:Name="cmdOptions" Content="Options" HorizontalAlignment="Left" Height="77" Margin="836,247,0,0" VerticalAlignment="Top" Width="163" Click="LoadOptions"/>
+        <Button x:Name="cmdRestart" Content="Restart" HorizontalAlignment="Left" Height="77" Margin="652,537,0,0" VerticalAlignment="Top" Width="163" Click="RestartGame"/>
     </Grid>
 </Page>

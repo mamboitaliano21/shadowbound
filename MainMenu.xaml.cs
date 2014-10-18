@@ -54,6 +54,12 @@ namespace Lab
             parent.Children.Remove(this);
         }
 
+        private void RestartGame(object sender, RoutedEventArgs e)
+        {
+
+            parent.restartGame();
+        }
+
    
     }
 }

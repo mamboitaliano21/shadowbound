@@ -143,76 +143,83 @@ namespace Lab
 
         protected override void Update(GameTime gameTime)
         {
-            keyboardState = keyboardManager.GetState();
-            flushAddedAndRemovedGameObjects();
-            enemyController.Update(gameTime);
-            for (int i = 0; i < enemies.Count; i++)
+            if (started)
             {
-                enemies[i].Update(gameTime);
+                keyboardState = keyboardManager.GetState();
+                flushAddedAndRemovedGameObjects();
+                enemyController.Update(gameTime);
+                for (int i = 0; i < enemies.Count; i++)
+                {
+                    enemies[i].Update(gameTime);
 
-            }
+                }
 
-            for (int i = 0; i < gameObjects.Count; i++)
-            {
-                gameObjects[i].Update(gameTime);
-                
+                for (int i = 0; i < gameObjects.Count; i++)
+                {
+                    gameObjects[i].Update(gameTime);
+
+                }
+                camera.Update();
+                if (keyboardState.IsKeyDown(Keys.Escape))
+                {
+                    this.Exit();
+                    this.Dispose();
+                }
+                // Handle base.Update
+                base.Update(gameTime);
             }
-            camera.Update();
-            if (keyboardState.IsKeyDown(Keys.Escape))
-            {
-                this.Exit();
-                this.Dispose();
-            }
-            // Handle base.Update
-            base.Update(gameTime);
 
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            // Clears the screen with the Color.CornflowerBlue
-            GraphicsDevice.Clear(Color.Black);
-            
-            //texture = Content.Load<Texture2D>("texture");
-
-            this.cubeEffect.Parameters["Projection"].SetValue(this.camera.Projection);
-            this.cubeEffect.Parameters["View"].SetValue(this.camera.View);
-            this.cubeEffect.Parameters["cameraPos"].SetValue(this.camera.cameraPos);
-            this.spotLightEffect.Parameters["Projection"].SetValue(this.camera.Projection);
-            this.spotLightEffect.Parameters["View"].SetValue(this.camera.View);
-            this.spotLightEffect.Parameters["cameraPos"].SetValue(this.camera.cameraPos);
-
-            //this.spotLightEffect.Parameters["Texture"].SetResource(texture);
-            this.spotLightEffect.Parameters["lightAmbCol"].SetValue(Color.White.ToVector3());
-
-            // pass lights to soptlight.fx and draw enemies
-            Vector3[] lightArr = new Vector3[enemies.Count];
-            for (int i = 0; i < enemies.Count; i++)
+            if (started)
             {
-                lightArr[i] = enemies[i].pos;
-                enemies[i].Draw(gameTime, cubeEffect);
-            }
+                // Clears the screen with the Color.CornflowerBlue
+                GraphicsDevice.Clear(Color.Black);
 
-            this.spotLightEffect.Parameters["lightArr"].SetValue(lightArr);
-            this.spotLightEffect.Parameters["lightCount"].SetValue(enemies.Count);
-            //this.spotLightEffect.Parameters["MAX_LIGHT"].SetValue(MAX_LIGHT);
+                //texture = Content.Load<Texture2D>("texture");
 
+                this.cubeEffect.Parameters["Projection"].SetValue(this.camera.Projection);
+                this.cubeEffect.Parameters["View"].SetValue(this.camera.View);
+                this.cubeEffect.Parameters["cameraPos"].SetValue(this.camera.cameraPos);
+                this.spotLightEffect.Parameters["Projection"].SetValue(this.camera.Projection);
+                this.spotLightEffect.Parameters["View"].SetValue(this.camera.View);
+                this.spotLightEffect.Parameters["cameraPos"].SetValue(this.camera.cameraPos);
+
+                //this.spotLightEffect.Parameters["Texture"].SetResource(texture);
+                this.spotLightEffect.Parameters["lightAmbCol"].SetValue(Color.White.ToVector3());
+
+                // pass lights to soptlight.fx and draw enemies
+                Vector3[] lightArr = new Vector3[enemies.Count];
+                for (int i = 0; i < enemies.Count; i++)
+                {
+                    lightArr[i] = enemies[i].pos;
+                    enemies[i].Draw(gameTime, cubeEffect);
+                }
+
+                this.spotLightEffect.Parameters["lightArr"].SetValue(lightArr);
+                this.spotLightEffect.Parameters["lightCount"].SetValue(enemies.Count);
+                //this.spotLightEffect.Parameters["MAX_LIGHT"].SetValue(MAX_LIGHT);
+
+
+                this.spotLightEffect.Parameters["lightPntCol"].SetValue(Color.White.ToVector3());
+                this.spotLightEffect.Parameters["lightDir"].SetValue(-Vector3.UnitY);
+
+                this.texture = Content.Load<Texture2D>("texture.jpg");
+                this.spotLightEffect.Parameters["Texture"].SetResource(texture);
+                this.spotLightEffect.CurrentTechnique = this.spotLightEffect.Techniques["Lighting"];
+
+
+                for (int i = 0; i < gameObjects.Count; i++)
+                {
+                    if (gameObjects[i].type == GameObjectType.Landscape) { gameObjects[i].Draw(gameTime, spotLightEffect); }
+                    else { gameObjects[i].Draw(gameTime, cubeEffect); }
+                }
+                // Handle base.Draw
+                base.Draw(gameTime);
             
-            this.spotLightEffect.Parameters["lightPntCol"].SetValue(Color.White.ToVector3());
-            this.spotLightEffect.Parameters["lightDir"].SetValue(-Vector3.UnitY);
-
-            this.texture = Content.Load<Texture2D>("texture.jpg");
-            this.spotLightEffect.Parameters["Texture"].SetResource(texture);
-            this.spotLightEffect.CurrentTechnique = this.spotLightEffect.Techniques["Lighting"];
-            
-
-            for (int i = 0; i < gameObjects.Count; i++)
-            {
-                if (gameObjects[i].type == GameObjectType.Landscape) { gameObjects[i].Draw(gameTime, spotLightEffect); }
-                else { gameObjects[i].Draw(gameTime, cubeEffect); }
             }
-            // Handle base.Draw
-            base.Draw(gameTime);
         }
         // Count the number of game objects for a certain type.
         public int Count(GameObjectType type)

@@ -29,7 +29,7 @@ namespace Lab
     /// </summary>
     public sealed partial class MainPage
     {
-        public readonly LabGame game;
+        public LabGame game;
         public MainMenu mainMenu;
 
         public MainPage()
@@ -46,8 +46,27 @@ namespace Lab
             
         }
 
+        private void GoBack(object sender, RoutedEventArgs e)
+        {
+            game.started = false;
+            mainMenu = new MainMenu(this);
+            this.Children.Add(mainMenu);
+        }
+
         public void StartGame()
         {
+            this.Children.Remove(mainMenu);
+            game.started = true;
+        }
+
+        public void restartGame()
+        {
+            game.started = false;
+  
+            game = null;
+            game = new LabGame(this);
+            game.Run(this);
+
             this.Children.Remove(mainMenu);
             game.started = true;
         }
