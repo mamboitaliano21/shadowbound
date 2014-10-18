@@ -43,7 +43,7 @@ namespace Lab
         public override void Update(GameTime gameTime)
         {
             //Enable debugging of position
-            Debug.WriteLine(pos);
+            //Debug.WriteLine(pos);
             var time = (float)gameTime.ElapsedGameTime.TotalSeconds;
             //TODO bad coding removing fire
             if (game.keyboardState.IsKeyDown(Keys.Space)) {  } 

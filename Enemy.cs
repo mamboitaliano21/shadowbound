@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SharpDX.Toolkit;
 using SharpDX;
+
 namespace Lab
 {
     // Enemy class
@@ -24,6 +25,9 @@ namespace Lab
         public EnemyType enemyType;
 
         public Vector3 pos { get; set; }
+        public Vector3 velocity { get; set; }
+        public Vector3 displacement { get; set; }
+        public double wanderAngle { get; set; }
 
         public void setPos(float x, float y, float z)
         {
@@ -35,7 +39,10 @@ namespace Lab
             this.game = game;
             type = GameObjectType.Enemy;
             this.pos = pos;
+            
             this.enemyType = enemyType;
+           
+
             setAttribute(enemyType);
 
             Vector3 frontBottomLeft = new Vector3(-1.0f, -1.0f, -1.0f);
