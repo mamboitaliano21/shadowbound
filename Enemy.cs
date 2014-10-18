@@ -10,7 +10,7 @@ namespace Lab
     // Enemy class
     // Basically just move randomly, see EnemyController for enemy movement.
     using SharpDX.Toolkit.Graphics;
-    class Enemy : ColoredGameObject
+    public class Enemy : ColoredGameObject
     {
         private Matrix World = Matrix.Identity;
         private Matrix WorldInverseTranspose;
