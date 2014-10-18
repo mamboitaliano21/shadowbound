@@ -194,14 +194,7 @@ namespace Lab
                     {
                         Debug.WriteLine("ga");
                     }
-
-            }
-        }
-
-        private float horizontalDistance(Vector3 a, Vector3 b)
-        {
-            return Vector2.Distance(new Vector2(a.X, a.Z), new Vector2(b.X, b.Z));
-        }
+                }
                 // TODO
                 // Keep within the boundaries.
                 if (pos.X < game.boundaryLeft) { }
@@ -209,6 +202,11 @@ namespace Lab
 
                 //basicEffect.World = Matrix.Translation(pos);
             }
+        }
+
+        private float horizontalDistance(Vector3 a, Vector3 b)
+        {
+            return Vector2.Distance(new Vector2(a.X, a.Z), new Vector2(b.X, b.Z));
         }
 
         public override void Draw(GameTime gameTime,Effect effect)
