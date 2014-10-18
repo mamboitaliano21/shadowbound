@@ -113,7 +113,7 @@ namespace Lab
 
             // add enemies
             enemies = new List<Enemy>();
-            enemies.Add(new Enemy(this, new Vector3(10,50,10), EnemyType.Follower);
+            enemies.Add(new Enemy(this, new Vector3(10,50,10), EnemyType.Follower));
             enemies.Add(new Enemy(this, new Vector3(100, 20, 100), EnemyType.Wanderer));
             enemies.Add(new Enemy(this, new Vector3(10, 20, 100), EnemyType.Wanderer));
             enemies.Add(new Enemy(this, new Vector3(100, 20, 10), EnemyType.Wanderer));

@@ -26,8 +26,8 @@ float4x4 World;
 float4x4 View;
 float4x4 Projection;
 float4 cameraPos;
-float4 lightAmbCol = float4(0.4f, 0.4f, 0.4f, 1.0f);
-float4 lightPntPos = float4(0.0f, 0.0f, -2.0f, 1.0f);
+float4 lightAmbCol = float4(1.0f, 1.0f, 1.0f, 1.0f);
+float4 lightDir = float4(0.0f, 1.0f, 0.0f, 1.0f);
 float4 lightPntCol = float4(1.0f, 1.0f, 1.0f, 1.0f);
 float4x4 worldInvTrp;
 //
@@ -76,18 +76,22 @@ float4 PS( PS_IN input ) : SV_Target
 	float3 interpNormal = normalize(input.wnrm);
 
 	// Calculate ambient RGB intensities
-	float Ka = 1;
+	float Ka = 0.2;
 	float3 amb = input.col.rgb*lightAmbCol.rgb*Ka;
+
+	// Emissive
+	float Ke = 0.3;
+	float3 emissive = Ke;
 
 	// Calculate diffuse RBG reflections
 	float fAtt = 1;
 	float Kd = 1;
-	float3 L = normalize(lightPntPos.xyz - input.wpos.xyz);
+	float3 L = normalize(-lightDir);
 	float LdotN = saturate(dot(L,interpNormal.xyz));
 	float3 dif = fAtt*lightPntCol.rgb*Kd*input.col.rgb*LdotN;
 
 	// Calculate specular reflections
-	float Ks = 1;
+	float Ks = 0.4;
 	float specN = 5; // Numbers>>1 give more mirror-like highlights
 	float3 V = normalize(cameraPos.xyz - input.wpos.xyz);
 	float3 R = normalize(2*LdotN*interpNormal.xyz - L.xyz);
@@ -96,7 +100,7 @@ float4 PS( PS_IN input ) : SV_Target
 
 	// Combine reflection components
 	float4 returnCol = float4(0.0f,0.0f,0.0f,0.0f);
-	returnCol.rgb = amb.rgb+dif.rgb+spe.rgb;
+	returnCol.rgb = emissive+amb.rgb+dif.rgb+spe.rgb;
 	returnCol.a = input.col.a;
 
 	return returnCol;
