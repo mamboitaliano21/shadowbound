@@ -182,6 +182,14 @@ namespace Lab
                     ZAxis = Vector3.TransformCoordinate(ZAxis, rotationMatrixY);
                 }
 
+
+                // check collision with lights
+                for (int i = 0; i < game.enemies.Count; i++)
+                {
+                    Debug.WriteLine("kena");
+                    //if (game.enemies[i].pos.x)
+
+                }
                 // TODO
                 // Keep within the boundaries.
                 if (pos.X < game.boundaryLeft) { }
