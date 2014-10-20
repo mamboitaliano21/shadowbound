@@ -55,9 +55,9 @@ namespace Lab
         //private Enemy enemy4;
         //private Enemy enemy5;
 
-        public float followerSpeed = 0.15f;
+        public float followerSpeed = 4.0f;
         public float finderSpeed  = 0.15f;
-        private float enemyCount = 2;
+        private float enemyCount = 6;
 
         // Represents the camera's position and orientation
         public Camera camera;
@@ -120,19 +120,28 @@ namespace Lab
             enemies = new List<Enemy>();
             
             enemies.Add(new Enemy(this, new Vector3(10,20,10), EnemyType.Follower, followerSpeed));
-            enemies.Add(new Enemy(this, new Vector3(10, 20, 100), EnemyType.Wanderer, finderSpeed));
+            /*enemies.Add(new Enemy(this, new Vector3(10, 20, 100), EnemyType.Wanderer, finderSpeed));
             enemies.Add(new Enemy(this, new Vector3(100, 20, 100), EnemyType.Wanderer, finderSpeed));
             enemies.Add(new Enemy(this, new Vector3(100, 20, 10), EnemyType.Wanderer, finderSpeed));
             enemies.Add(new Enemy(this, new Vector3(50, 20, 50), EnemyType.Wanderer, finderSpeed));
             enemies.Add(new Enemy(this, new Vector3(70, 20, 70), EnemyType.Wanderer, finderSpeed));
-            enemies.Add(new Enemy(this, new Vector3(30, 20, 70), EnemyType.Wanderer, finderSpeed));
+            enemies.Add(new Enemy(this, new Vector3(30, 20, 70), EnemyType.Wanderer, finderSpeed));*/
 
-            for (int i = 0; i < enemyCount-1; i++)
+
+            Vector3 randomPos;
+            for (int i = 0; i < enemyCount; i++ )
             {
-                // random pos for enemy
-                Vector3 randomPos = new Vector3(random.NextFloat(0, landscape.getWidth()), 20f, random.NextFloat(0, landscape.getWidth()));
-                enemies.Add(new Enemy(this, randomPos, EnemyType.Wanderer, finderSpeed));
+                randomPos = new Vector3(random.NextFloat(i, landscape.getWidth()), 50.0f, random.NextFloat(i, landscape.getWidth()));
+                enemies.Add(new Enemy(this, randomPos, EnemyType.Wanderer, finderSpeed));   
             }
+
+
+                /*for (int i = 0; i < enemies.L; i++)
+                {
+                    // random pos for enemy
+                    Vector3 randomPos = new Vector3(random.NextFloat( i*2, landscape.getWidth()), 50.0f, random.NextFloat(i*2, landscape.getWidth()));
+                    enemies.Add(new Enemy(this, randomPos, EnemyType.Wanderer, finderSpeed));
+                }*/
 
 
 

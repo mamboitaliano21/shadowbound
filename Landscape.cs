@@ -14,7 +14,7 @@ namespace Lab
         private Matrix WorldInverseTranspose;
 
         private static float LANDSCAPEHEIGHT = 0.0f;
-        public float LANDSCAPEWIDTH = 200.0f;
+        public float LANDSCAPEWIDTH = 1000.0f;
 
         //private Vector3 initialPos = new Vector3(0, 100, -20);
         //private Vector3 initialCamera = new Vector3(0, 100, 0);
