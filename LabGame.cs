@@ -55,7 +55,8 @@ namespace Lab
         private Enemy enemy4;
         private Enemy enemy5;
 
-
+        public float followerSpeed = 0.05f;
+        public float finderSpeed  = 0.05f;
 
         // Represents the camera's position and orientation
         public Camera camera;
@@ -116,11 +117,11 @@ namespace Lab
 
             // add enemies
             enemies = new List<Enemy>();
-            enemies.Add(new Enemy(this, new Vector3(10,50,10), EnemyType.Follower));
-            enemies.Add(new Enemy(this, new Vector3(100, 20, 100), EnemyType.Wanderer));
-            enemies.Add(new Enemy(this, new Vector3(10, 20, 100), EnemyType.Wanderer));
-            enemies.Add(new Enemy(this, new Vector3(100, 20, 10), EnemyType.Wanderer));
-            enemies.Add(new Enemy(this, new Vector3(50, 100, 50), EnemyType.Wanderer));
+            enemies.Add(new Enemy(this, new Vector3(100,40,100), EnemyType.Follower, followerSpeed));
+            enemies.Add(new Enemy(this, new Vector3(100, 20, 100), EnemyType.Wanderer, finderSpeed));
+            enemies.Add(new Enemy(this, new Vector3(10, 20, 100), EnemyType.Wanderer, finderSpeed));
+            enemies.Add(new Enemy(this, new Vector3(100, 20, 10), EnemyType.Wanderer, finderSpeed));
+            enemies.Add(new Enemy(this, new Vector3(50, 100, 50), EnemyType.Wanderer, finderSpeed));
 
 
 
@@ -165,6 +166,8 @@ namespace Lab
                     this.Exit();
                     this.Dispose();
                 }
+
+                
                 // Handle base.Update
                 base.Update(gameTime);
             }

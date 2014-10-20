@@ -7,11 +7,19 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Button x:Name="cmdStart" Content="Start" HorizontalAlignment="Left" Height="77" Margin="321,247,0,0" VerticalAlignment="Top" Width="163" Click="StartGame"/>
-        
-        <Button x:Name="cmdInstructions" Content="Instructions" HorizontalAlignment="Left" Height="77" Margin="570,247,0,0" VerticalAlignment="Top" Width="163" Click="LoadInstructions" FontFamily="Global User Interface"/>
-        <Button x:Name="cmdOptions" Content="Options" HorizontalAlignment="Left" Height="77" Margin="836,247,0,0" VerticalAlignment="Top" Width="163" Click="LoadOptions"/>
-        <Button x:Name="cmdRestart" Content="Restart" HorizontalAlignment="Left" Height="77" Margin="652,537,0,0" VerticalAlignment="Top" Width="163" Click="RestartGame"/>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Assets/charcoalmenu.jpg"/>
+        </Grid.Background>
+        <Button x:Name="cmdStart" Content="Start" HorizontalAlignment="Left" Height="77" Margin="434,257,0,0" VerticalAlignment="Top" Width="163" Click="StartGame" FontFamily="Franklin Gothic Medium" FontSize="16"/>
+
+        <Button x:Name="cmdInstructions" Content="Instructions" HorizontalAlignment="Left" Height="77" Margin="434,437,0,0" VerticalAlignment="Top" Width="163" Click="LoadInstructions" FontFamily="Franklin Gothic Medium" FontSize="16"/>
+        <Button x:Name="cmdOptions" Content="Options" HorizontalAlignment="Left" Height="77" Margin="773,257,0,0" VerticalAlignment="Top" Width="163" Click="LoadOptions" FontFamily="Franklin Gothic Medium" FontSize="16"/>
+        <Button x:Name="cmdRestart" Content="Restart" HorizontalAlignment="Left" Height="77" Margin="773,437,0,0" VerticalAlignment="Top" Width="163" Click="RestartGame" FontFamily="Franklin Gothic Medium" FontWeight="Normal" FontSize="16"/>
+        <TextBlock HorizontalAlignment="Left" Margin="430.879,123.774,0,0" TextWrapping="Wrap" Text="Welcome to Shadow Bound!" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" FontSize="40" UseLayoutRounding="False" d:LayoutRounding="Auto" FontFamily="Arial Black" SelectionChanged="TextBlock_SelectionChanged" Foreground="#FFE2DEDE">
+            <TextBlock.RenderTransform>
+                <CompositeTransform SkewX="1.585" TranslateX="0.664" TranslateY="0.012"/>
+            </TextBlock.RenderTransform>
+        </TextBlock>
     </Grid>
 </Page>
