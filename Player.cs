@@ -28,6 +28,10 @@ namespace Lab
         private Vector3 YAxis; // TODO kyknya ga penting
         private Vector3 ZAxis;
 
+        public Vector3 velocity;
+        public float hp;
+        public float damage;
+
         public Player(LabGame game)
         {
             this.pos = new Vector3(16,10,0);
@@ -37,6 +41,8 @@ namespace Lab
             this.ZAxis = Vector3.UnitZ;
             this.game = game;
             type = GameObjectType.Player;
+            this.hp = 100;
+            this.damage = 50;
             
         }
 
@@ -140,6 +146,7 @@ namespace Lab
                 }
 
                 // Update pos and target based on velocity
+                velocity = new Vector3(dx * time * MS, 0, dz * time * MS);
                 Vector3 change = (dx * MS * time * XAxis) + (dz * MS * time * ZAxis);
                 if ((pos.X + change.X >= 0) && (pos.X + change.X <= this.game.landscape.getWidth()))
                 {
@@ -189,6 +196,7 @@ namespace Lab
                     if (horizontalDistance(this.pos, game.enemies[i].pos) < game.enemies[i].pos.Y)
                     {
                         Debug.WriteLine("kena sama" + i.ToString());
+                        hp -= damage * time;
                     }
                     else
                     {
