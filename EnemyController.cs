@@ -20,7 +20,7 @@ namespace Lab
 
         private static float CircleDist = 10.0f;
         private static float CircleRadius = 5.0f;
-        private static float angleChange = 10.0f;
+        private static float angleChange = 20.0f;
         private Random r = new Random();
         // Constructor.
         public EnemyController(LabGame game)
@@ -66,7 +66,6 @@ namespace Lab
 
             Vector3 displacement = new Vector3(e.r.NextFloat(-1, 1), 0, e.r.NextFloat(-1, 1));
             displacement *= CircleDist;
-
             displacement = setAngle(displacement, e.wanderAngle);
 
             e.wanderAngle += ((r.NextFloat(-1,1) * angleChange) - (angleChange * 0.5f));
@@ -76,17 +75,37 @@ namespace Lab
             return wanderForce;
         }
 
+        private Vector3 pursuit(Enemy e, Player p)
+        {
+            Vector3 distance = (p.pos - e.pos);
+            float t = distance.Length() / 10;
+            Vector3 nextPosition = p.pos * t;
+            return seekMove(e, nextPosition);
+        }
+
+        private Vector3 seekMove(Enemy e, Vector3 targetPos)
+        {
+            Vector3 move = targetPos - e.pos;
+            move.Normalize();
+            move *= e.Speed;
+
+            move = move - e.velocity;
+            return move;
+        }
+
         // Update the enemy movement
         private void updateMovement(Enemy e)
         {
+            Vector3 steering;
             if (e.enemyType == EnemyType.Follower)
             {
-                
+                steering = pursuit(e, game.player);
+                e.pos += steering;
             }
 
             else if (e.enemyType == EnemyType.Wanderer)
             {
-                Vector3 steering = wanderMove(e);
+                steering = wanderMove(e);
                 steering.Normalize();
                 steering *= 5.0f;
                 e.velocity += steering;

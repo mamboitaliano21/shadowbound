@@ -35,7 +35,7 @@ namespace Lab
             this.pos = new Vector3(x, y, z);
         }
 
-        public Enemy(LabGame game, Vector3 pos,EnemyType enemyType)
+        public Enemy(LabGame game, Vector3 pos,EnemyType enemyType, float speed)
         {
             this.game = game;
             type = GameObjectType.Enemy;
@@ -47,7 +47,7 @@ namespace Lab
             this.velocity = new Vector3(0, 0, 0);
 
             
-            setAttribute(enemyType);
+            setAttribute(enemyType, speed);
 
             Vector3 frontBottomLeft = new Vector3(-1.0f, -1.0f, -1.0f);
             Vector3 frontTopLeft = new Vector3(-1.0f, 1.0f, -1.0f);
@@ -152,16 +152,16 @@ namespace Lab
             game.GraphicsDevice.Draw(PrimitiveType.TriangleList, vertices.ElementCount);
         }
 
-        private void setAttribute(EnemyType enemyType)
+        private void setAttribute(EnemyType enemyType, float speed)
         {
             if (enemyType == EnemyType.Follower)
             {
-                this.Speed = 1;
+                this.Speed = speed;
 
             }
             else if (enemyType == EnemyType.Wanderer)
             {
-                this.Speed = 0.1f;
+                this.Speed = speed;
             }
 
         }

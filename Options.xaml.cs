@@ -55,5 +55,15 @@ namespace Lab
         {
             if (parent.game != null) { parent.game.difficulty = (float)e.NewValue; }
         }
+
+        private void changeEnemySpeed(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+           if (parent.game != null) { parent.game.finderSpeed = (float)e.NewValue; }
+        }
+
+        private void changeEnemyFollowerSpeed(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+            if (parent.game != null) { parent.game.followerSpeed = (float)e.NewValue; }
+        }
     }
 }
