@@ -15,7 +15,7 @@ namespace Lab
     public class Player : GameObject
     {
         private float sqrt_two = (float) Math.Sqrt(2);
-        private const int MS = 30;
+        private const int MS = 90;
         private const float SENSITIVITY = 0.03f;
         private Boolean devMode = false;
 

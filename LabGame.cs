@@ -55,8 +55,8 @@ namespace Lab
         //private Enemy enemy4;
         //private Enemy enemy5;
 
-        public float followerSpeed = 4.0f;
-        public float finderSpeed  = 0.15f;
+        public float followerSpeed = 1.00f;
+        public float finderSpeed  = 0.20f;
         private float enemyCount = 6;
 
         // Represents the camera's position and orientation
@@ -119,7 +119,7 @@ namespace Lab
             // add enemies
             enemies = new List<Enemy>();
             
-            enemies.Add(new Enemy(this, new Vector3(10,20,10), EnemyType.Follower, followerSpeed));
+            enemies.Add(new Enemy(this, new Vector3(10,50,10), EnemyType.Follower, followerSpeed));
             /*enemies.Add(new Enemy(this, new Vector3(10, 20, 100), EnemyType.Wanderer, finderSpeed));
             enemies.Add(new Enemy(this, new Vector3(100, 20, 100), EnemyType.Wanderer, finderSpeed));
             enemies.Add(new Enemy(this, new Vector3(100, 20, 10), EnemyType.Wanderer, finderSpeed));
@@ -131,7 +131,7 @@ namespace Lab
             Vector3 randomPos;
             for (int i = 0; i < enemyCount; i++ )
             {
-                randomPos = new Vector3(random.NextFloat(i, landscape.getWidth()), 50.0f, random.NextFloat(i, landscape.getWidth()));
+                randomPos = new Vector3(random.NextFloat(i, landscape.getWidth()), 100.0f, random.NextFloat(i, landscape.getWidth()));
                 enemies.Add(new Enemy(this, randomPos, EnemyType.Wanderer, finderSpeed));   
             }
 

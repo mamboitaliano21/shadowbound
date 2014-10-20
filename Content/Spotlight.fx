@@ -109,7 +109,7 @@ float4 PS( PS_IN input ) : SV_Target
 	float4 returnCol = Texture.Sample(Sampler, input.uv);
 
 
-	float Ka = 0.1f;
+	float Ka = 0.3f;
 	float fAtt = 1;		
 	float Kd = 1.0f;
 	float Ks = 1.0f;

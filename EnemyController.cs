@@ -115,6 +115,27 @@ namespace Lab
                 e.velocity *= e.Speed;
                 e.pos += e.velocity;
             }
+
+            Vector3 currPos = e.pos;
+            if (currPos.X <= 0)
+            {
+                currPos.X = 0;
+            }
+
+            if (currPos.Y <= 0)
+            {
+                currPos.Y = 0;
+            }
+
+            if (currPos.X >= game.landscape.getWidth())
+            {
+                currPos.X = game.landscape.getWidth();
+            }
+
+            if (currPos.Y >= game.landscape.getWidth())
+            {
+                currPos.Y = game.landscape.getWidth();
+            }
         }
 
         
