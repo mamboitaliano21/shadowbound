@@ -192,10 +192,12 @@ namespace Lab
 
 
                 // check collision with lights
+                bool isHit = false;
                 for (int i = 0; i < game.enemies.Count; i++)
                 {
                     if (horizontalDistance(this.pos, game.enemies[i].pos) < game.enemies[i].pos.Y)
                     {
+                        isHit = true;
                         Debug.WriteLine("kena sama" + i.ToString());
                         hp -= damage * time;
                     }
@@ -204,6 +206,7 @@ namespace Lab
                         Debug.WriteLine("ga");
                     }
                 }
+                game.mainPage.IsHit(isHit);
                 Debug.WriteLine(hp);
                 // TODO
                 // Keep within the boundaries.

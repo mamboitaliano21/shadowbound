@@ -64,14 +64,26 @@ namespace Lab
 
         public void restartGame()
         {
-            game.started = false;
-
-            game = null;
-            game = new LabGame(this);
-            game.Run(this);
+            //game.started = false;
+            //game = null;
+            //game = new LabGame(this);
+            //game.Run(this);
+            game.LoadNewContent();
 
             this.Children.Remove(mainMenu);
             game.started = true;
+        }
+
+        public void IsHit(bool isHit)
+        {
+            if (isHit)
+            {
+                background.Opacity = 0.5;
+            }
+            else
+            {
+                background.Opacity = 0.0;
+            }
         }
     }
 }
