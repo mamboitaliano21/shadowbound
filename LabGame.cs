@@ -42,12 +42,14 @@ namespace Lab
         public KeyboardState keyboardState;
         public Player player;
         public Landscape landscape;
-        //private Portal portal;
+        private Portal portal;
         private Effect cubeEffect;
         private Effect spotLightEffect;
         //private Texture2D texture;
         private Texture2D texture;
         private EnemyController enemyController;
+        public MainPage mainPage;
+        public int score;
 
         //private Enemy enemy1;
         //private Enemy enemy2;
@@ -92,7 +94,8 @@ namespace Lab
             keyboardManager = new KeyboardManager(this);
             //assets = new Assets(this);
             random = new Random();
-
+            this.mainPage = mainPage;
+            this.score = 0;
             
 
         }
@@ -110,11 +113,11 @@ namespace Lab
             landscape = new Landscape(this);
             camera = new Camera(this);
             enemyController = new EnemyController(this);
-            //portal = new Portal(this);
+            portal = new Portal(this);
 
             gameObjects.Add(player);
             gameObjects.Add(landscape);
-            //gameObjects.Add(portal);
+            gameObjects.Add(portal);
 
             // add enemies
             enemies = new List<Enemy>();
@@ -187,6 +190,8 @@ namespace Lab
                     this.Exit();
                     this.Dispose();
                 }
+                mainPage.UpdateScore(score);
+                mainPage.UpdateHP(this.player.hp);
 
                 
                 // Handle base.Update

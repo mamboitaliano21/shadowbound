@@ -18,7 +18,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml;
 using SharpDX;
 
@@ -43,7 +42,11 @@ namespace Lab
 
         public void UpdateScore(int score)
         {
-            ScoreText.Text = 100.ToString();
+            ScoreText.Text = "Score : " + score.ToString();
+        }
+        public void UpdateHP(float hp)
+        {
+            HealthBar.Value = hp;
         }
 
         private void GoBack(object sender, RoutedEventArgs e)
@@ -62,7 +65,7 @@ namespace Lab
         public void restartGame()
         {
             game.started = false;
-  
+
             game = null;
             game = new LabGame(this);
             game.Run(this);

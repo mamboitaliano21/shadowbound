@@ -30,7 +30,7 @@ namespace Lab
 
         public Vector3 velocity;
         public float hp;
-        public float damage;
+        public float damage = 20;
 
         public Player(LabGame game)
         {
@@ -42,7 +42,6 @@ namespace Lab
             this.game = game;
             type = GameObjectType.Player;
             this.hp = 100;
-            this.damage = 50;
             
         }
 
@@ -202,6 +201,7 @@ namespace Lab
                         Debug.WriteLine("ga");
                     }
                 }
+                Debug.WriteLine(hp);
                 // TODO
                 // Keep within the boundaries.
                 if (pos.X < game.boundaryLeft) { }
