@@ -41,7 +41,7 @@ namespace Lab
         private KeyboardManager keyboardManager;
         public KeyboardState keyboardState;
         public Player player;
-        public Landscape landscape;
+        private Landscape landscape;
         //private Portal portal;
         private Effect cubeEffect;
         private Effect spotLightEffect;
@@ -108,7 +108,7 @@ namespace Lab
             player = new Player(this);
             landscape = new Landscape(this);
             camera = new Camera(this);
-            enemyController = new EnemyController(this);
+            enemyController = EnemyController.getInstance(this);
             //portal = new Portal(this);
 
             gameObjects.Add(player);
