@@ -26,15 +26,23 @@ float4 lightAmbCol;
 float4 lightPntCol;
 float4 lightDir;
 
-//float4 lightPntPos0;
-//float4 lightPntPos1;
-//float4 lightPntPos2;
-//float4 lightPntPos3;
-//float4 lightPntPos4;
+float4 lightPntPos0;
+float4 lightPntPos1;
+float4 lightPntPos2;
+float4 lightPntPos3;
+float4 lightPntPos4;
+float4 lightPntPos5;
+float4 lightPntPos6;
+float4 lightPntPos7;
+float4 lightPntPos8;
+float4 lightPntPos9;
+float4 lightPntPos10;
+float4 lightPntPos11;
+float4 lightPntPos12;
+float4 lightPntPos13;
+float4 lightPntPos14;
 
-float4 lightArr[5];
 
-//int MAX_LIGHT;
 int lightCount;
 
 Texture2D Texture;
@@ -101,10 +109,10 @@ float4 PS( PS_IN input ) : SV_Target
 	float4 returnCol = Texture.Sample(Sampler, input.uv);
 
 
-	float Ka = 0.2f;
+	float Ka = 0.1f;
 	float fAtt = 1;		
 	float Kd = 1.0f;
-	float Ks = 0.3f;
+	float Ks = 1.0f;
 	float specN = 5; // Numbers>>1 give more mirror-like highlights
 	//float theta = 20.0f;
 	float spotPower = 10.0f;
@@ -113,12 +121,24 @@ float4 PS( PS_IN input ) : SV_Target
 	float3 light = returnCol.rgb*lightAmbCol.rgb*Ka;
 
 	// Combine lights into an array
-	//float4 lightArr[2];
-	//lightArr[0] = lightPntPos0;
-	//lightArr[1] = lightPntPos1;
-	//lightArr[2] = lightPntPos2;
-	//lightArr[3] = lightPntPos3;
-	//lightArr[4] = lightPntPos4;
+	float4 lightArr[15];
+	lightArr[0] = lightPntPos0;
+	lightArr[1] = lightPntPos1;
+	lightArr[2] = lightPntPos2;
+	lightArr[3] = lightPntPos3;
+	lightArr[4] = lightPntPos4;
+	lightArr[5] = lightPntPos5;
+	lightArr[6] = lightPntPos6;
+	lightArr[7] = lightPntPos7;
+	lightArr[8] = lightPntPos8;
+	lightArr[9] = lightPntPos9;
+	lightArr[10] = lightPntPos10;
+	lightArr[11] = lightPntPos11;
+	lightArr[12] = lightPntPos12;
+	lightArr[13] = lightPntPos13;
+	lightArr[14] = lightPntPos14;
+
+
 
 	float3 V = normalize(cameraPos.xyz - input.wpos.xyz);
 	float3 R;

@@ -78,8 +78,10 @@ namespace Lab
         private Vector3 pursuit(Enemy e, Player p)
         {
             Vector3 distance = (p.pos - e.pos);
+            distance.Y = 0;
             float t = distance.Length() / 10;
-            Vector3 nextPosition = p.pos * t;
+            Vector3 nextPosition = p.pos + p.velocity * t;
+            nextPosition.Y = e.pos.Y;
             return seekMove(e, nextPosition);
         }
 
@@ -114,6 +116,8 @@ namespace Lab
                 e.pos += e.velocity;
             }
         }
+
+        
 
         public override void Draw(GameTime gameTime, Effect effect) { }
 

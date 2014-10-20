@@ -15,7 +15,7 @@ namespace Lab
     public class Player : GameObject
     {
         private float sqrt_two = (float) Math.Sqrt(2);
-        private const int MS = 90;
+        private const int MS = 30;
         private const float SENSITIVITY = 0.03f;
         private Boolean devMode = false;
 
@@ -146,17 +146,16 @@ namespace Lab
                 }
 
                 // Update pos and target based on velocity
-                velocity = new Vector3(dx * time * MS, 0, dz * time * MS);
-                Vector3 change = (dx * MS * time * XAxis) + (dz * MS * time * ZAxis);
-                if ((pos.X + change.X >= 0) && (pos.X + change.X <= this.game.landscape.getWidth()))
+                velocity = (dx * MS * time * XAxis) + (dz * MS * time * ZAxis);
+                if ((pos.X + velocity.X >= 0) && (pos.X + velocity.X <= this.game.landscape.getWidth()))
                 {
-                    pos.X += change.X;
-                    target.X += change.X;
+                    pos.X += velocity.X;
+                    target.X += velocity.X;
                 }
-                if ((pos.Z + change.Z >= 0) && (pos.Z + change.Z <= this.game.landscape.getWidth()))
+                if ((pos.Z + velocity.Z >= 0) && (pos.Z + velocity.Z <= this.game.landscape.getWidth()))
                 {
-                    pos.Z += change.Z;
-                    target.Z += change.Z;
+                    pos.Z += velocity.Z;
+                    target.Z += velocity.Z;
                 }
 
                 // Change direction player is facing
@@ -180,7 +179,7 @@ namespace Lab
                 Matrix rotationMatrixY = Matrix.RotationAxis(YAxis, dRotationY * SENSITIVITY);
                 Vector3 eyeDirection = Vector3.TransformCoordinate(target - pos, rotationMatrixX * rotationMatrixY);
                 float theta = (float) Math.Acos(Vector3.Dot(eyeDirection, ZAxis) / (eyeDirection.Length() * ZAxis.Length())) * (float) (180 / Math.PI);
-                Debug.WriteLine(theta);
+                //Debug.WriteLine(theta);
                 if (!(theta >= 90))
                 {
                     target = eyeDirection + pos; // rotation of target about pos

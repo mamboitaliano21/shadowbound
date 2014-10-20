@@ -41,7 +41,7 @@ namespace Lab
         private KeyboardManager keyboardManager;
         public KeyboardState keyboardState;
         public Player player;
-        private Landscape landscape;
+        public Landscape landscape;
         //private Portal portal;
         private Effect cubeEffect;
         private Effect spotLightEffect;
@@ -49,14 +49,15 @@ namespace Lab
         private Texture2D texture;
         private EnemyController enemyController;
 
-        private Enemy enemy1;
-        private Enemy enemy2;
-        private Enemy enemy3;
-        private Enemy enemy4;
-        private Enemy enemy5;
+        //private Enemy enemy1;
+        //private Enemy enemy2;
+        //private Enemy enemy3;
+        //private Enemy enemy4;
+        //private Enemy enemy5;
 
-        public float followerSpeed = 0.05f;
-        public float finderSpeed  = 0.05f;
+        public float followerSpeed = 0.15f;
+        public float finderSpeed  = 0.15f;
+        private float enemyCount = 2;
 
         // Represents the camera's position and orientation
         public Camera camera;
@@ -108,7 +109,7 @@ namespace Lab
             player = new Player(this);
             landscape = new Landscape(this);
             camera = new Camera(this);
-            enemyController = EnemyController.getInstance(this);
+            enemyController = new EnemyController(this);
             //portal = new Portal(this);
 
             gameObjects.Add(player);
@@ -117,15 +118,26 @@ namespace Lab
 
             // add enemies
             enemies = new List<Enemy>();
-            enemies.Add(new Enemy(this, new Vector3(100,40,100), EnemyType.Follower, followerSpeed));
-            enemies.Add(new Enemy(this, new Vector3(100, 20, 100), EnemyType.Wanderer, finderSpeed));
+            
+            enemies.Add(new Enemy(this, new Vector3(10,20,10), EnemyType.Follower, followerSpeed));
             enemies.Add(new Enemy(this, new Vector3(10, 20, 100), EnemyType.Wanderer, finderSpeed));
+            enemies.Add(new Enemy(this, new Vector3(100, 20, 100), EnemyType.Wanderer, finderSpeed));
             enemies.Add(new Enemy(this, new Vector3(100, 20, 10), EnemyType.Wanderer, finderSpeed));
-            enemies.Add(new Enemy(this, new Vector3(50, 100, 50), EnemyType.Wanderer, finderSpeed));
+            enemies.Add(new Enemy(this, new Vector3(50, 20, 50), EnemyType.Wanderer, finderSpeed));
+            enemies.Add(new Enemy(this, new Vector3(70, 20, 70), EnemyType.Wanderer, finderSpeed));
+            enemies.Add(new Enemy(this, new Vector3(30, 20, 70), EnemyType.Wanderer, finderSpeed));
+
+            for (int i = 0; i < enemyCount-1; i++)
+            {
+                // random pos for enemy
+                Vector3 randomPos = new Vector3(random.NextFloat(0, landscape.getWidth()), 20f, random.NextFloat(0, landscape.getWidth()));
+                enemies.Add(new Enemy(this, randomPos, EnemyType.Wanderer, finderSpeed));
+            }
 
 
 
-            initEffect();
+
+                initEffect();
             //gameObjects.Add(new EnemyController(this));
             
             
@@ -194,14 +206,14 @@ namespace Lab
                 this.spotLightEffect.Parameters["lightAmbCol"].SetValue(Color.White.ToVector3());
 
                 // pass lights to soptlight.fx and draw enemies
-                Vector3[] lightArr = new Vector3[enemies.Count];
+                //Vector3[] lightArr = new Vector3[enemies.Count];
                 for (int i = 0; i < enemies.Count; i++)
                 {
-                    lightArr[i] = enemies[i].pos;
+                    this.spotLightEffect.Parameters["lightPntPos" + i.ToString()].SetValue(enemies[i].pos);
                     enemies[i].Draw(gameTime, cubeEffect);
                 }
 
-                this.spotLightEffect.Parameters["lightArr"].SetValue(lightArr);
+                // this.spotLightEffect.Parameters["lightArr"].SetValue(lightArr);
                 this.spotLightEffect.Parameters["lightCount"].SetValue(enemies.Count);
                 //this.spotLightEffect.Parameters["MAX_LIGHT"].SetValue(MAX_LIGHT);
 

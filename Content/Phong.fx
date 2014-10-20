@@ -27,8 +27,9 @@ float4x4 View;
 float4x4 Projection;
 float4 cameraPos;
 float4 lightAmbCol = float4(0.4f, 0.4f, 0.4f, 1.0f);
-float4 lightPntPos = float4(0.0f, 0.0f, -2.0f, 1.0f);
+float4 lightPntPos;
 float4 lightPntCol = float4(1.0f, 1.0f, 1.0f, 1.0f);
+float4 lightDir = float4(0.0f, 1.0f, 0.0f, 1.0f);
 float4x4 worldInvTrp;
 //
 
@@ -37,7 +38,7 @@ struct VS_IN
 	float4 pos : SV_POSITION;
 	float4 nrm : NORMAL;
 	float4 col : COLOR;
-// Other vertex properties, e.g. texture co-ords, surface Kd, Ks, etc
+	// Other vertex properties, e.g. texture co-ords, surface Kd, Ks, etc
 };
 
 struct PS_IN
@@ -49,7 +50,7 @@ struct PS_IN
 };
 
 
-PS_IN VS( VS_IN input )
+PS_IN VS(VS_IN input)
 {
 	PS_IN output = (PS_IN)0;
 
@@ -62,7 +63,7 @@ PS_IN VS( VS_IN input )
 
 	// Transform vertex in world coordinates to camera coordinates
 	float4 viewPos = mul(output.wpos, View);
-    output.pos = mul(viewPos, Projection);
+		output.pos = mul(viewPos, Projection);
 
 	// Just pass along the colour at the vertex
 	output.col = input.col;
@@ -70,33 +71,33 @@ PS_IN VS( VS_IN input )
 	return output;
 }
 
-float4 PS( PS_IN input ) : SV_Target
-	{
+float4 PS(PS_IN input) : SV_Target
+{
 	// Our interpolated normal might not be of length 1
 	float3 interpNormal = normalize(input.wnrm);
 
 	// Calculate ambient RGB intensities
-	float Ka = 1;
+	float Ka = 0.5;
 	float3 amb = input.col.rgb*lightAmbCol.rgb*Ka;
 
-	// Calculate diffuse RBG reflections
-	float fAtt = 1;
+		// Calculate diffuse RBG reflections
+		float fAtt = 1;
 	float Kd = 1;
-	float3 L = normalize(lightPntPos.xyz - input.wpos.xyz);
-	float LdotN = saturate(dot(L,interpNormal.xyz));
+	float3 L = normalize(-lightDir);
+		float LdotN = saturate(dot(L, interpNormal.xyz));
 	float3 dif = fAtt*lightPntCol.rgb*Kd*input.col.rgb*LdotN;
 
-	// Calculate specular reflections
-	float Ks = 1;
-	float specN = 5; // Numbers>>1 give more mirror-like highlights
+		// Calculate specular reflections
+		float Ks = 1;
+	float specN = 20; // Numbers>>1 give more mirror-like highlights
 	float3 V = normalize(cameraPos.xyz - input.wpos.xyz);
-	float3 R = normalize(2*LdotN*interpNormal.xyz - L.xyz);
-	//float3 R = normalize(0.5*(L.xyz+V.xyz)); //Blinn-Phong equivalent
-	float3 spe = fAtt*lightPntCol.rgb*Ks*pow(saturate(dot(V,R)),specN);
+		float3 R = normalize(2 * LdotN*interpNormal.xyz - L.xyz);
+		//float3 R = normalize(0.5*(L.xyz+V.xyz)); //Blinn-Phong equivalent
+		float3 spe = fAtt*lightPntCol.rgb*Ks*pow(saturate(dot(V, R)), specN);
 
-	// Combine reflection components
-	float4 returnCol = float4(0.0f,0.0f,0.0f,0.0f);
-	returnCol.rgb = amb.rgb+dif.rgb+spe.rgb;
+		// Combine reflection components
+		float4 returnCol = float4(0.0f, 0.0f, 0.0f, 0.0f);
+		returnCol.rgb = amb.rgb + dif.rgb + spe.rgb;
 	returnCol.a = input.col.a;
 
 	return returnCol;
@@ -106,10 +107,10 @@ float4 PS( PS_IN input ) : SV_Target
 
 technique Lighting
 {
-    pass Pass1
-    {
+	pass Pass1
+	{
 		Profile = 9.1;
-        VertexShader = VS;
-        PixelShader = PS;
-    }
+		VertexShader = VS;
+		PixelShader = PS;
+	}
 }

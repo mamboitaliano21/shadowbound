@@ -8,13 +8,13 @@ using SharpDX.Toolkit;
 namespace Lab
 {
     using SharpDX.Toolkit.Graphics;
-    class Landscape : TextureGameObject
+    public class Landscape : TextureGameObject
     {
         private Matrix World;
         private Matrix WorldInverseTranspose;
 
         private static float LANDSCAPEHEIGHT = 0.0f;
-        private static float LANDSCAPEWIDTH = 200.0f;
+        public float LANDSCAPEWIDTH = 200.0f;
 
         //private Vector3 initialPos = new Vector3(0, 100, -20);
         //private Vector3 initialCamera = new Vector3(0, 100, 0);
