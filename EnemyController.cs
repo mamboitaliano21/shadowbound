@@ -22,6 +22,7 @@ namespace Lab
         private static float CircleRadius = 5.0f;
         private static float angleChange = 20.0f;
         private Random r = new Random();
+        private float time = 0;
         // Constructor.
         public EnemyController(LabGame game)
         {
@@ -34,7 +35,8 @@ namespace Lab
         // Frame update method.
         public override void Update(GameTime gameTime)
         {
-        
+
+            time = (float)gameTime.ElapsedGameTime.TotalSeconds;
             for (int i = 0; i < game.enemies.Count; i++)
             {
                 //game.enemies[i].pos += new Vector3(1, 0, 0);
@@ -89,7 +91,7 @@ namespace Lab
         {
             Vector3 move = targetPos - e.pos;
             move.Normalize();
-            move *= e.Speed;
+            move *= e.Speed * time;
 
             move = move - e.velocity;
             return move;
@@ -112,7 +114,7 @@ namespace Lab
                 steering *= 5.0f;
                 e.velocity += steering;
                 e.velocity.Normalize();
-                e.velocity *= e.Speed;
+                e.velocity *= e.Speed * time;
                 e.pos += e.velocity;
             }
 
@@ -136,6 +138,7 @@ namespace Lab
             {
                 currPos.Y = game.landscape.getWidth();
             }
+            e.pos = currPos;
         }
 
         
