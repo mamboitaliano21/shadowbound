@@ -44,13 +44,13 @@ namespace Lab
 
         private void LoadInstructions(object sender, RoutedEventArgs e)
         {
-            parent.Children.Add(new Instructions(parent));
+            parent.Children.Add(new Instructions(this.parent));
             parent.Children.Remove(this);
         }
 
         private void LoadOptions(object sender, RoutedEventArgs e)
         {
-            parent.Children.Add(new Options(parent));
+            parent.Children.Add(new Options(this.parent));
             parent.Children.Remove(this);
         }
 
@@ -60,11 +60,25 @@ namespace Lab
             parent.restartGame();
         }
 
-        private void TextBlock_SelectionChanged(object sender, RoutedEventArgs e)
+        private void changeDifficulty(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
+            if (parent.game != null) { parent.game.difficulty = (float)e.NewValue; }
+        }
+
+        private void changeEnemySpeed(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+            if (parent.game != null) { parent.game.finderSpeed = (float)e.NewValue; }
 
         }
 
-   
+        private void changeEnemyFollowerSpeed(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+            if (parent.game != null) { parent.game.followerSpeed = (float)e.NewValue; }
+        }
+
+        private void TextBlock_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

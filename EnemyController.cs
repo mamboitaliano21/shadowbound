@@ -136,6 +136,7 @@ namespace Lab
             {
                 currPos.Y = game.landscape.getWidth();
             }
+            e.pos = currPos;
         }
 
         

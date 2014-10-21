@@ -43,7 +43,7 @@ namespace Lab
 
         public void UpdateScore(int score)
         {
-            ScoreText.Text = 100.ToString();
+            
         }
 
         private void GoBack(object sender, RoutedEventArgs e)

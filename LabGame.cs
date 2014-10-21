@@ -48,6 +48,7 @@ namespace Lab
         //private Texture2D texture;
         private Texture2D texture;
         private EnemyController enemyController;
+        public MainPage mainPage;
 
         //private Enemy enemy1;
         //private Enemy enemy2;
@@ -55,8 +56,8 @@ namespace Lab
         //private Enemy enemy4;
         //private Enemy enemy5;
 
-        public float followerSpeed = 1.00f;
-        public float finderSpeed  = 0.20f;
+        public float followerSpeed;
+        public float finderSpeed;
         private float enemyCount = 6;
 
         // Represents the camera's position and orientation
@@ -90,11 +91,13 @@ namespace Lab
 
             // Create the keyboard manager
             keyboardManager = new KeyboardManager(this);
+            this.mainPage = mainPage;
+
             //assets = new Assets(this);
             random = new Random();
-
-            
-
+            followerSpeed = 0.1f;
+            finderSpeed = 0.1f;
+            difficulty = 0.1f;
         }
 
         protected override void LoadContent()
