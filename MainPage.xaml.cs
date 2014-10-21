@@ -51,10 +51,14 @@ namespace Lab
 
         private void GoBack(object sender, RoutedEventArgs e)
         {
+            float finderSpeed = game.finderSpeed;
+            float followerSpeed = game.followerSpeed;
             game.started = false;
             mainMenu = new MainMenu(this);
             mainMenu.cmdStart.Content = "Continue";
             mainMenu.cmdRestart.Visibility = Visibility.Visible;
+            mainMenu.enemySpeedSld.Value = finderSpeed;
+            mainMenu.followerSpeedSld.Value = followerSpeed;
             this.Children.Add(mainMenu);
         }
 

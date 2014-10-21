@@ -81,7 +81,7 @@ namespace Lab
         {
             Vector3 distance = (p.pos - e.pos);
             distance.Y = 0;
-            float t = distance.Length() / 10;
+            float t = distance.Length() / p.MS;
             Vector3 nextPosition = p.pos + p.velocity * t;
             nextPosition.Y = e.pos.Y;
             return seekMove(e, nextPosition);

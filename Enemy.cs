@@ -127,8 +127,8 @@ namespace Lab
         public override void Update(GameTime gameTime)
         {
             var time = (float)gameTime.TotalGameTime.TotalSeconds;
-           
-            if (this.type.Equals(EnemyType.Follower))
+
+            if (enemyType == EnemyType.Follower)
             {
                 this.Speed = game.followerSpeed;
             }

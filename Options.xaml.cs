@@ -30,9 +30,7 @@ namespace Lab
     // TASK 4: Instructions Page
     public sealed partial class Options
     {
-        private float currEnemySpeed = 0.5f;
-        private float currFolloweSpeed = 0.5f;
-        private float currDifficulty;
+        
         private MainPage parent;
 
         public Options(MainPage parent)
