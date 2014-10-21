@@ -31,11 +31,13 @@ namespace Lab
         }
         private void RestartGame(object sender, RoutedEventArgs e)
         {
+            //parent.game.name = playerName.Text;
             parent.restartGame();
             parent.Children.Remove(this);
         }
         private void goToMainMenu(object sender, RoutedEventArgs e)
         {
+            //parent.game.name = playerName.Text;
             parent.restartGame();
             float finderSpeed = parent.game.finderSpeed;
             float followerSpeed = parent.game.followerSpeed;
@@ -48,5 +50,7 @@ namespace Lab
             parent.Children.Add(parent.mainMenu);
             parent.Children.Remove(this);
         }
+
+
     }
 }

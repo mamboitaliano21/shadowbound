@@ -19,7 +19,7 @@ namespace Lab
         private Vector4 cubeCol;
 
         private Vector4[] colorArray = {Color.Red.ToVector4(), Color.Blue.ToVector4(), Color.Violet.ToVector4(), Color.Green.ToVector4(), Color.Yellow.ToVector4(), Color.Purple.ToVector4(), Color.Chocolate.ToColor4(), Color.Gold.ToVector4()};
-        private SoundEffect shotEffect = new SoundEffect(@"Content\birds001.wav", false);
+        private SoundEffect shotEffect = new SoundEffect(@"Content\eat.wav", false);
 
         public Portal(LabGame game)
         {

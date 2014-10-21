@@ -20,7 +20,6 @@
 
 using SharpDX;
 using SharpDX.Toolkit;
-using SharpDX.XAudio2;
 using System;
 using System.Collections.Generic;
 
@@ -33,6 +32,7 @@ namespace Lab
 
     public class LabGame : Game
     {
+        private int MAX_LIGHT = 5;
         private GraphicsDeviceManager graphicsDeviceManager;
         public List<GameObject> gameObjects;
         public List<Enemy> enemies;
@@ -79,9 +79,6 @@ namespace Lab
         public bool started = false;
         public float difficulty;
 
-        private SoundEffect shotEffect = new SoundEffect(@"Content\applause_y.wav", true);
-
-
         /// <summary>
         /// Initializes a new instance of the <see cref="LabGame" /> class.
         /// </summary>
@@ -99,13 +96,13 @@ namespace Lab
             //assets = new Assets(this);
             random = new Random();
             this.mainPage = mainPage;
-            this.score = 0;
-            shotEffect.Play();
             
+
         }
 
         protected override void LoadContent()
         {
+            this.score = 0;
             // Initialise game object containers.
             gameObjects = new List<GameObject>();
             addedGameObjects = new Stack<GameObject>();
@@ -165,64 +162,11 @@ namespace Lab
 
         public void LoadNewContent()
         {
+            this.score = 0;
             // remove old things
             gameObjects.Clear();
             enemies.Clear();
-
-            // Initialise game object containers.
-            gameObjects = new List<GameObject>();
-            addedGameObjects = new Stack<GameObject>();
-            removedGameObjects = new Stack<GameObject>();
-
-
-            // Create game objects.
-            player = new Player(this);
-            landscape = new Landscape(this);
-            camera = new Camera(this);
-            enemyController = new EnemyController(this);
-            portal = new Portal(this);
-
-            gameObjects.Add(player);
-            gameObjects.Add(landscape);
-            gameObjects.Add(portal);
-
-            // add enemies
-            enemies = new List<Enemy>();
-
-            enemies.Add(new Enemy(this, new Vector3(10, 50, 10), EnemyType.Follower, followerSpeed));
-            /*enemies.Add(new Enemy(this, new Vector3(10, 20, 100), EnemyType.Wanderer, finderSpeed));
-            enemies.Add(new Enemy(this, new Vector3(100, 20, 100), EnemyType.Wanderer, finderSpeed));
-            enemies.Add(new Enemy(this, new Vector3(100, 20, 10), EnemyType.Wanderer, finderSpeed));
-            enemies.Add(new Enemy(this, new Vector3(50, 20, 50), EnemyType.Wanderer, finderSpeed));
-            enemies.Add(new Enemy(this, new Vector3(70, 20, 70), EnemyType.Wanderer, finderSpeed));
-            enemies.Add(new Enemy(this, new Vector3(30, 20, 70), EnemyType.Wanderer, finderSpeed));*/
-
-
-            Vector3 randomPos;
-            for (int i = 0; i < enemyCount; i++)
-            {
-                randomPos = new Vector3(random.NextFloat(i, landscape.getWidth()), 100.0f, random.NextFloat(i, landscape.getWidth()));
-                enemies.Add(new Enemy(this, randomPos, EnemyType.Wanderer, finderSpeed));
-            }
-
-
-            /*for (int i = 0; i < enemies.L; i++)
-            {
-                // random pos for enemy
-                Vector3 randomPos = new Vector3(random.NextFloat( i*2, landscape.getWidth()), 50.0f, random.NextFloat(i*2, landscape.getWidth()));
-                enemies.Add(new Enemy(this, randomPos, EnemyType.Wanderer, finderSpeed));
-            }*/
-
-
-
-
-            initEffect();
-            //gameObjects.Add(new EnemyController(this));
-
-
-            // Create an input layout from the vertices
-
-            base.LoadContent();
+            LoadContent();
         }
 
 
