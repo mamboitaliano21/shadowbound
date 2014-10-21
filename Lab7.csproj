@@ -41,6 +41,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Assets.cs" />
+    <Compile Include="SoundEffect.cs" />
     <Compile Include="EndGame.xaml.cs">
       <DependentUpon>EndGame.xaml</DependentUpon>
     </Compile>
@@ -83,6 +84,8 @@
     <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\StoreLogo.png" />
+    <Content Include="Content\applause_y.wav" />
+    <Content Include="Content\birds001.wav" />
     <Content Include="Content\enemy projectile.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

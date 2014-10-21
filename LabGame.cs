@@ -20,6 +20,7 @@
 
 using SharpDX;
 using SharpDX.Toolkit;
+using SharpDX.XAudio2;
 using System;
 using System.Collections.Generic;
 
@@ -32,7 +33,6 @@ namespace Lab
 
     public class LabGame : Game
     {
-        private int MAX_LIGHT = 5;
         private GraphicsDeviceManager graphicsDeviceManager;
         public List<GameObject> gameObjects;
         public List<Enemy> enemies;
@@ -79,6 +79,9 @@ namespace Lab
         public bool started = false;
         public float difficulty;
 
+        private SoundEffect shotEffect = new SoundEffect(@"Content\applause_y.wav", true);
+
+
         /// <summary>
         /// Initializes a new instance of the <see cref="LabGame" /> class.
         /// </summary>
@@ -97,8 +100,8 @@ namespace Lab
             random = new Random();
             this.mainPage = mainPage;
             this.score = 0;
+            shotEffect.Play();
             
-
         }
 
         protected override void LoadContent()
