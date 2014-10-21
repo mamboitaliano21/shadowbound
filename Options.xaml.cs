@@ -30,25 +30,23 @@ namespace Lab
     // TASK 4: Instructions Page
     public sealed partial class Options
     {
+        
         private MainPage parent;
+
         public Options(MainPage parent)
         {
             this.parent = parent;
             InitializeComponent();
-
+            sldDifficulty.Value = parent.game.difficulty;
         }
 
 
         private void GoBack(object sender, RoutedEventArgs e)
         {
-            parent.Children.Add(parent.mainMenu);
-            parent.Children.Remove(this);
+           parent.Children.Add(parent.mainMenu);
+           parent.Children.Remove(this);
         }
 
-        private void TextBlock_SelectionChanged(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         // TASK 3: Function for setting difficulty
         private void changeDifficulty(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
@@ -58,7 +56,8 @@ namespace Lab
 
         private void changeEnemySpeed(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
-           if (parent.game != null) { parent.game.finderSpeed = (float)e.NewValue; }
+            if (parent.game != null) { parent.game.finderSpeed = (float)e.NewValue; }
+            
         }
 
         private void changeEnemyFollowerSpeed(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)

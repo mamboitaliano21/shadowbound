@@ -11,15 +11,25 @@
         <Grid.Background>
             <ImageBrush ImageSource="Assets/charcoalmenu.jpg"/>
         </Grid.Background>
-        <Button x:Name="cmdStart" Content="Start" HorizontalAlignment="Left" Height="77" Margin="434,257,0,0" VerticalAlignment="Top" Width="163" Click="StartGame" FontFamily="Franklin Gothic Medium" FontSize="16"/>
+        <Button x:FieldModifier="public" x:Name="cmdStart" Content="Start" HorizontalAlignment="Left" Height="77" Margin="434,202,0,0" VerticalAlignment="Top" Width="163" Click="StartGame" FontFamily="Franklin Gothic Medium" FontSize="16"/>
 
-        <Button x:Name="cmdInstructions" Content="Instructions" HorizontalAlignment="Left" Height="77" Margin="434,437,0,0" VerticalAlignment="Top" Width="163" Click="LoadInstructions" FontFamily="Franklin Gothic Medium" FontSize="16"/>
-        <Button x:Name="cmdOptions" Content="Options" HorizontalAlignment="Left" Height="77" Margin="773,257,0,0" VerticalAlignment="Top" Width="163" Click="LoadOptions" FontFamily="Franklin Gothic Medium" FontSize="16"/>
-        <Button x:Name="cmdRestart" Content="Restart" HorizontalAlignment="Left" Height="77" Margin="773,437,0,0" VerticalAlignment="Top" Width="163" Click="RestartGame" FontFamily="Franklin Gothic Medium" FontWeight="Normal" FontSize="16"/>
+        <Button x:Name="cmdInstructions" Content="Instructions" HorizontalAlignment="Left" Height="77" Margin="434,423,0,0" VerticalAlignment="Top" Width="163" Click="LoadInstructions" FontFamily="Franklin Gothic Medium" FontSize="16"/>
+        <Button x:Name="cmdOptions" Content="Options" HorizontalAlignment="Left" Height="77" Margin="434,312,0,0" VerticalAlignment="Top" Width="163" Click="LoadOptions" FontFamily="Franklin Gothic Medium" FontSize="16"/>
+        <Button x:FieldModifier="public" x:Name="cmdRestart" Content="Restart" HorizontalAlignment="Left" Height="77" Margin="434,529,0,0" VerticalAlignment="Top" Width="163" Click="RestartGame" FontFamily="Franklin Gothic Medium" FontWeight="Normal" FontSize="16" Visibility="Collapsed"/>
         <TextBlock HorizontalAlignment="Left" Margin="430.879,123.774,0,0" TextWrapping="Wrap" Text="Welcome to Shadow Bound!" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" FontSize="40" UseLayoutRounding="False" d:LayoutRounding="Auto" FontFamily="Arial Black" SelectionChanged="TextBlock_SelectionChanged" Foreground="#FFE2DEDE">
             <TextBlock.RenderTransform>
                 <CompositeTransform SkewX="1.585" TranslateX="0.664" TranslateY="0.012"/>
             </TextBlock.RenderTransform>
         </TextBlock>
+        <Slider x:FieldModifier="public" x:Name="sldDifficulty" HorizontalAlignment="Left" Height="57" Margin="669,265,0,0" VerticalAlignment="Top" Width="550" ValueChanged="changeDifficulty" IsTabStop="False" Minimum="0.1" Value="0.5" Maximum="1" LargeChange="0.1" SmallChange="0.1" StepFrequency="0.1" FontFamily="Global User Interface" Foreground="#FFF19207" Background="#29F8F5F5"/>
+        <TextBlock HorizontalAlignment="Left" Margin="669,224,0,0" TextWrapping="Wrap" Text="Difficulty" VerticalAlignment="Top" Height="35" Width="159"  FontSize="24" FontFamily="Franklin Gothic Medium"/>
+        <TextBlock HorizontalAlignment="Left" Margin="669,351,0,0" TextWrapping="Wrap" Text="Enemy Speed" VerticalAlignment="Top" Height="35" Width="159"  FontSize="24" FontFamily="Franklin Gothic Medium"/>
+        <TextBlock HorizontalAlignment="Left" Margin="669,484,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="35" Width="258"  FontSize="24" FontFamily="Franklin Gothic Medium">
+        	<Run Text="Enemy Follower Speed"/>
+        	<LineBreak/>
+        	<Run/>
+        </TextBlock>
+        <Slider x:FieldModifier="public" x:Name="enemySpeedSld" HorizontalAlignment="Left" Margin="669,418,0,0" VerticalAlignment="Top" Width="550" Maximum="40" LargeChange="1" SmallChange="1" StepFrequency="1" ValueChanged="changeEnemySpeed" Background="#29F8F7F6" Foreground="#FFF19207" Minimum="10"/>
+        <Slider x:FieldModifier="public" x:Name="followerSpeedSld" HorizontalAlignment="Left" Margin="669,543,0,0" VerticalAlignment="Top" Width="550" ValueChanged="changeEnemyFollowerSpeed" LargeChange="1" Maximum="60" Minimum="10" SmallChange="1" StepFrequency="1" Value="0.1" Foreground="#FFF19207"/>
     </Grid>
 </Page>
