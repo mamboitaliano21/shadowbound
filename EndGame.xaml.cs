@@ -37,10 +37,14 @@ namespace Lab
         private void goToMainMenu(object sender, RoutedEventArgs e)
         {
             parent.restartGame();
+            float finderSpeed = parent.game.finderSpeed;
+            float followerSpeed = parent.game.followerSpeed;
             parent.game.started = false;
             parent.mainMenu = new MainMenu(parent);
             parent.mainMenu.cmdStart.Content = "Start";
             parent.mainMenu.cmdRestart.Visibility = Visibility.Collapsed;
+            parent.mainMenu.enemySpeedSld.Value = finderSpeed;
+            parent.mainMenu.followerSpeedSld.Value = followerSpeed;
             parent.Children.Add(parent.mainMenu);
             parent.Children.Remove(this);
         }
