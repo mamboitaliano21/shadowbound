@@ -79,6 +79,8 @@ namespace Lab
         public bool started = false;
         public float difficulty;
 
+        private SoundEffect backgroundSoundEffect = new SoundEffect(@"Content\applause_y.wav", true);
+
         /// <summary>
         /// Initializes a new instance of the <see cref="LabGame" /> class.
         /// </summary>
@@ -96,7 +98,8 @@ namespace Lab
             //assets = new Assets(this);
             random = new Random();
             this.mainPage = mainPage;
-            
+
+            backgroundSoundEffect.Play();
 
         }
 
@@ -162,7 +165,6 @@ namespace Lab
 
         public void LoadNewContent()
         {
-            this.score = 0;
             // remove old things
             gameObjects.Clear();
             enemies.Clear();
