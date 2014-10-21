@@ -21,8 +21,7 @@ namespace Lab
         {
             this.game = game;
             type = GameObjectType.Portal;
-            //this.pos = new Vector3(r.Next(0, 10), 10, r.Next(0, 10));
-            this.pos = new Vector3(0,0,0);
+            this.pos = new Vector3(r.Next(0, (int)game.landscape.getWidth()), 10, r.Next(0, (int)game.landscape.getWidth()));
 
             Vector3 frontBottomLeft = new Vector3(-1.0f, -1.0f, -1.0f);
             Vector3 frontTopLeft = new Vector3(-1.0f, 1.0f, -1.0f);
@@ -99,22 +98,22 @@ namespace Lab
             //    World = Matrix.Identity
 
             //};
-            
+
             inputLayout = VertexInputLayout.FromBuffer(0, vertices);
 
         }
-     
+
 
 
         public override void Update(GameTime gameTime)
         {
             var time = (float)gameTime.TotalGameTime.TotalSeconds;
 
-            World *= Matrix.Translation(pos);
+            World = Matrix.Translation(pos);
             WorldInverseTranspose = Matrix.Transpose(Matrix.Invert(World));
-            if (Vector3.Distance(game.player.pos, this.pos) < 1)
+            if (Vector3.Distance(game.player.pos, this.pos) < 5)
             {
-                gameEnd();
+                portalHit();
             }
 
         }
@@ -140,9 +139,10 @@ namespace Lab
 
 
 
-        private void gameEnd()
+        private void portalHit()
         {
-            game.Exit();
+            this.pos = new Vector3(r.Next(0, (int)game.landscape.getWidth()), 10, r.Next(0, (int)game.landscape.getWidth()));
+            this.game.score += 100;
         }
     }
 }

@@ -27,10 +27,11 @@ namespace Lab
         private Vector3 XAxis;
         private Vector3 YAxis; // TODO kyknya ga penting
         private Vector3 ZAxis;
+        private float cosLimit = (float) Math.Cos(20.0f * Math.PI / 180.0f);
 
         public Vector3 velocity;
         public float hp;
-        public float damage;
+        public float damage = 20;
 
         public Player(LabGame game)
         {
@@ -42,7 +43,6 @@ namespace Lab
             this.game = game;
             type = GameObjectType.Player;
             this.hp = 100;
-            this.damage = 50;
             
         }
 
@@ -178,22 +178,26 @@ namespace Lab
                 Matrix rotationMatrixX = Matrix.RotationAxis(XAxis, dRotationX * SENSITIVITY);
                 Matrix rotationMatrixY = Matrix.RotationAxis(YAxis, dRotationY * SENSITIVITY);
                 Vector3 eyeDirection = Vector3.TransformCoordinate(target - pos, rotationMatrixX * rotationMatrixY);
-                float theta = (float) Math.Acos(Vector3.Dot(eyeDirection, ZAxis) / (eyeDirection.Length() * ZAxis.Length())) * (float) (180 / Math.PI);
-                //Debug.WriteLine(theta);
-                if (!(theta >= 90))
+                float cosTheta = Vector3.Dot(eyeDirection, ZAxis) / (eyeDirection.Length() * ZAxis.Length());
+                Debug.WriteLine(cosTheta);
+                if (cosTheta < cosLimit)
                 {
-                    target = eyeDirection + pos; // rotation of target about pos
-                    XAxis = Vector3.TransformCoordinate(XAxis, rotationMatrixX * rotationMatrixY);
-                    //YAxis = Vector3.TransformCoordinate(YAxis, rotationMatrix); // TODO kyknya ga perlu
-                    ZAxis = Vector3.TransformCoordinate(ZAxis, rotationMatrixY);
+                    rotationMatrixX = Matrix.RotationAxis(XAxis, 0);
+                    eyeDirection = Vector3.TransformCoordinate(target - pos, rotationMatrixX * rotationMatrixY);
                 }
+                target = eyeDirection + pos; // rotation of target about pos
+                XAxis = Vector3.TransformCoordinate(XAxis, rotationMatrixX * rotationMatrixY);
+                //YAxis = Vector3.TransformCoordinate(YAxis, rotationMatrix); // TODO kyknya ga perlu
+                ZAxis = Vector3.TransformCoordinate(ZAxis, rotationMatrixY);
 
 
                 // check collision with lights
+                bool isHit = false;
                 for (int i = 0; i < game.enemies.Count; i++)
                 {
                     if (horizontalDistance(this.pos, game.enemies[i].pos) < game.enemies[i].pos.Y)
                     {
+                        isHit = true;
                         Debug.WriteLine("kena sama" + i.ToString());
                         hp -= damage * time;
                     }
@@ -202,6 +206,8 @@ namespace Lab
                         Debug.WriteLine("ga");
                     }
                 }
+                game.mainPage.IsHit(isHit);
+                Debug.WriteLine(hp);
                 // TODO
                 // Keep within the boundaries.
                 if (pos.X < game.boundaryLeft) { }
