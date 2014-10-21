@@ -14,15 +14,16 @@
         </Grid.Background>
         <Button x:Name="cmdBack" Content="Back" HorizontalAlignment="Left" Height="77" Margin="954,70,0,0" VerticalAlignment="Top" Width="163" Click="GoBack" FontFamily="Global User Interface" FontSize="16"/>
 
-        <Slider x:Name="sldDifficulty" HorizontalAlignment="Left" Height="57" Margin="383,276,0,0" VerticalAlignment="Top" Width="550" ValueChanged="changeDifficulty" Value="0.7" IsTabStop="False" Minimum="0.5" Maximum="2" LargeChange="0.1" SmallChange="0.1" StepFrequency="0.1" FontFamily="Global User Interface" Foreground="#FFF19207" Background="#29F8F5F5"/>
+        <Slider x:Name="sldDifficulty" HorizontalAlignment="Left" Height="57" Margin="383,276,0,0" VerticalAlignment="Top" Width="550" ValueChanged="changeDifficulty" IsTabStop="False" Minimum="0.1" Maximum="1" Value="0.1" LargeChange="0.1" SmallChange="0.1" StepFrequency="0.1" FontFamily="Global User Interface" Foreground="#FFF19207" Background="#29F8F5F5"/>
         <TextBlock HorizontalAlignment="Left" Margin="383,227,0,0" TextWrapping="Wrap" Text="Difficulty" VerticalAlignment="Top" Height="35" Width="159"  FontSize="24" FontFamily="Franklin Gothic Medium"/>
         <TextBlock HorizontalAlignment="Left" Margin="383,356,0,0" TextWrapping="Wrap" Text="Enemy Speed" VerticalAlignment="Top" Height="35" Width="159"  FontSize="24" FontFamily="Franklin Gothic Medium"/>
-        <Slider x:Name="sldEnemySpeed" HorizontalAlignment="Left"  ValueChanged="changeEnemySpeed" Height="57" Margin="383,407,0,0" VerticalAlignment="Top" Width="550" Value="0.7" IsTabStop="False" Minimum="0.5" Maximum="2" LargeChange="0.1" SmallChange="0.1" StepFrequency="0.1" FontFamily="Global User Interface" Foreground="#FFF19207" Background="#29F8F5F5"/>
+        <Slider x:Name="sldEnemySpeed" HorizontalAlignment="Left"  ValueChanged="changeEnemySpeed" Height="57" Margin="383,407,0,0" VerticalAlignment="Top" Width="550"  FontFamily="Global User Interface" Foreground="#FFF19207" Background="#29F8F5F5"/>
         <TextBlock HorizontalAlignment="Left" Margin="383,487,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="35" Width="258"  FontSize="24" FontFamily="Franklin Gothic Medium">
         	<Run Text="Enemy Follower Speed"/>
         	<LineBreak/>
         	<Run/>
         </TextBlock>
-        <Slider x:Name="sldEnemyFollowerSpeed" ValueChanged="changeEnemyFollowerSpeed" HorizontalAlignment="Left" Height="57" Margin="383,529,0,0" VerticalAlignment="Top" Width="550" Value="0.7" IsTabStop="False" Minimum="0.5" Maximum="2" LargeChange="0.1" SmallChange="0.1" StepFrequency="0.1" FontFamily="Global User Interface" Foreground="#FFF19207" Background="#29F8F5F5"/>
+        <Slider x:Name="sldEnemyFollowerSpeed" ValueChanged="changeEnemyFollowerSpeed" HorizontalAlignment="Left" Height="57" Margin="383,529,0,0" VerticalAlignment="Top" Width="550"
+                IsTabStop="False" Minimum="0.1" Maximum="1" Value="0.1" LargeChange="0.1" SmallChange="0.1" StepFrequency="0.1" FontFamily="Global User Interface" Foreground="#FFF19207" Background="#29F8F5F5"/>
     </Grid>
 </Page>

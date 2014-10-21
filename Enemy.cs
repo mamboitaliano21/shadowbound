@@ -127,7 +127,15 @@ namespace Lab
         public override void Update(GameTime gameTime)
         {
             var time = (float)gameTime.TotalGameTime.TotalSeconds;
-            
+           
+            if (this.type.Equals(EnemyType.Follower))
+            {
+                this.Speed = game.followerSpeed;
+            }
+            else
+            {
+                this.Speed = game.finderSpeed;
+            }
             World = Matrix.Translation(pos);
             WorldInverseTranspose = Matrix.Transpose(Matrix.Invert(World));
 

@@ -53,6 +53,8 @@ namespace Lab
         {
             game.started = false;
             mainMenu = new MainMenu(this);
+            mainMenu.cmdStart.Content = "Continue";
+            mainMenu.cmdRestart.Visibility = Visibility.Visible;
             this.Children.Add(mainMenu);
         }
 
