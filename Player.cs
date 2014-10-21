@@ -50,9 +50,6 @@ namespace Lab
         public override void Update(GameTime gameTime)
         {
             if (devMode) {
-
-                //Enable debugging of position
-                Debug.WriteLine(pos);
                 var time = (float)gameTime.ElapsedGameTime.TotalSeconds;
                 //TODO bad coding removing fire
                 if (game.keyboardState.IsKeyDown(Keys.Space)) {  } 
@@ -116,8 +113,6 @@ namespace Lab
 
                 //basicEffect.World = Matrix.Translation(pos);
             } else {
-                //Enable debugging of position
-                Debug.WriteLine(pos);
                 var time = (float)gameTime.ElapsedGameTime.TotalSeconds;
                 //TODO bad coding removing fire
                 if (game.keyboardState.IsKeyDown(Keys.Space)) {  } 
@@ -179,7 +174,6 @@ namespace Lab
                 Matrix rotationMatrixY = Matrix.RotationAxis(YAxis, dRotationY * SENSITIVITY);
                 Vector3 eyeDirection = Vector3.TransformCoordinate(target - pos, rotationMatrixX * rotationMatrixY);
                 float cosTheta = Vector3.Dot(eyeDirection, ZAxis) / (eyeDirection.Length() * ZAxis.Length());
-                Debug.WriteLine(cosTheta);
                 if (cosTheta < cosLimit)
                 {
                     rotationMatrixX = Matrix.RotationAxis(XAxis, 0);
@@ -198,16 +192,13 @@ namespace Lab
                     if (horizontalDistance(this.pos, game.enemies[i].pos) < game.enemies[i].pos.Y)
                     {
                         isHit = true;
-                        Debug.WriteLine("kena sama" + i.ToString());
                         hp -= damage * time;
                     }
                     else
                     {
-                        Debug.WriteLine("ga");
                     }
                 }
                 game.mainPage.IsHit(isHit);
-                Debug.WriteLine(hp);
                 // TODO
                 // Keep within the boundaries.
                 if (pos.X < game.boundaryLeft) { }

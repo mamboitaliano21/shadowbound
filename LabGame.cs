@@ -45,6 +45,7 @@ namespace Lab
         private Portal portal;
         private Effect cubeEffect;
         private Effect spotLightEffect;
+        private Effect portalEffect;
         //private Texture2D texture;
         private Texture2D texture;
         private EnemyController enemyController;
@@ -279,6 +280,9 @@ namespace Lab
                 this.spotLightEffect.Parameters["Projection"].SetValue(this.camera.Projection);
                 this.spotLightEffect.Parameters["View"].SetValue(this.camera.View);
                 this.spotLightEffect.Parameters["cameraPos"].SetValue(this.camera.cameraPos);
+                this.portalEffect.Parameters["Projection"].SetValue(this.camera.Projection);
+                this.portalEffect.Parameters["View"].SetValue(this.camera.View);
+                this.portalEffect.Parameters["cameraPos"].SetValue(this.camera.cameraPos);
 
                 //this.spotLightEffect.Parameters["Texture"].SetResource(texture);
                 this.spotLightEffect.Parameters["lightAmbCol"].SetValue(Color.White.ToVector3());
@@ -307,6 +311,7 @@ namespace Lab
                 for (int i = 0; i < gameObjects.Count; i++)
                 {
                     if (gameObjects[i].type == GameObjectType.Landscape) { gameObjects[i].Draw(gameTime, spotLightEffect); }
+                    else if (gameObjects[i].type == GameObjectType.Portal) { gameObjects[i].Draw(gameTime, portalEffect); }
                     else { gameObjects[i].Draw(gameTime, cubeEffect); }
                 }
                 // Handle base.Draw
@@ -354,6 +359,7 @@ namespace Lab
         {
             this.cubeEffect = Content.Load<Effect>("Phong");
             this.spotLightEffect = Content.Load<Effect>("Spotlight");
+            this.portalEffect = Content.Load<Effect>("Portal");
             this.cubeEffect.Parameters["Projection"].SetValue(this.camera.Projection);
             this.cubeEffect.Parameters["View"].SetValue(this.camera.View);
             this.cubeEffect.Parameters["cameraPos"].SetValue(this.camera.cameraPos);

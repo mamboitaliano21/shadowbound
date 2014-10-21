@@ -86,6 +86,7 @@
     <Content Include="Content\enemy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <ToolkitFxc Include="Content\Portal.fx" />
     <Content Include="Content\texture.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

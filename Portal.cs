@@ -16,21 +16,26 @@ namespace Lab
         Random r = new Random();
         private Matrix World = Matrix.Identity;
         private Matrix WorldInverseTranspose;
+        private Vector4 cubeCol;
+
+        private Vector4[] colorArray = {Color.Red.ToVector4(), Color.Blue.ToVector4(), Color.Violet.ToVector4(), Color.Green.ToVector4(), Color.Yellow.ToVector4(), Color.Purple.ToVector4(), Color.Chocolate.ToColor4(), Color.Gold.ToVector4()};
 
         public Portal(LabGame game)
         {
             this.game = game;
             type = GameObjectType.Portal;
             this.pos = new Vector3(r.Next(0, (int)game.landscape.getWidth()), 10, r.Next(0, (int)game.landscape.getWidth()));
+            this.cubeCol = randomColor();
 
-            Vector3 frontBottomLeft = new Vector3(-1.0f, -1.0f, -1.0f);
-            Vector3 frontTopLeft = new Vector3(-1.0f, 1.0f, -1.0f);
-            Vector3 frontTopRight = new Vector3(1.0f, 1.0f, -1.0f);
-            Vector3 frontBottomRight = new Vector3(1.0f, -1.0f, -1.0f);
-            Vector3 backBottomLeft = new Vector3(-1.0f, -1.0f, 1.0f);
-            Vector3 backBottomRight = new Vector3(1.0f, -1.0f, 1.0f);
-            Vector3 backTopLeft = new Vector3(-1.0f, 1.0f, 1.0f);
-            Vector3 backTopRight = new Vector3(1.0f, 1.0f, 1.0f);
+            float size = 2;
+            Vector3 frontBottomLeft = new Vector3(-size, -size, -size);
+            Vector3 frontTopLeft = new Vector3(-size, size, -size);
+            Vector3 frontTopRight = new Vector3(size, size, -size);
+            Vector3 frontBottomRight = new Vector3(size, -size, -size);
+            Vector3 backBottomLeft = new Vector3(-size, -size, size);
+            Vector3 backBottomRight = new Vector3(size, -size, size);
+            Vector3 backTopLeft = new Vector3(-size, size, size);
+            Vector3 backTopRight = new Vector3(size, size, size);
 
             Vector3 frontNormal = new Vector3(0.0f, 0.0f, -1.0f);
             Vector3 backNormal = new Vector3(0.0f, 0.0f, 1.0f);
@@ -48,46 +53,47 @@ namespace Lab
             Vector3 backTopLeftNormal = new Vector3(-0.333f, 0.333f, 0.333f);
             Vector3 backTopRightNormal = new Vector3(0.333f, 0.333f, 0.333f);
 
+            Color portalColor = Color.White;
             vertices = Buffer.Vertex.New(
                 game.GraphicsDevice,
                 new[]
                     {
-                    new VertexPositionNormalColor(frontBottomLeft, frontNormal, Color.Orange), // Front
-                    new VertexPositionNormalColor(frontTopLeft, frontNormal, Color.Orange),
-                    new VertexPositionNormalColor(frontTopRight, frontNormal, Color.Orange),
-                    new VertexPositionNormalColor(frontBottomLeft, frontNormal, Color.Orange),
-                    new VertexPositionNormalColor(frontTopRight, frontNormal, Color.Orange),
-                    new VertexPositionNormalColor(frontBottomRight, frontNormal, Color.Orange),
-                    new VertexPositionNormalColor(backBottomLeft, backNormal, Color.Orange), // BACK
-                    new VertexPositionNormalColor(backTopRight, backNormal, Color.Orange),
-                    new VertexPositionNormalColor(backTopLeft, backNormal, Color.Orange),
-                    new VertexPositionNormalColor(backBottomLeft, backNormal, Color.Orange),
-                    new VertexPositionNormalColor(backBottomRight, backNormal, Color.Orange),
-                    new VertexPositionNormalColor(backTopRight, backNormal, Color.Orange),
-                    new VertexPositionNormalColor(frontTopLeft, topNormal, Color.OrangeRed), // Top
-                    new VertexPositionNormalColor(backTopLeft, topNormal, Color.OrangeRed),
-                    new VertexPositionNormalColor(backTopRight, topNormal, Color.OrangeRed),
-                    new VertexPositionNormalColor(frontTopLeft, topNormal, Color.OrangeRed),
-                    new VertexPositionNormalColor(backTopRight, topNormal, Color.OrangeRed),
-                    new VertexPositionNormalColor(frontTopRight, topNormal, Color.OrangeRed),
-                    new VertexPositionNormalColor(frontBottomLeft, bottomNormal, Color.OrangeRed), // Bottom
-                    new VertexPositionNormalColor(backBottomRight, bottomNormal, Color.OrangeRed),
-                    new VertexPositionNormalColor(backBottomLeft, bottomNormal, Color.OrangeRed),
-                    new VertexPositionNormalColor(frontBottomLeft,bottomNormal, Color.OrangeRed),
-                    new VertexPositionNormalColor(frontBottomRight, bottomNormal, Color.OrangeRed),
-                    new VertexPositionNormalColor(backBottomRight, bottomNormal, Color.OrangeRed),
-                    new VertexPositionNormalColor(frontBottomLeft, leftNormal, Color.DarkOrange), // Left
-                    new VertexPositionNormalColor(backBottomLeft, leftNormal, Color.DarkOrange),
-                    new VertexPositionNormalColor(backTopLeft, leftNormal, Color.DarkOrange),
-                    new VertexPositionNormalColor(frontBottomLeft, leftNormal, Color.DarkOrange),
-                    new VertexPositionNormalColor(backTopLeft, leftNormal, Color.DarkOrange),
-                    new VertexPositionNormalColor(frontTopLeft, leftNormal, Color.DarkOrange),
-                    new VertexPositionNormalColor(frontBottomRight, rightNormal, Color.DarkOrange), // Right
-                    new VertexPositionNormalColor(backTopRight, rightNormal, Color.DarkOrange),
-                    new VertexPositionNormalColor(backBottomRight, rightNormal, Color.DarkOrange),
-                    new VertexPositionNormalColor(frontBottomRight, rightNormal, Color.DarkOrange),
-                    new VertexPositionNormalColor(frontTopRight, rightNormal, Color.DarkOrange),
-                    new VertexPositionNormalColor(backTopRight, rightNormal, Color.DarkOrange),
+                    new VertexPositionNormalColor(frontBottomLeft, frontBottomLeftNormal, portalColor), // Front
+                    new VertexPositionNormalColor(frontTopLeft, frontTopLeftNormal, portalColor),
+                    new VertexPositionNormalColor(frontTopRight, frontTopRightNormal, portalColor),
+                    new VertexPositionNormalColor(frontBottomLeft, frontBottomLeftNormal, portalColor),
+                    new VertexPositionNormalColor(frontTopRight, frontTopRightNormal, portalColor),
+                    new VertexPositionNormalColor(frontBottomRight, frontBottomRightNormal, portalColor),
+                    new VertexPositionNormalColor(backBottomLeft, backBottomLeftNormal, portalColor), // BACK
+                    new VertexPositionNormalColor(backTopRight, backTopRightNormal, portalColor),
+                    new VertexPositionNormalColor(backTopLeft, backTopLeftNormal, portalColor),
+                    new VertexPositionNormalColor(backBottomLeft, backBottomLeftNormal, portalColor),
+                    new VertexPositionNormalColor(backBottomRight, backBottomRightNormal, portalColor),
+                    new VertexPositionNormalColor(backTopRight, backTopRightNormal, portalColor),
+                    new VertexPositionNormalColor(frontTopLeft, frontTopLeftNormal, portalColor), // Top
+                    new VertexPositionNormalColor(backTopLeft, backTopLeftNormal, portalColor),
+                    new VertexPositionNormalColor(backTopRight, backTopRightNormal, portalColor),
+                    new VertexPositionNormalColor(frontTopLeft, frontTopLeftNormal, portalColor),
+                    new VertexPositionNormalColor(backTopRight, backTopRightNormal, portalColor),
+                    new VertexPositionNormalColor(frontTopRight, frontTopRightNormal, portalColor),
+                    new VertexPositionNormalColor(frontBottomLeft, frontBottomLeftNormal, portalColor), // Bottom
+                    new VertexPositionNormalColor(backBottomRight, backBottomRightNormal, portalColor),
+                    new VertexPositionNormalColor(backBottomLeft, backBottomLeftNormal, portalColor),
+                    new VertexPositionNormalColor(frontBottomLeft, frontBottomLeftNormal, portalColor),
+                    new VertexPositionNormalColor(frontBottomRight, frontBottomRightNormal, portalColor),
+                    new VertexPositionNormalColor(backBottomRight, backBottomRightNormal, portalColor),
+                    new VertexPositionNormalColor(frontBottomLeft, frontBottomLeftNormal, portalColor), // Left
+                    new VertexPositionNormalColor(backBottomLeft, backBottomLeftNormal, portalColor),
+                    new VertexPositionNormalColor(backTopLeft, backTopLeftNormal, portalColor),
+                    new VertexPositionNormalColor(frontBottomLeft, frontBottomLeftNormal, portalColor),
+                    new VertexPositionNormalColor(backTopLeft, backTopLeftNormal, portalColor),
+                    new VertexPositionNormalColor(frontTopLeft, frontTopLeftNormal, portalColor),
+                    new VertexPositionNormalColor(frontBottomRight, frontBottomRightNormal, portalColor), // Right
+                    new VertexPositionNormalColor(backTopRight, backTopRightNormal, portalColor),
+                    new VertexPositionNormalColor(backBottomRight, backBottomRightNormal, portalColor),
+                    new VertexPositionNormalColor(frontBottomRight, frontBottomRightNormal, portalColor),
+                    new VertexPositionNormalColor(frontTopRight, frontTopRightNormal, portalColor),
+                    new VertexPositionNormalColor(backTopRight, backTopRightNormal, portalColor),
                 });
 
             //basicEffect = new BasicEffect(game.GraphicsDevice)
@@ -127,6 +133,8 @@ namespace Lab
             //effect.Parameters["View"].SetValue(game.camera.View);
             //effect.Parameters["cameraPos"].SetValue(game.camera.cameraPos);
             this.effect.Parameters["worldInvTrp"].SetValue(WorldInverseTranspose);
+            this.effect.Parameters["lightPntPos"].SetValue(this.pos);
+            this.effect.Parameters["cubeCol"].SetValue(this.cubeCol);
 
             // Setup the vertices
             game.GraphicsDevice.SetVertexBuffer(vertices);
@@ -143,6 +151,12 @@ namespace Lab
         {
             this.pos = new Vector3(r.Next(0, (int)game.landscape.getWidth()), 10, r.Next(0, (int)game.landscape.getWidth()));
             this.game.score += 100;
+            this.cubeCol = randomColor();
+        }
+
+        private Vector4 randomColor()
+        {
+            return colorArray[game.random.Next(colorArray.Length)];
         }
     }
 }
