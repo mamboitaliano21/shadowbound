@@ -44,7 +44,7 @@ namespace Lab
 
         public void UpdateScore(int score)
         {
-            ScoreText.Text = "Score : " + score.ToString();
+            ScoreText.Text = score.ToString();
         }
         public void UpdateHP(float hp)
         {

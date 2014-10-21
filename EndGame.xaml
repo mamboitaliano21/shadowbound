@@ -13,6 +13,6 @@
         <TextBlock x:Name="ScoreText" Margin="0,309,0,333" TextWrapping="Wrap" Text="0" FontSize="108" TextAlignment="Center" Height="126"/>
         <Button x:Name="cmdMenu" Content="Main Menu" HorizontalAlignment="Stretch" Height="77" Margin="348,508,0,0" VerticalAlignment="Stretch" Width="163" Click="goToMainMenu" FontFamily="Franklin Gothic Medium" FontSize="16"/>
         <Button x:Name="cmdRestart" Content="Play Again" HorizontalAlignment="Stretch" Height="77" Margin="0,508,348,0" VerticalAlignment="Stretch" Click="RestartGame" FontFamily="Franklin Gothic Medium" FontSize="16" Width="163"/>
-        <TextBox x:Name="playerName" Margin="406,467,406,266" TextWrapping="Wrap" RenderTransformOrigin="-1.233,0.126" PlaceholderText="Enter Your Name" Height="35" Width="554" Background="White"/>
+        <TextBox x:Name="playerName" Margin="406,467,406,266" TextWrapping="Wrap" RenderTransformOrigin="-1.233,0.126" PlaceholderText="Enter Your Name" Height="35" Width="554" Background="White" TextChanged="changeName"/>
     </Grid>
 </Page>
