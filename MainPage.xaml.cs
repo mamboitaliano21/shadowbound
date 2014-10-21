@@ -49,6 +49,7 @@ namespace Lab
             HealthBar.Value = hp;
             if (hp <= 0)
             {
+                game.started = false;
                 this.Children.Add(new EndGame(this));
             }
         }
