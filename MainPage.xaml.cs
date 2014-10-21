@@ -18,7 +18,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+using Windows.UI;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media;
 using SharpDX;
 
 namespace Lab
@@ -47,12 +49,18 @@ namespace Lab
         public void UpdateHP(float hp)
         {
             HealthBar.Value = hp;
+            HealthBar.Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 224, 51));
             if (hp <= 0)
             {
                 game.started = false;
                 this.Children.Add(new EndGame(this));
             }
+            else if (hp <= 30)
+            {
+                HealthBar.Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 224, 0, 0));
+            }
         }
+
 
         private void GoBack(object sender, RoutedEventArgs e)
         {
