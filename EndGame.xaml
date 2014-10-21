@@ -1,0 +1,17 @@
+﻿<Page
+    x:Class="Lab.EndGame"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Lab"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="#7F000000">
+        <TextBlock x:Name="Text1" Margin="0,125,0,593" TextWrapping="Wrap" Text="Oops..." FontSize="40" TextAlignment="Center" Height="50"/>
+        <TextBlock x:Name="Text2" Margin="0,217,0,501" TextWrapping="Wrap" Text="Your final score is " FontSize="40" Height="50" TextAlignment="Center"/>
+        <TextBlock x:Name="ScoreText" Margin="0,309,0,333" TextWrapping="Wrap" Text="0" FontSize="108" TextAlignment="Center" Height="126"/>
+        <Button x:Name="cmdMenu" Content="Main Menu" HorizontalAlignment="Stretch" Height="77" Margin="348,508,0,0" VerticalAlignment="Stretch" Width="163" Click="goToMainMenu" FontFamily="Franklin Gothic Medium" FontSize="16"/>
+        <Button x:Name="cmdRestart" Content="Play Again" HorizontalAlignment="Stretch" Height="77" Margin="0,508,348,0" VerticalAlignment="Stretch" Click="RestartGame" FontFamily="Franklin Gothic Medium" FontSize="16" Width="163"/>
+    </Grid>
+</Page>

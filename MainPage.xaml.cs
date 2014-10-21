@@ -47,6 +47,11 @@ namespace Lab
         public void UpdateHP(float hp)
         {
             HealthBar.Value = hp;
+            if (hp <= 0)
+            {
+                game.started = false;
+                this.Children.Add(new EndGame(this));
+            }
         }
 
         private void GoBack(object sender, RoutedEventArgs e)
