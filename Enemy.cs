@@ -49,14 +49,15 @@ namespace Lab
             
             setAttribute(enemyType, speed);
 
-            Vector3 frontBottomLeft = new Vector3(-1.0f, -1.0f, -1.0f);
-            Vector3 frontTopLeft = new Vector3(-1.0f, 1.0f, -1.0f);
-            Vector3 frontTopRight = new Vector3(1.0f, 1.0f, -1.0f);
-            Vector3 frontBottomRight = new Vector3(1.0f, -1.0f, -1.0f);
-            Vector3 backBottomLeft = new Vector3(-1.0f, -1.0f, 1.0f);
-            Vector3 backBottomRight = new Vector3(1.0f, -1.0f, 1.0f);
-            Vector3 backTopLeft = new Vector3(-1.0f, 1.0f, 1.0f);
-            Vector3 backTopRight = new Vector3(1.0f, 1.0f, 1.0f);
+            float size = 3;
+            Vector3 frontBottomLeft = new Vector3(-size, -size, -size);
+            Vector3 frontTopLeft = new Vector3(-size, size, -size);
+            Vector3 frontTopRight = new Vector3(size, size, -size);
+            Vector3 frontBottomRight = new Vector3(size, -size, -size);
+            Vector3 backBottomLeft = new Vector3(-size, -size, size);
+            Vector3 backBottomRight = new Vector3(size, -size, size);
+            Vector3 backTopLeft = new Vector3(-size, size, size);
+            Vector3 backTopRight = new Vector3(size, size, size);
 
             Vector3 frontNormal = new Vector3(0.0f, 0.0f, -1.0f);
             Vector3 backNormal = new Vector3(0.0f, 0.0f, 1.0f);

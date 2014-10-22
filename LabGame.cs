@@ -20,16 +20,7 @@
 
 using SharpDX;
 using SharpDX.Toolkit;
-using System.IO;
-using Windows.Storage;
-using Windows.Storage.Streams;
-using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Metadata;
-using Windows.Storage.FileProperties;
-using Windows.Storage.Search;
 using System;
-using System.Text;
 using System.Collections.Generic;
 
 namespace Lab
@@ -54,13 +45,12 @@ namespace Lab
         private Portal portal;
         private Effect cubeEffect;
         private Effect spotLightEffect;
+        private Effect portalEffect;
         //private Texture2D texture;
         private Texture2D texture;
         private EnemyController enemyController;
         public MainPage mainPage;
-        public List<HighScore> scores;
         public int score;
-        public string name;
 
         //private Enemy enemy1;
         //private Enemy enemy2;
@@ -89,6 +79,8 @@ namespace Lab
         public bool started = false;
         public float difficulty;
 
+        private SoundEffect backgroundSoundEffect = new SoundEffect(@"Content\applause_y.wav", true);
+
         /// <summary>
         /// Initializes a new instance of the <see cref="LabGame" /> class.
         /// </summary>
@@ -106,39 +98,19 @@ namespace Lab
             //assets = new Assets(this);
             random = new Random();
             this.mainPage = mainPage;
-            //this.score = 100;
-            //this.name = "Brian";
 
-            var task = this.WriteDataToFileAsync("textBrian1.txt", name + " " + score);
-            task.ConfigureAwait(false);
-        }
+            backgroundSoundEffect.Play();
 
-        public async Task WriteDataToFileAsync(string filename, string content)
-        {
-
-            byte[] data = Encoding.Unicode.GetBytes(content);
-            var folder = ApplicationData.Current.LocalFolder;
-            var file = await folder.CreateFileAsync(filename, CreationCollisionOption.OpenIfExists);
-            
-            if (file != null)
-            {
-                await FileIO.AppendTextAsync(file, content);
-            }
-            else
-            {
-                // Write some content to the file
-                await FileIO.WriteTextAsync(file, content);
-            }
-           
         }
 
         protected override void LoadContent()
         {
+            this.score = 0;
             // Initialise game object containers.
             gameObjects = new List<GameObject>();
             addedGameObjects = new Stack<GameObject>();
             removedGameObjects = new Stack<GameObject>();
-            scores = new List<HighScore>();
+          
 
             // Create game objects.
             player = new Player(this);
@@ -181,7 +153,7 @@ namespace Lab
 
 
 
-            initEffect();
+                initEffect();
             //gameObjects.Add(new EnemyController(this));
             
             
@@ -196,61 +168,7 @@ namespace Lab
             // remove old things
             gameObjects.Clear();
             enemies.Clear();
-
-            // Initialise game object containers.
-            gameObjects = new List<GameObject>();
-            addedGameObjects = new Stack<GameObject>();
-            removedGameObjects = new Stack<GameObject>();
-
-
-            // Create game objects.
-            player = new Player(this);
-            landscape = new Landscape(this);
-            camera = new Camera(this);
-            enemyController = new EnemyController(this);
-            portal = new Portal(this);
-
-            gameObjects.Add(player);
-            gameObjects.Add(landscape);
-            gameObjects.Add(portal);
-
-            // add enemies
-            enemies = new List<Enemy>();
-
-            enemies.Add(new Enemy(this, new Vector3(10, 50, 10), EnemyType.Follower, followerSpeed));
-            /*enemies.Add(new Enemy(this, new Vector3(10, 20, 100), EnemyType.Wanderer, finderSpeed));
-            enemies.Add(new Enemy(this, new Vector3(100, 20, 100), EnemyType.Wanderer, finderSpeed));
-            enemies.Add(new Enemy(this, new Vector3(100, 20, 10), EnemyType.Wanderer, finderSpeed));
-            enemies.Add(new Enemy(this, new Vector3(50, 20, 50), EnemyType.Wanderer, finderSpeed));
-            enemies.Add(new Enemy(this, new Vector3(70, 20, 70), EnemyType.Wanderer, finderSpeed));
-            enemies.Add(new Enemy(this, new Vector3(30, 20, 70), EnemyType.Wanderer, finderSpeed));*/
-
-
-            Vector3 randomPos;
-            for (int i = 0; i < enemyCount; i++)
-            {
-                randomPos = new Vector3(random.NextFloat(i, landscape.getWidth()), 100.0f, random.NextFloat(i, landscape.getWidth()));
-                enemies.Add(new Enemy(this, randomPos, EnemyType.Wanderer, finderSpeed));
-            }
-
-
-            /*for (int i = 0; i < enemies.L; i++)
-            {
-                // random pos for enemy
-                Vector3 randomPos = new Vector3(random.NextFloat( i*2, landscape.getWidth()), 50.0f, random.NextFloat(i*2, landscape.getWidth()));
-                enemies.Add(new Enemy(this, randomPos, EnemyType.Wanderer, finderSpeed));
-            }*/
-
-
-
-
-            initEffect();
-            //gameObjects.Add(new EnemyController(this));
-
-
-            // Create an input layout from the vertices
-
-            base.LoadContent();
+            LoadContent();
         }
 
 
@@ -311,6 +229,9 @@ namespace Lab
                 this.spotLightEffect.Parameters["Projection"].SetValue(this.camera.Projection);
                 this.spotLightEffect.Parameters["View"].SetValue(this.camera.View);
                 this.spotLightEffect.Parameters["cameraPos"].SetValue(this.camera.cameraPos);
+                this.portalEffect.Parameters["Projection"].SetValue(this.camera.Projection);
+                this.portalEffect.Parameters["View"].SetValue(this.camera.View);
+                this.portalEffect.Parameters["cameraPos"].SetValue(this.camera.cameraPos);
 
                 //this.spotLightEffect.Parameters["Texture"].SetResource(texture);
                 this.spotLightEffect.Parameters["lightAmbCol"].SetValue(Color.White.ToVector3());
@@ -339,6 +260,7 @@ namespace Lab
                 for (int i = 0; i < gameObjects.Count; i++)
                 {
                     if (gameObjects[i].type == GameObjectType.Landscape) { gameObjects[i].Draw(gameTime, spotLightEffect); }
+                    else if (gameObjects[i].type == GameObjectType.Portal) { gameObjects[i].Draw(gameTime, portalEffect); }
                     else { gameObjects[i].Draw(gameTime, cubeEffect); }
                 }
                 // Handle base.Draw
@@ -386,6 +308,7 @@ namespace Lab
         {
             this.cubeEffect = Content.Load<Effect>("Phong");
             this.spotLightEffect = Content.Load<Effect>("Spotlight");
+            this.portalEffect = Content.Load<Effect>("Portal");
             this.cubeEffect.Parameters["Projection"].SetValue(this.camera.Projection);
             this.cubeEffect.Parameters["View"].SetValue(this.camera.View);
             this.cubeEffect.Parameters["cameraPos"].SetValue(this.camera.cameraPos);

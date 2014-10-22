@@ -80,24 +80,24 @@ float4 PS(PS_IN input) : SV_Target
 	float Ka = 0.5;
 	float3 amb = input.col.rgb*lightAmbCol.rgb*Ka;
 
-		// Calculate diffuse RBG reflections
-		float fAtt = 1;
+	// Calculate diffuse RBG reflections
+	float fAtt = 1;
 	float Kd = 1;
 	float3 L = normalize(-lightDir);
-		float LdotN = saturate(dot(L, interpNormal.xyz));
+	float LdotN = saturate(dot(L, interpNormal.xyz));
 	float3 dif = fAtt*lightPntCol.rgb*Kd*input.col.rgb*LdotN;
 
-		// Calculate specular reflections
-		float Ks = 1;
+	// Calculate specular reflections
+	float Ks = 1;
 	float specN = 20; // Numbers>>1 give more mirror-like highlights
 	float3 V = normalize(cameraPos.xyz - input.wpos.xyz);
-		float3 R = normalize(2 * LdotN*interpNormal.xyz - L.xyz);
-		//float3 R = normalize(0.5*(L.xyz+V.xyz)); //Blinn-Phong equivalent
-		float3 spe = fAtt*lightPntCol.rgb*Ks*pow(saturate(dot(V, R)), specN);
+	float3 R = normalize(2 * LdotN*interpNormal.xyz - L.xyz);
+	//float3 R = normalize(0.5*(L.xyz+V.xyz)); //Blinn-Phong equivalent
+	float3 spe = fAtt*lightPntCol.rgb*Ks*pow(saturate(dot(V, R)), specN);
 
-		// Combine reflection components
-		float4 returnCol = float4(0.0f, 0.0f, 0.0f, 0.0f);
-		returnCol.rgb = amb.rgb + dif.rgb + spe.rgb;
+	// Combine reflection components
+	float4 returnCol = float4(0.0f, 0.0f, 0.0f, 0.0f);
+	returnCol.rgb = amb.rgb + dif.rgb + spe.rgb;
 	returnCol.a = input.col.a;
 
 	return returnCol;
