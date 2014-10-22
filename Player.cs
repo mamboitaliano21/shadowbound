@@ -18,6 +18,7 @@ namespace Lab
         public int MS = 90;
         private const float SENSITIVITY = 0.03f;
         private Boolean devMode = false;
+        private int ENEMY_NEAR_DISTANCE = 80;
 
         // player position and eye target
         public Vector3 pos;
@@ -33,6 +34,8 @@ namespace Lab
         public float hp;
         public float damage = 20;
 
+        public SoundEffect enemySoundEffect;
+
         public Player(LabGame game)
         {
             this.pos = new Vector3(16,10,0);
@@ -43,7 +46,8 @@ namespace Lab
             this.game = game;
             type = GameObjectType.Player;
             this.hp = 100;
-            
+
+            enemySoundEffect = new SoundEffect(@"Content\applause_y.wav", true);
         }
 
         // Frame update.
@@ -187,18 +191,31 @@ namespace Lab
 
                 // check collision with lights
                 bool isHit = false;
+                bool isEnemyNear = false;
+                float enemyDistance;
                 for (int i = 0; i < game.enemies.Count; i++)
                 {
-                    if (horizontalDistance(this.pos, game.enemies[i].pos) < game.enemies[i].pos.Y)
+                    enemyDistance = horizontalDistance(this.pos, game.enemies[i].pos);
+                    if (enemyDistance < game.enemies[i].pos.Y)
                     {
                         isHit = true;
                         hp -= damage * time;
+                        isEnemyNear = true;
                     }
-                    else
+                    else if (enemyDistance < ENEMY_NEAR_DISTANCE)
                     {
+                        isEnemyNear = true;
                     }
                 }
                 game.mainPage.IsHit(isHit);
+                if (isEnemyNear && !enemySoundEffect.isStarted)
+                {
+                    enemySoundEffect.Play();
+                }
+                else if (!isEnemyNear && enemySoundEffect.isStarted)
+                {
+                    enemySoundEffect.Stop();
+                }
                 // TODO
                 // Keep within the boundaries.
                 if (pos.X < game.boundaryLeft) { }

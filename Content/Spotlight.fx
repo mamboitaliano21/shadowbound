@@ -111,7 +111,7 @@ float4 PS( PS_IN input ) : SV_Target
 
 	float Ka = 0.3f;
 	float fAtt = 1;		
-	float Kd = 1.0f;
+	float Kd = 2.0f;
 	float Ks = 1.0f;
 	float specN = 5; // Numbers>>1 give more mirror-like highlights
 	//float theta = 20.0f;

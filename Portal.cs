@@ -19,7 +19,7 @@ namespace Lab
         private Vector4 cubeCol;
 
         private Vector4[] colorArray = {Color.Red.ToVector4(), Color.Blue.ToVector4(), Color.Violet.ToVector4(), Color.Green.ToVector4(), Color.Yellow.ToVector4(), Color.Purple.ToVector4(), Color.Chocolate.ToColor4(), Color.Gold.ToVector4()};
-        private SoundEffect shotEffect = new SoundEffect(@"Content\eat.wav", false);
+        private SoundEffect hitSoundEffect;
 
         public Portal(LabGame game)
         {
@@ -108,6 +108,7 @@ namespace Lab
 
             inputLayout = VertexInputLayout.FromBuffer(0, vertices);
 
+            hitSoundEffect = new SoundEffect(@"Content\eat.wav", false);
         }
 
 
@@ -152,7 +153,7 @@ namespace Lab
         {
             this.pos = new Vector3(r.Next(0, (int)game.landscape.getWidth()), 10, r.Next(0, (int)game.landscape.getWidth()));
             this.game.score += 100;
-            shotEffect.Play();
+            hitSoundEffect.Play();
             this.cubeCol = randomColor();
         }
 

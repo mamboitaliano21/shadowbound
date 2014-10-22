@@ -22,6 +22,7 @@ using SharpDX;
 using SharpDX.Toolkit;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Lab
 {
@@ -32,7 +33,6 @@ namespace Lab
 
     public class LabGame : Game
     {
-        private int MAX_LIGHT = 5;
         private GraphicsDeviceManager graphicsDeviceManager;
         public List<GameObject> gameObjects;
         public List<Enemy> enemies;
@@ -79,7 +79,7 @@ namespace Lab
         public bool started = false;
         public float difficulty;
 
-        private SoundEffect backgroundSoundEffect = new SoundEffect(@"Content\applause_y.wav", true);
+        private SoundEffect backgroundSoundEffect = new SoundEffect(@"Content\alpha-beta.wav", true);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LabGame" /> class.
@@ -100,7 +100,7 @@ namespace Lab
             this.mainPage = mainPage;
 
             backgroundSoundEffect.Play();
-
+            backgroundSoundEffect.SetVolume(0.5f);
         }
 
         protected override void LoadContent()
@@ -165,6 +165,9 @@ namespace Lab
 
         public void LoadNewContent()
         {
+            // stop enemy's sound
+            player.enemySoundEffect.Stop();
+
             // remove old things
             gameObjects.Clear();
             enemies.Clear();
@@ -201,15 +204,23 @@ namespace Lab
                 camera.Update();
                 if (keyboardState.IsKeyDown(Keys.Escape))
                 {
-                    this.Exit();
-                    this.Dispose();
+                    //this.Exit();
+                    //this.Dispose();
+                    backgroundSoundEffect.Stop();
                 }
+
+                if (keyboardState.IsKeyDown(Keys.Tab))
+                {
+                    backgroundSoundEffect.Play();
+                }
+
                 mainPage.UpdateScore(score);
                 mainPage.UpdateHP(this.player.hp);
 
                 
                 // Handle base.Update
                 base.Update(gameTime);
+                //Debug.WriteLine(backgroundSoundEffect.GetVolume());
             }
 
         }
