@@ -85,7 +85,6 @@
     <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\StoreLogo.png" />
-    <Content Include="Content\alpha-beta.wav" />
     <Content Include="Content\applause_y.wav" />
     <Content Include="Content\birds001.wav" />
     <Content Include="Content\eat.wav" />

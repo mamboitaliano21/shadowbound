@@ -79,7 +79,7 @@ namespace Lab
         public bool started = false;
         public float difficulty;
 
-        private SoundEffect backgroundSoundEffect = new SoundEffect(@"Content\alpha-beta.wav", true);
+        private SoundEffect backgroundSoundEffect = new SoundEffect(@"Content\ghostly-drone.wav", true);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LabGame" /> class.
@@ -100,7 +100,7 @@ namespace Lab
             this.mainPage = mainPage;
 
             backgroundSoundEffect.Play();
-            backgroundSoundEffect.SetVolume(0.5f);
+            //backgroundSoundEffect.SetVolume(0.5f);
         }
 
         protected override void LoadContent()
