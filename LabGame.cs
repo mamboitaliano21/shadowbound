@@ -20,7 +20,16 @@
 
 using SharpDX;
 using SharpDX.Toolkit;
+using System.IO;
+using Windows.Storage;
+using Windows.Storage.Streams;
+using System.Threading.Tasks;
+using Windows.Foundation;
+using Windows.Foundation.Metadata;
+using Windows.Storage.FileProperties;
+using Windows.Storage.Search;
 using System;
+using System.Text;
 using System.Collections.Generic;
 
 namespace Lab
@@ -49,7 +58,9 @@ namespace Lab
         private Texture2D texture;
         private EnemyController enemyController;
         public MainPage mainPage;
+        public List<HighScore> scores;
         public int score;
+        public string name;
 
         //private Enemy enemy1;
         //private Enemy enemy2;
@@ -95,9 +106,30 @@ namespace Lab
             //assets = new Assets(this);
             random = new Random();
             this.mainPage = mainPage;
-            this.score = 0;
-            
+            //this.score = 100;
+            //this.name = "Brian";
 
+            var task = this.WriteDataToFileAsync("textBrian1.txt", name + " " + score);
+            task.ConfigureAwait(false);
+        }
+
+        public async Task WriteDataToFileAsync(string filename, string content)
+        {
+
+            byte[] data = Encoding.Unicode.GetBytes(content);
+            var folder = ApplicationData.Current.LocalFolder;
+            var file = await folder.CreateFileAsync(filename, CreationCollisionOption.OpenIfExists);
+            
+            if (file != null)
+            {
+                await FileIO.AppendTextAsync(file, content);
+            }
+            else
+            {
+                // Write some content to the file
+                await FileIO.WriteTextAsync(file, content);
+            }
+           
         }
 
         protected override void LoadContent()
@@ -106,7 +138,7 @@ namespace Lab
             gameObjects = new List<GameObject>();
             addedGameObjects = new Stack<GameObject>();
             removedGameObjects = new Stack<GameObject>();
-          
+            scores = new List<HighScore>();
 
             // Create game objects.
             player = new Player(this);
@@ -149,7 +181,7 @@ namespace Lab
 
 
 
-                initEffect();
+            initEffect();
             //gameObjects.Add(new EnemyController(this));
             
             
