@@ -123,9 +123,9 @@ namespace Lab
                 currPos.X = 0;
             }
 
-            if (currPos.Y <= 0)
+            if (currPos.Z <= 0)
             {
-                currPos.Y = 0;
+                currPos.Z = 0;
             }
 
             if (currPos.X >= game.landscape.getWidth())
@@ -133,9 +133,9 @@ namespace Lab
                 currPos.X = game.landscape.getWidth();
             }
 
-            if (currPos.Y >= game.landscape.getWidth())
+            if (currPos.Z >= game.landscape.getWidth())
             {
-                currPos.Y = game.landscape.getWidth();
+                currPos.Z = game.landscape.getWidth();
             }
             e.setPos(currPos.X, currPos.Y, currPos.Z);
         }
