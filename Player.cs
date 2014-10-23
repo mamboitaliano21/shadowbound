@@ -136,13 +136,13 @@ namespace Lab
                 {
                     dz -= 1;
                 }
-                if (game.keyboardState.IsKeyDown(Keys.D))
-                {
-                    dx += 1;
-                }
-                if (game.keyboardState.IsKeyDown(Keys.A)) {
-                    dx -= 1;
-                }
+                //if (game.keyboardState.IsKeyDown(Keys.D))
+                //{
+                //    dx += 1;
+                //}
+                //if (game.keyboardState.IsKeyDown(Keys.A)) {
+                //    dx -= 1;
+                //}
                 
                 if ((dz != 0) && (dx != 0))
                 {
