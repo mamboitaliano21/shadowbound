@@ -180,9 +180,16 @@ namespace Lab
                 //{
                 //    dRotationX++;
                 //}
-                if (Math.Abs(game.accelerometerReading.AccelerationX) > 0.15)
+                try
                 {
-                    dRotationY += (float)game.accelerometerReading.AccelerationX * 5;
+                    if (Math.Abs(game.accelerometerReading.AccelerationX) > 0.15)
+                    {
+                        dRotationY += (float)game.accelerometerReading.AccelerationX * 5;
+                    }
+                }
+                catch (Exception)
+                {
+
                 }
                 Matrix rotationMatrixY = Matrix.RotationAxis(YAxis, dRotationY * SENSITIVITY);
                 Vector3 eyeDirection = Vector3.TransformCoordinate(target - pos, rotationMatrixY);
