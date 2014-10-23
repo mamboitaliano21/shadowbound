@@ -7,13 +7,15 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"    
 >
-    <Grid>
+    <Grid Margin="10,0,-10,0">
         <Grid.Background>
             <SolidColorBrush x:Name="background" Color="White" Opacity="0.0"></SolidColorBrush>
         </Grid.Background>
         <Button  x:FieldModifier="public" x:Name="cmdBack" Content="Pause" HorizontalAlignment="Right" Margin="0,25,44,0" VerticalAlignment="Top" Click="GoBack" FontFamily="Franklin Gothic Medium" Width="163" Height="77"/>
-    <TextBlock x:Name="ScoreText" HorizontalAlignment="Left" Margin="32,28,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="40"/>
-    <ProgressBar x:Name="HealthBar" Height="22" VerticalAlignment="Bottom" Value="100" Foreground="#FF17A800" Background="#59FFFFFF" IsIndeterminate="True"/>
+        <TextBlock x:Name="ScoreText" HorizontalAlignment="Left" Margin="32,28,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="40"/>
+        <ProgressBar x:Name="HealthBar" Height="22" VerticalAlignment="Bottom" Value="100" Foreground="#FF17A800" Background="#59FFFFFF" IsIndeterminate="True"/>
+        <Button Content="" x:FieldModifier="public" x:Name="rightButton" HorizontalAlignment="Left" Margin="705,134,0,0" VerticalAlignment="Top" Width="654" Height="610" Opacity="0" BorderThickness="0"/>
+        <Button Content="" x:FieldModifier="public"  x:Name="leftButton" HorizontalAlignment="Left" Margin="-3,134,0,0" VerticalAlignment="Top" Width="709" Height="610" Opacity="0" BorderThickness="0" />
     </Grid>
 
 </SwapChainBackgroundPanel>

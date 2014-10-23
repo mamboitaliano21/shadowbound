@@ -29,12 +29,15 @@ namespace Lab
         private Vector3 YAxis; // TODO kyknya ga penting
         private Vector3 ZAxis;
         private float cosLimit = (float) Math.Cos(20.0f * Math.PI / 180.0f);
+        private float dz,dx;
 
         public Vector3 velocity;
         public float hp;
         public float damage = 20;
 
         public SoundEffect enemySoundEffect;
+        public Boolean moveForward = false;
+        public Boolean moveBackward = false;
 
         public Player(LabGame game)
         {
@@ -59,7 +62,8 @@ namespace Lab
                 if (game.keyboardState.IsKeyDown(Keys.Space)) {  } 
 
                 // Determine velocity based on keys being pressed.
-                float dz = 0, dx = 0;
+                dz = 0; 
+                dx = 0;
                 if (game.keyboardState.IsKeyDown(Keys.W)) {
                     dz += 1;
                 }
@@ -87,7 +91,7 @@ namespace Lab
                 target += change;
 
                 // Change direction player is facing
-                int dRotationY = 0, dRotationX = 0;
+                float dRotationY = 0, dRotationX = 0;
                 if (game.keyboardState.IsKeyDown(Keys.Left)) {
                     dRotationY--;
                 }
@@ -103,7 +107,7 @@ namespace Lab
                 {
                     dRotationX++;
                 }
-
+                
                 Matrix rotationMatrix = Matrix.RotationAxis(YAxis, dRotationY*SENSITIVITY) * Matrix.RotationAxis(XAxis, dRotationX*SENSITIVITY);
                 target = Vector3.TransformCoordinate(target - pos, rotationMatrix) + pos; // rotation of target about pos
                 XAxis = Vector3.TransformCoordinate(XAxis, rotationMatrix);
@@ -122,11 +126,14 @@ namespace Lab
                 if (game.keyboardState.IsKeyDown(Keys.Space)) {  } 
 
                 // Determine velocity based on keys being pressed.
-                float dz = 0, dx = 0;
-                if (game.keyboardState.IsKeyDown(Keys.W)) {
+                dz = 0;
+                dx = 0;
+
+                if (game.keyboardState.IsKeyDown(Keys.W) || game.mainPage.rightButton.IsPressed)
+                {
                     dz += 1;
                 }
-                if (game.keyboardState.IsKeyDown(Keys.S))
+                if (game.keyboardState.IsKeyDown(Keys.S) || game.mainPage.leftButton.IsPressed)
                 {
                     dz -= 1;
                 }
@@ -158,7 +165,7 @@ namespace Lab
                 }
 
                 // Change direction player is facing
-                int dRotationY = 0, dRotationX = 0;
+                float dRotationY = 0, dRotationX = 0;
                 if (game.keyboardState.IsKeyDown(Keys.Left)) {
                     dRotationY--;
                 }
@@ -173,6 +180,10 @@ namespace Lab
                 if (game.keyboardState.IsKeyDown(Keys.Down))
                 {
                     dRotationX++;
+                }
+                if (Math.Abs(game.accelerometerReading.AccelerationX) > 0.15)
+                {
+                    dRotationY += (float)game.accelerometerReading.AccelerationX * 5;
                 }
                 Matrix rotationMatrixX = Matrix.RotationAxis(XAxis, dRotationX * SENSITIVITY);
                 Matrix rotationMatrixY = Matrix.RotationAxis(YAxis, dRotationY * SENSITIVITY);
@@ -253,6 +264,16 @@ namespace Lab
         public override void Draw(GameTime gameTime,Effect effect)
         {
 
+        }
+
+        public void move()
+        {
+            dz += 1;
+        }
+
+        public void goBack()
+        {
+            dz -= 1;
         }
 
         // React to getting hit by an enemy bullet.

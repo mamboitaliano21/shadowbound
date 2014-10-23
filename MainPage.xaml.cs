@@ -76,6 +76,8 @@ namespace Lab
             this.Children.Add(mainMenu);
         }
 
+
+
         public void StartGame()
         {
             this.Children.Remove(mainMenu);
@@ -105,5 +107,10 @@ namespace Lab
                 background.Opacity = 0.0;
             }
         }
+
+
+
+  
+
     }
 }
