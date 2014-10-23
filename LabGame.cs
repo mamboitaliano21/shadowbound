@@ -31,6 +31,7 @@ using Windows.Storage.Search;
 using System;
 using System.Text;
 using System.Collections.Generic;
+using Windows.Devices.Sensors;
 
 namespace Lab
 {
@@ -60,6 +61,8 @@ namespace Lab
         public MainPage mainPage;
         public int score;
         public string name;
+        public AccelerometerReading accelerometerReading;
+        public GameInput input;
         public List<Tuple<string, int>> scoreList = new List<Tuple<string,int>>();
         List<Tuple<string, int>> stores = new List<Tuple<string, int>>();
         //private Enemy enemy1;
@@ -112,6 +115,7 @@ namespace Lab
 
             backgroundSoundEffect = new SoundEffect(@"Content\ghostly-drone-cutwav.wav", true);
             menuSoundEffect = new SoundEffect(@"Content\Scary-choir.wav", true);
+            input = new GameInput();
             /*this.score = 300;
             this.name = "Erlangga";
             var task = this.WriteDataToFileAsync("textBrian1.txt", name + "\t" + score + "\n");
@@ -291,6 +295,10 @@ namespace Lab
                 keyboardState = keyboardManager.GetState();
                 flushAddedAndRemovedGameObjects();
                 enemyController.Update(gameTime);
+                if (input.accelerometer != null)
+                {
+                    accelerometerReading = input.accelerometer.GetCurrentReading();
+                }
                 for (int i = 0; i < enemies.Count; i++)
                 {
                     enemies[i].Update(gameTime);
