@@ -61,7 +61,7 @@ namespace Lab
         public int score;
         public string name;
         public List<Tuple<string, int>> scoreList = new List<Tuple<string,int>>();
-
+        List<Tuple<string, int>> stores = new List<Tuple<string, int>>();
         //private Enemy enemy1;
         //private Enemy enemy2;
         //private Enemy enemy3;
@@ -131,38 +131,35 @@ namespace Lab
 
         public List<Tuple<string, int>> readFromList(string fileName)
         {
-            /*string content = input.Item1 + "\t" + Convert.ToInt32(input.Item2) + "\n";
-            var task = this.WriteDataToFileAsync("textBrian1.txt", content);
-            task.ConfigureAwait(false);
-
-            return this.scoreList;*/
             var task = ReadFileContentsAsync(fileName);
+            task.ConfigureAwait(false);
+            scoreList.Sort((a, b) => b.Item2.CompareTo(a.Item2));
             return this.scoreList;
         }
 
         public async Task WriteDataToFileAsync(string filename, string content)
         {
-            //this.scoreList.Clear();
+            
             var folder = ApplicationData.Current.LocalFolder;
             var file = await folder.CreateFileAsync(filename, CreationCollisionOption.OpenIfExists);
-            var task = this.ReadFileContentsAsync(filename);
+            //var task = this.ReadFileContentsAsync(filename);
             //task.ConfigureAwait(false);
 
-            scoreList.Add(Tuple.Create<string, int>(name, score));
+            //scoreList.Add(Tuple.Create<string, int>(name, score));
 
-            scoreList.Sort((a, b) => b.Item2.CompareTo(a.Item2));
-            await FileIO.WriteTextAsync(file, getAsString(scoreList));
-            this.scoreList.Clear();
-            /*if (file != null)
+            //scoreList.Sort((a, b) => b.Item2.CompareTo(a.Item2));
+            //await FileIO.AppendTextAsync(file, content); //getAsString(scoreList));
+            //this.scoreList.Clear();
+            if (file != null)
             {
-                await FileIO.AppendTextAsync(file, getAsString(scoreList));
+                await FileIO.AppendTextAsync(file, content);
             }
             else
             {
                 // Write some content to the file
-                await FileIO.WriteTextAsync(file, getAsString(scoreList));
-            }*/
-
+                await FileIO.WriteTextAsync(file, content);
+            }
+            //this.scoreList.Add(getTuple(content));
         }
 
         private Tuple<string, int> getTuple(string input)
@@ -176,9 +173,12 @@ namespace Lab
 
         public async Task ReadFileContentsAsync(string fileName)
         {
+            //this.scoreList.Clear();
+            List<Tuple<string, int>> stores = new List<Tuple<string, int>>();
+            //stores.Add(Tuple.Create<string, int>(this.name, Convert.ToInt32(this.score.ToString())));
             var folder = ApplicationData.Current.LocalFolder;
-            
             string text;
+            
             try
             {
                 var file = await folder.OpenStreamForReadAsync(fileName);
@@ -187,7 +187,7 @@ namespace Lab
                 {
                     while ((text = streamReader.ReadLine()) != null)
                     {
-                        this.scoreList.Add(getTuple(text));
+                        stores.Add(getTuple(text));
                     }
                 }
             }
@@ -195,7 +195,7 @@ namespace Lab
             {
                 
             }
-
+            this.scoreList = stores;
         }
 
         protected override void LoadContent()
@@ -205,7 +205,7 @@ namespace Lab
             gameObjects = new List<GameObject>();
             addedGameObjects = new Stack<GameObject>();
             removedGameObjects = new Stack<GameObject>();
-          
+            
 
             // Create game objects.
             player = new Player(this);
