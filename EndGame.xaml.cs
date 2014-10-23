@@ -68,6 +68,10 @@ namespace Lab
             float finderSpeed = parent.game.finderSpeed;
             float followerSpeed = parent.game.followerSpeed;
 
+            parent.game.name = playerName.Text;
+            parent.game.score = Convert.ToInt32(ScoreText.Text);
+            storingScore(parent.game.name, parent.game.score);
+
             parent.restartGame();
             parent.game.started = false;
 
@@ -77,9 +81,9 @@ namespace Lab
             parent.mainMenu.enemySpeedSld.Value = finderSpeed;
             parent.mainMenu.followerSpeedSld.Value = followerSpeed;
             parent.Children.Add(parent.mainMenu);
-            parent.game.name = playerName.Text;
-            parent.game.score = Convert.ToInt32(ScoreText.Text);
-            storingScore(parent.game.name, parent.game.score);
+            
+            
+           
             parent.game.score = 0;
             
             parent.Children.Remove(this);
