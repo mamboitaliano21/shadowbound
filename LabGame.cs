@@ -150,12 +150,12 @@ namespace Lab
             await FileIO.WriteTextAsync(file, getAsString(scoreList));
             /*if (file != null)
             {
-                await FileIO.AppendTextAsync(file, writeToFile(scoreList));
+                await FileIO.AppendTextAsync(file, getAsString(scoreList));
             }
             else
             {
                 // Write some content to the file
-                await FileIO.WriteTextAsync(file, writeToFile(scoreList));
+                await FileIO.WriteTextAsync(file, getAsString(scoreList));
             }*/
 
         }
