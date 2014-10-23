@@ -208,11 +208,11 @@ namespace Lab
                     }
                 }
                 game.mainPage.IsHit(isHit);
-                if (isEnemyNear && !enemySoundEffect.isStarted)
+                if (isEnemyNear)
                 {
                     enemySoundEffect.Play();
                 }
-                else if (!isEnemyNear && enemySoundEffect.isStarted)
+                else if (!isEnemyNear)
                 {
                     enemySoundEffect.Stop();
                 }
