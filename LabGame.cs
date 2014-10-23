@@ -128,13 +128,15 @@ namespace Lab
             return text;
         }
 
-        public string readFromlist(string filename, Tuple<string, int> input)
+        public List<Tuple<string, int>> readFromList(string fileName)
         {
-            string content = input.Item1 + "\t" + Convert.ToInt32(input.Item2) + "\n";
+            /*string content = input.Item1 + "\t" + Convert.ToInt32(input.Item2) + "\n";
             var task = this.WriteDataToFileAsync("textBrian1.txt", content);
             task.ConfigureAwait(false);
 
-            return getAsString(this.scoreList);
+            return this.scoreList;*/
+            var task = ReadFileContentsAsync(fileName);
+            return this.scoreList;
         }
 
         public async Task WriteDataToFileAsync(string filename, string content)

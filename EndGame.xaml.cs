@@ -39,25 +39,24 @@ namespace Lab
             parent.Children.Remove(this);  
         }
         private void goToMainMenu(object sender, RoutedEventArgs e)
-        {
-            //parent.game.name = playerName.Text;
-           
+        {  
             parent.restartGame();
             float finderSpeed = parent.game.finderSpeed;
             float followerSpeed = parent.game.followerSpeed;
+           
             parent.game.started = false;
             parent.game.name = playerName.Text;
             parent.game.score = Convert.ToInt32(ScoreText.Text);
             storingScore(parent.game.name, parent.game.score);
             parent.game.score = 0;
-            //parent.game.started = false;
+           
             parent.mainMenu = new MainMenu(parent);
             parent.mainMenu.cmdStart.Content = "Start";
             parent.mainMenu.cmdRestart.Visibility = Visibility.Collapsed;
             parent.mainMenu.enemySpeedSld.Value = finderSpeed;
             parent.mainMenu.followerSpeedSld.Value = followerSpeed;
+            
             parent.Children.Add(parent.mainMenu);
-            //storingScore(playerName.Text, Convert.ToInt32(ScoreText.Text));
             parent.Children.Remove(this);
 
         }
