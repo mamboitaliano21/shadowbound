@@ -35,7 +35,6 @@ namespace Lab
         {
             this.parent = parent;
             InitializeComponent();
-            
         }
         private void StartGame(object sender, RoutedEventArgs e)
         {

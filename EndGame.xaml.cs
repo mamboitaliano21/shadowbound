@@ -28,6 +28,9 @@ namespace Lab
             this.parent = parent;
             this.InitializeComponent();
             ScoreText.Text = parent.game.score.ToString();
+
+            SoundEffect menuSoundEffect = new SoundEffect(@"Content\Dark_Laugh.wav", false);
+            menuSoundEffect.Play();
         }
         private void RestartGame(object sender, RoutedEventArgs e)
         {

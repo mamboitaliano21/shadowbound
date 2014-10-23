@@ -216,9 +216,9 @@ namespace Lab
                 game.mainPage.IsHit(isHit);
 
                 // volume
-                minDistance = minDistance*minDistance/100;
+                minDistance = minDistance*minDistance/1000;
                 //if minDistance < 
-                if (minDistance < 1) { minDistance = 1.0f; }
+                if (minDistance < 1 || isHit) { minDistance = 1.0f; }
                 enemySoundEffect.SetVolume(1 / minDistance);
                 if (!enemySoundEffect.isStarted)
                 {
