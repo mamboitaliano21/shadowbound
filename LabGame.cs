@@ -224,8 +224,8 @@ namespace Lab
 
             // add enemies
             enemies = new List<Enemy>();
-            
-            enemies.Add(new Enemy(this, new Vector3(10,50,10), EnemyType.Follower, followerSpeed));
+
+            enemies.Add(new Enemy(this, new Vector3((int)random.Next(20, (int)landscape.getWidth()), 50, (int)random.Next(20, (int)landscape.getWidth())), EnemyType.Follower, followerSpeed));
             /*enemies.Add(new Enemy(this, new Vector3(10, 20, 100), EnemyType.Wanderer, finderSpeed));
             enemies.Add(new Enemy(this, new Vector3(100, 20, 100), EnemyType.Wanderer, finderSpeed));
             enemies.Add(new Enemy(this, new Vector3(100, 20, 10), EnemyType.Wanderer, finderSpeed));
