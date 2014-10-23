@@ -92,10 +92,10 @@ namespace Lab
             //game = null;
             //game = new LabGame(this);
             //game.Run(this);
-            game.LoadNewContent();
-
             this.Children.Remove(mainMenu);
-            game.started = true;
+            game.score = 0;
+            game.LoadNewContent();
+            this.game.started = true;
         }
 
         public void IsHit(bool isHit)

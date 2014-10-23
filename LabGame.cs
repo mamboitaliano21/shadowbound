@@ -20,9 +20,17 @@
 
 using SharpDX;
 using SharpDX.Toolkit;
+using System.IO;
+using Windows.Storage;
+using Windows.Storage.Streams;
+using System.Threading.Tasks;
+using Windows.Foundation;
+using Windows.Foundation.Metadata;
+using Windows.Storage.FileProperties;
+using Windows.Storage.Search;
 using System;
+using System.Text;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace Lab
 {
@@ -51,6 +59,8 @@ namespace Lab
         private EnemyController enemyController;
         public MainPage mainPage;
         public int score;
+        public string name;
+        public List<Tuple<string, int>> scoreList = new List<Tuple<string,int>>();
 
         //private Enemy enemy1;
         //private Enemy enemy2;
@@ -101,6 +111,85 @@ namespace Lab
 
             backgroundSoundEffect = new SoundEffect(@"Content\ghostly-drone.wav", true);
             //backgroundSoundEffect.SetVolume(0.5f);
+            /*this.score = 300;
+            this.name = "Erlangga";
+            var task = this.WriteDataToFileAsync("textBrian1.txt", name + "\t" + score + "\n");
+            task.ConfigureAwait(false);*/
+        }
+
+        public string getAsString(List<Tuple<string, int>> listInput)
+        {
+            string text = "";
+
+            foreach( var s in scoreList)
+            {
+                text += s.Item1 + "\t" + Convert.ToInt32(s.Item2) + "\n";
+            }
+            return text;
+        }
+
+        public string readFromlist(string filename, Tuple<string, int> input)
+        {
+            string content = input.Item1 + "\t" + Convert.ToInt32(input.Item2) + "\n";
+            var task = this.WriteDataToFileAsync("textBrian1.txt", content);
+            task.ConfigureAwait(false);
+
+            return getAsString(this.scoreList);
+        }
+
+        public async Task WriteDataToFileAsync(string filename, string content)
+        {
+            var folder = ApplicationData.Current.LocalFolder;
+            var file = await folder.CreateFileAsync(filename, CreationCollisionOption.OpenIfExists);
+            var task = this.ReadFileContentsAsync(filename);
+            //task.ConfigureAwait(false);
+
+            scoreList.Add(Tuple.Create<string, int>(name, score));
+
+            scoreList.Sort((a, b) => b.Item2.CompareTo(a.Item2));
+            await FileIO.WriteTextAsync(file, getAsString(scoreList));
+            /*if (file != null)
+            {
+                await FileIO.AppendTextAsync(file, getAsString(scoreList));
+            }
+            else
+            {
+                // Write some content to the file
+                await FileIO.WriteTextAsync(file, getAsString(scoreList));
+            }*/
+
+        }
+
+        private Tuple<string, int> getTuple(string input)
+        {
+            Tuple<string, int> output;
+            String[] splitInput = input.Split('\t');
+           
+            output = Tuple.Create<string, int>(splitInput[0], Convert.ToInt32(splitInput[1]));
+            return output;
+        }
+
+        public async Task ReadFileContentsAsync(string fileName)
+        {
+            var folder = ApplicationData.Current.LocalFolder;
+            string text;
+            try
+            {
+                var file = await folder.OpenStreamForReadAsync(fileName);
+
+                using (var streamReader = new StreamReader(file))
+                {
+                    while ((text = streamReader.ReadLine()) != null)
+                    {
+                        this.scoreList.Add(getTuple(text));
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                
+            }
+
         }
 
         protected override void LoadContent()
@@ -224,6 +313,7 @@ namespace Lab
                 base.Update(gameTime);
                 //Debug.WriteLine(backgroundSoundEffect.GetVolume());
             }
+            
 
         }
 
