@@ -53,6 +53,11 @@ namespace Lab
             parent.Children.Add(new Options(this.parent));
             parent.Children.Remove(this);
         }
+        private void LoadHallOfFame(object sender, RoutedEventArgs e)
+        {
+            parent.Children.Add(new HallOfFame(this.parent));
+            parent.Children.Remove(this);
+        }
 
         private void RestartGame(object sender, RoutedEventArgs e)
         {
