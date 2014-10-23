@@ -90,6 +90,7 @@
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Content\applause_y.wav" />
     <Content Include="Content\birds001.wav" />
+    <Content Include="Content\Dark_Laugh.wav" />
     <Content Include="Content\eat.wav" />
     <Content Include="Content\enemy projectile.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -97,8 +98,11 @@
     <Content Include="Content\enemy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\UFO.wav" />
     <ToolkitFxc Include="Content\Portal.fx" />
+    <Content Include="Content\ghostly-drone-cutwav.wav" />
     <Content Include="Content\ghostly-drone.wav" />
+    <Content Include="Content\Scary-choir.wav" />
     <Content Include="Content\texture.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

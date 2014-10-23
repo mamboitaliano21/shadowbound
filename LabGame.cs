@@ -109,8 +109,7 @@ namespace Lab
             random = new Random();
             this.mainPage = mainPage;
 
-            backgroundSoundEffect = new SoundEffect(@"Content\ghostly-drone.wav", true);
-            //backgroundSoundEffect.SetVolume(0.5f);
+            backgroundSoundEffect = new SoundEffect(@"Content\ghostly-drone-cutwav.wav", true);
             /*this.score = 300;
             this.name = "Erlangga";
             var task = this.WriteDataToFileAsync("textBrian1.txt", name + "\t" + score + "\n");
@@ -259,7 +258,7 @@ namespace Lab
         public void LoadNewContent()
         {
             // stop enemy's sound
-            player.enemySoundEffect.Stop();
+            //player.enemySoundEffect.Stop();
 
             // remove old things
             gameObjects.Clear();
@@ -280,6 +279,9 @@ namespace Lab
         {
             if (started)
             {
+                // play background sound
+                this.resumeBackgroundSound();
+
                 keyboardState = keyboardManager.GetState();
                 flushAddedAndRemovedGameObjects();
                 enemyController.Update(gameTime);
@@ -314,6 +316,13 @@ namespace Lab
                 // Handle base.Update
                 base.Update(gameTime);
                 //Debug.WriteLine(backgroundSoundEffect.GetVolume());
+            }
+
+            else
+            {
+                // pause infinite looping sounds
+                this.pauseBackgroundSound();
+                this.pauseEnemySound();
             }
             
 
@@ -424,6 +433,30 @@ namespace Lab
             this.texture = Content.Load<Texture2D>("enemy.png");
             this.spotLightEffect.Parameters["Texture"].SetResource(texture);
             this.spotLightEffect.CurrentTechnique = this.spotLightEffect.Techniques["Lighting"];
+        }
+
+        public void pauseEnemySound()
+        {
+            if (this.player.enemySoundEffect.isStarted)
+            {
+                this.player.enemySoundEffect.Stop();
+            }
+        }
+
+        public void pauseBackgroundSound()
+        {
+            if (this.backgroundSoundEffect.isStarted)
+            {
+                this.backgroundSoundEffect.Stop();
+            }
+        }
+
+        public void resumeBackgroundSound()
+        {
+            if (!this.backgroundSoundEffect.isStarted)
+            {
+                this.backgroundSoundEffect.Play();
+            }
         }
     }
 }
