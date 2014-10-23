@@ -31,13 +31,12 @@ namespace Lab
         }
         private void RestartGame(object sender, RoutedEventArgs e)
         {
-            parent.restartGame();
-
             parent.game.started = false;
             parent.game.name = playerName.Text;
             parent.game.score = Convert.ToInt32(ScoreText.Text);
             storingScore(parent.game.name, parent.game.score);
-            
+            parent.game.score = 0;
+            parent.restartGame();
             parent.Children.Remove(this);  
         }
         private void goToMainMenu(object sender, RoutedEventArgs e)
