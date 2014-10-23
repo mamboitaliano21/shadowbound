@@ -196,7 +196,7 @@ namespace Lab
 
         protected override void LoadContent()
         {
-            this.score = 0;
+           // this.score = 0;
             // Initialise game object containers.
             gameObjects = new List<GameObject>();
             addedGameObjects = new Stack<GameObject>();
