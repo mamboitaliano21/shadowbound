@@ -76,6 +76,8 @@ namespace Lab
             this.Children.Add(mainMenu);
         }
 
+
+
         public void StartGame()
         {
             this.Children.Remove(mainMenu);
@@ -84,12 +86,7 @@ namespace Lab
 
         public void restartGame()
         {
-            //game.started = false;
-            //game = null;
-            //game = new LabGame(this);
-            //game.Run(this);
             this.Children.Remove(mainMenu);
-            //game.score = 0;
             game.LoadNewContent();
             this.game.started = true;
         }
@@ -105,5 +102,10 @@ namespace Lab
                 background.Opacity = 0.0;
             }
         }
+
+
+
+  
+
     }
 }

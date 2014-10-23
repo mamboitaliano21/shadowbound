@@ -31,7 +31,7 @@ using Windows.Storage.Search;
 using System;
 using System.Text;
 using System.Collections.Generic;
-using System.Diagnostics;
+using Windows.Devices.Sensors;
 
 namespace Lab
 {
@@ -61,8 +61,10 @@ namespace Lab
         public MainPage mainPage;
         public int score;
         public string name;
+        public AccelerometerReading accelerometerReading;
+        public GameInput input;
         public List<Tuple<string, int>> scoreList = new List<Tuple<string,int>>();
-
+        List<Tuple<string, int>> stores = new List<Tuple<string, int>>();
         //private Enemy enemy1;
         //private Enemy enemy2;
         //private Enemy enemy3;
@@ -90,10 +92,10 @@ namespace Lab
         public bool started = false;
         public float difficulty;
 
+        public string filename = "highScores.txt";
+
         public SoundEffect backgroundSoundEffect;
         public SoundEffect menuSoundEffect;
-
-        private SpriteBatch spriteBatch;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LabGame" /> class.
@@ -106,7 +108,7 @@ namespace Lab
             // Setup the relative directory to the executable directory
             // for loading contents with the ContentManager
             Content.RootDirectory = "Content";
-            
+
             // Create the keyboard manager
             keyboardManager = new KeyboardManager(this);
             //assets = new Assets(this);
@@ -115,11 +117,8 @@ namespace Lab
 
             backgroundSoundEffect = new SoundEffect(@"Content\ghostly-drone-cutwav.wav", true);
             menuSoundEffect = new SoundEffect(@"Content\Scary-choir.wav", true);
-            menuSoundEffect.SetVolume(0.0f);
-            /*this.score = 300;
-            this.name = "Erlangga";
-            var task = this.WriteDataToFileAsync("textBrian1.txt", name + "\t" + score + "\n");
-            task.ConfigureAwait(false);*/
+            input = new GameInput();
+           
         }
 
         public string getAsString(List<Tuple<string, int>> listInput)
@@ -135,38 +134,29 @@ namespace Lab
 
         public List<Tuple<string, int>> readFromList(string fileName)
         {
-            /*string content = input.Item1 + "\t" + Convert.ToInt32(input.Item2) + "\n";
-            var task = this.WriteDataToFileAsync("textBrian1.txt", content);
-            task.ConfigureAwait(false);
-
-            return this.scoreList;*/
             var task = ReadFileContentsAsync(fileName);
+            task.ConfigureAwait(false);
+            scoreList.Sort((a, b) => b.Item2.CompareTo(a.Item2));
             return this.scoreList;
         }
 
         public async Task WriteDataToFileAsync(string filename, string content)
         {
-            //this.scoreList.Clear();
+            
             var folder = ApplicationData.Current.LocalFolder;
             var file = await folder.CreateFileAsync(filename, CreationCollisionOption.OpenIfExists);
-            var task = this.ReadFileContentsAsync(filename);
-            //task.ConfigureAwait(false);
-
-            scoreList.Add(Tuple.Create<string, int>(name, score));
-
-            scoreList.Sort((a, b) => b.Item2.CompareTo(a.Item2));
-            await FileIO.WriteTextAsync(file, getAsString(scoreList));
-            this.scoreList.Clear();
-            /*if (file != null)
+           
+            this.scoreList.Add(getTuple(content));
+            if (file != null)
             {
-                await FileIO.AppendTextAsync(file, getAsString(scoreList));
+                await FileIO.AppendTextAsync(file, content);
             }
             else
             {
                 // Write some content to the file
-                await FileIO.WriteTextAsync(file, getAsString(scoreList));
-            }*/
-
+                await FileIO.WriteTextAsync(file, content);
+            }
+            
         }
 
         private Tuple<string, int> getTuple(string input)
@@ -181,8 +171,8 @@ namespace Lab
         public async Task ReadFileContentsAsync(string fileName)
         {
             var folder = ApplicationData.Current.LocalFolder;
-            
             string text;
+            
             try
             {
                 var file = await folder.OpenStreamForReadAsync(fileName);
@@ -191,7 +181,12 @@ namespace Lab
                 {
                     while ((text = streamReader.ReadLine()) != null)
                     {
-                        this.scoreList.Add(getTuple(text));
+                        var tuple = getTuple(text);
+                        if (!this.scoreList.Contains(tuple))
+                        {
+                            scoreList.Add(getTuple(text));
+                        }
+                        
                     }
                 }
             }
@@ -199,7 +194,6 @@ namespace Lab
             {
                 
             }
-
         }
 
         protected override void LoadContent()
@@ -209,7 +203,7 @@ namespace Lab
             gameObjects = new List<GameObject>();
             addedGameObjects = new Stack<GameObject>();
             removedGameObjects = new Stack<GameObject>();
-          
+            
 
             // Create game objects.
             player = new Player(this);
@@ -224,8 +218,8 @@ namespace Lab
 
             // add enemies
             enemies = new List<Enemy>();
-            
-            enemies.Add(new Enemy(this, new Vector3(10,50,10), EnemyType.Follower, followerSpeed));
+
+            enemies.Add(new Enemy(this, new Vector3((int)random.Next(20, (int)landscape.getWidth()), 50, (int)random.Next(20, (int)landscape.getWidth())), EnemyType.Follower, followerSpeed));
             /*enemies.Add(new Enemy(this, new Vector3(10, 20, 100), EnemyType.Wanderer, finderSpeed));
             enemies.Add(new Enemy(this, new Vector3(100, 20, 100), EnemyType.Wanderer, finderSpeed));
             enemies.Add(new Enemy(this, new Vector3(100, 20, 10), EnemyType.Wanderer, finderSpeed));
@@ -252,15 +246,13 @@ namespace Lab
 
 
 
-                initEffect();
+             initEffect();
             //gameObjects.Add(new EnemyController(this));
             
             
             // Create an input layout from the vertices
 
             backgroundSoundEffect.Play();
-
-            spriteBatch = ToDisposeContent(new SpriteBatch(GraphicsDevice));
 
             base.LoadContent();
         }
@@ -280,7 +272,7 @@ namespace Lab
 
         protected override void Initialize()
         {
-            Window.Title = "Lab 4";
+            Window.Title = "Shadow Bound";
             
     
             base.Initialize();
@@ -297,6 +289,10 @@ namespace Lab
                 keyboardState = keyboardManager.GetState();
                 flushAddedAndRemovedGameObjects();
                 enemyController.Update(gameTime);
+                if (input.accelerometer != null)
+                {
+                    accelerometerReading = input.accelerometer.GetCurrentReading();
+                }
                 for (int i = 0; i < enemies.Count; i++)
                 {
                     enemies[i].Update(gameTime);
@@ -335,7 +331,7 @@ namespace Lab
                 // pause infinite looping sounds
                 this.pauseBackgroundSound();
                 this.pauseEnemySound();
-                this.resumeMenuSound((float)gameTime.ElapsedGameTime.TotalSeconds);
+                this.resumeMenuSound();
             }
             
 
@@ -480,19 +476,11 @@ namespace Lab
             }
         }
 
-        public void resumeMenuSound(float time)
+        public void resumeMenuSound()
         {
             if (!this.menuSoundEffect.isStarted)
             {
                 this.menuSoundEffect.Play();
-                this.menuSoundEffect.SetVolume(0.0f);
-            }
-            else
-            {
-                float newVol = menuSoundEffect.GetVolume() + time/10;
-                if (newVol > 1) {newVol = 1.0f;}
-                //if (newVol < 1) { Debug.WriteLine(newVol); }
-                this.menuSoundEffect.SetVolume(newVol);
             }
         }
     }

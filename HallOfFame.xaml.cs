@@ -37,9 +37,9 @@ namespace Lab
             parent.Children.Remove(this);
         }
 
-        private void showAll()
+        public void showAll()
         {
-            List<Tuple<string, int>> scoreList = parent.game.readFromList("textBrian1.txt");
+            List<Tuple<string, int>> scoreList = parent.game.readFromList("highScores.txt");
             int counter = 1;
 
             foreach(var s in scoreList)

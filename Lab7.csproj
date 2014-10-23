@@ -41,6 +41,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Assets.cs" />
+    <Compile Include="GameInput.cs" />
     <Compile Include="HallOfFame.xaml.cs">
       <DependentUpon>HallOfFame.xaml</DependentUpon>
     </Compile>
