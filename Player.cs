@@ -28,7 +28,6 @@ namespace Lab
         private Vector3 XAxis;
         private Vector3 YAxis; // TODO kyknya ga penting
         private Vector3 ZAxis;
-        private float cosLimit = (float) Math.Cos(20.0f * Math.PI / 180.0f);
         private float dz,dx;
 
         public Vector3 velocity;
@@ -42,7 +41,7 @@ namespace Lab
         public Player(LabGame game)
         {
             this.pos = new Vector3(16,10,0);
-            this.target = new Vector3(16, 10, 10);
+            this.target = new Vector3(16, 12, 10);
             this.XAxis = Vector3.UnitX;
             this.YAxis = Vector3.UnitY;
             this.ZAxis = Vector3.UnitZ;
@@ -173,29 +172,22 @@ namespace Lab
                 {
                     dRotationY++;
                 }
-                if (game.keyboardState.IsKeyDown(Keys.Up))
-                {
-                    dRotationX--;
-                }
-                if (game.keyboardState.IsKeyDown(Keys.Down))
-                {
-                    dRotationX++;
-                }
+                //if (game.keyboardState.IsKeyDown(Keys.Up))
+                //{
+                //    dRotationX--;
+                //}
+                //if (game.keyboardState.IsKeyDown(Keys.Down))
+                //{
+                //    dRotationX++;
+                //}
                 if (Math.Abs(game.accelerometerReading.AccelerationX) > 0.15)
                 {
                     dRotationY += (float)game.accelerometerReading.AccelerationX * 5;
                 }
-                Matrix rotationMatrixX = Matrix.RotationAxis(XAxis, dRotationX * SENSITIVITY);
                 Matrix rotationMatrixY = Matrix.RotationAxis(YAxis, dRotationY * SENSITIVITY);
-                Vector3 eyeDirection = Vector3.TransformCoordinate(target - pos, rotationMatrixX * rotationMatrixY);
-                float cosTheta = Vector3.Dot(eyeDirection, ZAxis) / (eyeDirection.Length() * ZAxis.Length());
-                if (cosTheta < cosLimit)
-                {
-                    rotationMatrixX = Matrix.RotationAxis(XAxis, 0);
-                    eyeDirection = Vector3.TransformCoordinate(target - pos, rotationMatrixX * rotationMatrixY);
-                }
+                Vector3 eyeDirection = Vector3.TransformCoordinate(target - pos, rotationMatrixY);
                 target = eyeDirection + pos; // rotation of target about pos
-                XAxis = Vector3.TransformCoordinate(XAxis, rotationMatrixX * rotationMatrixY);
+                XAxis = Vector3.TransformCoordinate(XAxis, rotationMatrixY);
                 //YAxis = Vector3.TransformCoordinate(YAxis, rotationMatrix); // TODO kyknya ga perlu
                 ZAxis = Vector3.TransformCoordinate(ZAxis, rotationMatrixY);
 

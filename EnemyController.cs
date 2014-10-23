@@ -117,7 +117,6 @@ namespace Lab
                 e.velocity *= e.Speed * time;
                 e.pos += e.velocity;
             }
-
             Vector3 currPos = e.pos;
             if (currPos.X <= 0)
             {
@@ -138,7 +137,7 @@ namespace Lab
             {
                 currPos.Y = game.landscape.getWidth();
             }
-            e.pos = currPos;
+            e.setPos(currPos.X, currPos.Y, currPos.Z);
         }
 
         
