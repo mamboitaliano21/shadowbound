@@ -154,6 +154,7 @@ namespace Lab
             //scoreList.Sort((a, b) => b.Item2.CompareTo(a.Item2));
             //await FileIO.AppendTextAsync(file, content); //getAsString(scoreList));
             //this.scoreList.Clear();
+            this.scoreList.Add(getTuple(content));
             if (file != null)
             {
                 await FileIO.AppendTextAsync(file, content);
@@ -163,7 +164,7 @@ namespace Lab
                 // Write some content to the file
                 await FileIO.WriteTextAsync(file, content);
             }
-            //this.scoreList.Add(getTuple(content));
+            
         }
 
         private Tuple<string, int> getTuple(string input)
@@ -177,9 +178,6 @@ namespace Lab
 
         public async Task ReadFileContentsAsync(string fileName)
         {
-            //this.scoreList.Clear();
-            List<Tuple<string, int>> stores = new List<Tuple<string, int>>();
-            //stores.Add(Tuple.Create<string, int>(this.name, Convert.ToInt32(this.score.ToString())));
             var folder = ApplicationData.Current.LocalFolder;
             string text;
             
@@ -191,7 +189,12 @@ namespace Lab
                 {
                     while ((text = streamReader.ReadLine()) != null)
                     {
-                        stores.Add(getTuple(text));
+                        var tuple = getTuple(text);
+                        if (!this.scoreList.Contains(tuple))
+                        {
+                            scoreList.Add(getTuple(text));
+                        }
+                        
                     }
                 }
             }
@@ -199,7 +202,6 @@ namespace Lab
             {
                 
             }
-            this.scoreList = stores;
         }
 
         protected override void LoadContent()
