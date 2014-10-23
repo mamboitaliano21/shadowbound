@@ -86,12 +86,7 @@ namespace Lab
 
         public void restartGame()
         {
-            //game.started = false;
-            //game = null;
-            //game = new LabGame(this);
-            //game.Run(this);
             this.Children.Remove(mainMenu);
-            //game.score = 0;
             game.LoadNewContent();
             this.game.started = true;
         }
