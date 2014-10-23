@@ -89,7 +89,7 @@ namespace Lab
         public bool started = false;
         public float difficulty;
 
-        private SoundEffect backgroundSoundEffect = new SoundEffect(@"Content\ghostly-drone.wav", true);
+        public SoundEffect backgroundSoundEffect;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LabGame" /> class.
@@ -109,7 +109,7 @@ namespace Lab
             random = new Random();
             this.mainPage = mainPage;
 
-            backgroundSoundEffect.Play();
+            backgroundSoundEffect = new SoundEffect(@"Content\ghostly-drone.wav", true);
             //backgroundSoundEffect.SetVolume(0.5f);
             /*this.score = 300;
             this.name = "Erlangga";
@@ -247,6 +247,8 @@ namespace Lab
             
             
             // Create an input layout from the vertices
+
+            backgroundSoundEffect.Play();
 
             base.LoadContent();
         }

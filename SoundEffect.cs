@@ -51,17 +51,21 @@ namespace Lab
 
         public void Play()
         {
-            sourceVoice = new SourceVoice(_xaudio, _waveFormat, true);
-            sourceVoice.SubmitSourceBuffer(_buffer, null);
-            sourceVoice.Start();
-            isStarted = true;
+            if (!isStarted) {
+                sourceVoice = new SourceVoice(_xaudio, _waveFormat, true);
+                sourceVoice.SubmitSourceBuffer(_buffer, null);
+                sourceVoice.Start();
+                isStarted = true;
+            }
         }
 
         public void Stop()
         {
-            sourceVoice.Stop(PlayFlags.None, 0);
-            sourceVoice.FlushSourceBuffers();
-            isStarted = false;
+            if (isStarted) {
+                sourceVoice.Stop(PlayFlags.None, 0);
+                sourceVoice.FlushSourceBuffers();
+                isStarted = false;
+            }
         }
 
         public float GetVolume()
