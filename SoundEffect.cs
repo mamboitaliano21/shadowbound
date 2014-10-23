@@ -47,25 +47,22 @@ namespace Lab
                 _buffer.LoopCount = AudioBuffer.LoopInfinite;
             }
             isStarted = false;
+            sourceVoice = new SourceVoice(_xaudio, _waveFormat, true);
         }
 
         public void Play()
         {
-            if (!isStarted) {
-                sourceVoice = new SourceVoice(_xaudio, _waveFormat, true);
-                sourceVoice.SubmitSourceBuffer(_buffer, null);
-                sourceVoice.Start();
-                isStarted = true;
-            }
+            sourceVoice = new SourceVoice(_xaudio, _waveFormat, true);
+            sourceVoice.SubmitSourceBuffer(_buffer, null);
+            sourceVoice.Start();
+            isStarted = true;
         }
 
         public void Stop()
         {
-            if (isStarted) {
-                sourceVoice.Stop(PlayFlags.None, 0);
-                sourceVoice.FlushSourceBuffers();
-                isStarted = false;
-            }
+            sourceVoice.Stop(PlayFlags.None, 0);
+            sourceVoice.FlushSourceBuffers();
+            isStarted = false;
         }
 
         public float GetVolume()

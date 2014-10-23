@@ -73,9 +73,6 @@ namespace Lab
             mainMenu.enemySpeedSld.Value = finderSpeed;
             mainMenu.followerSpeedSld.Value = followerSpeed;
 
-            // music
-            game.backgroundSoundEffect.Stop();
-
             this.Children.Add(mainMenu);
         }
 
@@ -83,7 +80,6 @@ namespace Lab
         {
             this.Children.Remove(mainMenu);
             game.started = true;
-            game.backgroundSoundEffect.Play();
         }
 
         public void restartGame()

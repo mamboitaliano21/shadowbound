@@ -47,7 +47,7 @@ namespace Lab
             type = GameObjectType.Player;
             this.hp = 100;
 
-            enemySoundEffect = new SoundEffect(@"Content\applause_y.wav", true);
+            enemySoundEffect = new SoundEffect(@"Content\UFO.wav", true);
         }
 
         // Frame update.
@@ -193,9 +193,15 @@ namespace Lab
                 bool isHit = false;
                 bool isEnemyNear = false;
                 float enemyDistance;
+                float minDistance=0;
+                bool firstTime = true;
                 for (int i = 0; i < game.enemies.Count; i++)
                 {
                     enemyDistance = horizontalDistance(this.pos, game.enemies[i].pos);
+
+                    if (firstTime) { minDistance = enemyDistance; firstTime = false; }
+                    else if (enemyDistance < minDistance) { minDistance = enemyDistance; }
+
                     if (enemyDistance < game.enemies[i].pos.Y)
                     {
                         isHit = true;
@@ -208,14 +214,28 @@ namespace Lab
                     }
                 }
                 game.mainPage.IsHit(isHit);
-                if (isEnemyNear)
+
+                // volume
+                minDistance = minDistance*minDistance/1000;
+                //if minDistance < 
+                if (minDistance < 1 || isHit) { minDistance = 1.0f; }
+                enemySoundEffect.SetVolume(1 / minDistance);
+                if (!enemySoundEffect.isStarted)
                 {
                     enemySoundEffect.Play();
                 }
-                else if (!isEnemyNear)
-                {
-                    enemySoundEffect.Stop();
-                }
+
+                //if (isEnemyNear && !enemySoundEffect.isStarted)
+                //{
+                //    enemySoundEffect.SetVolume(1 / minDistance);
+                //    enemySoundEffect.Play();
+                //}
+                //else if (!isEnemyNear && enemySoundEffect.isStarted)
+                //{
+                //    enemySoundEffect.Stop();
+                //}
+
+
                 // TODO
                 // Keep within the boundaries.
                 if (pos.X < game.boundaryLeft) { }

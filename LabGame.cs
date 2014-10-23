@@ -90,6 +90,7 @@ namespace Lab
         public float difficulty;
 
         public SoundEffect backgroundSoundEffect;
+        public SoundEffect menuSoundEffect;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LabGame" /> class.
@@ -109,8 +110,8 @@ namespace Lab
             random = new Random();
             this.mainPage = mainPage;
 
-            backgroundSoundEffect = new SoundEffect(@"Content\ghostly-drone.wav", true);
-            //backgroundSoundEffect.SetVolume(0.5f);
+            backgroundSoundEffect = new SoundEffect(@"Content\ghostly-drone-cutwav.wav", true);
+            menuSoundEffect = new SoundEffect(@"Content\Scary-choir.wav", true);
             /*this.score = 300;
             this.name = "Erlangga";
             var task = this.WriteDataToFileAsync("textBrian1.txt", name + "\t" + score + "\n");
@@ -141,6 +142,7 @@ namespace Lab
 
         public async Task WriteDataToFileAsync(string filename, string content)
         {
+            //this.scoreList.Clear();
             var folder = ApplicationData.Current.LocalFolder;
             var file = await folder.CreateFileAsync(filename, CreationCollisionOption.OpenIfExists);
             var task = this.ReadFileContentsAsync(filename);
@@ -150,6 +152,7 @@ namespace Lab
 
             scoreList.Sort((a, b) => b.Item2.CompareTo(a.Item2));
             await FileIO.WriteTextAsync(file, getAsString(scoreList));
+            this.scoreList.Clear();
             /*if (file != null)
             {
                 await FileIO.AppendTextAsync(file, getAsString(scoreList));
@@ -174,6 +177,7 @@ namespace Lab
         public async Task ReadFileContentsAsync(string fileName)
         {
             var folder = ApplicationData.Current.LocalFolder;
+            
             string text;
             try
             {
@@ -259,7 +263,7 @@ namespace Lab
         public void LoadNewContent()
         {
             // stop enemy's sound
-            player.enemySoundEffect.Stop();
+            //player.enemySoundEffect.Stop();
 
             // remove old things
             gameObjects.Clear();
@@ -280,6 +284,10 @@ namespace Lab
         {
             if (started)
             {
+                // play background sound
+                this.resumeBackgroundSound();
+                this.pauseMenuSound();
+
                 keyboardState = keyboardManager.GetState();
                 flushAddedAndRemovedGameObjects();
                 enemyController.Update(gameTime);
@@ -314,6 +322,14 @@ namespace Lab
                 // Handle base.Update
                 base.Update(gameTime);
                 //Debug.WriteLine(backgroundSoundEffect.GetVolume());
+            }
+
+            else
+            {
+                // pause infinite looping sounds
+                this.pauseBackgroundSound();
+                this.pauseEnemySound();
+                this.resumeMenuSound();
             }
             
 
@@ -424,6 +440,46 @@ namespace Lab
             this.texture = Content.Load<Texture2D>("enemy.png");
             this.spotLightEffect.Parameters["Texture"].SetResource(texture);
             this.spotLightEffect.CurrentTechnique = this.spotLightEffect.Techniques["Lighting"];
+        }
+
+        public void pauseEnemySound()
+        {
+            if (this.player.enemySoundEffect.isStarted)
+            {
+                this.player.enemySoundEffect.Stop();
+            }
+        }
+
+        public void pauseBackgroundSound()
+        {
+            if (this.backgroundSoundEffect.isStarted)
+            {
+                this.backgroundSoundEffect.Stop();
+            }
+        }
+
+        public void resumeBackgroundSound()
+        {
+            if (!this.backgroundSoundEffect.isStarted)
+            {
+                this.backgroundSoundEffect.Play();
+            }
+        }
+
+        public void pauseMenuSound()
+        {
+            if (this.menuSoundEffect.isStarted)
+            {
+                this.menuSoundEffect.Stop();
+            }
+        }
+
+        public void resumeMenuSound()
+        {
+            if (!this.menuSoundEffect.isStarted)
+            {
+                this.menuSoundEffect.Play();
+            }
         }
     }
 }
