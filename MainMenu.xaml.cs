@@ -60,7 +60,6 @@ namespace Lab
 
         private void RestartGame(object sender, RoutedEventArgs e)
         {
-
             parent.restartGame();
         }
 
@@ -72,7 +71,6 @@ namespace Lab
         private void changeEnemySpeed(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
             if (parent.game != null) { parent.game.finderSpeed = (float)e.NewValue; }
-
         }
 
         private void changeEnemyFollowerSpeed(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
