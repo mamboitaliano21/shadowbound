@@ -44,6 +44,11 @@ namespace Lab
             parent.Children.Remove(this);
         }
 
+        private void txtInstructions_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+
+        }
+
 
     }
 }

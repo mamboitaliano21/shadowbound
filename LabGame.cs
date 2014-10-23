@@ -31,6 +31,7 @@ using Windows.Storage.Search;
 using System;
 using System.Text;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Lab
 {
@@ -92,6 +93,8 @@ namespace Lab
         public SoundEffect backgroundSoundEffect;
         public SoundEffect menuSoundEffect;
 
+        private SpriteBatch spriteBatch;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="LabGame" /> class.
         /// </summary>
@@ -103,7 +106,7 @@ namespace Lab
             // Setup the relative directory to the executable directory
             // for loading contents with the ContentManager
             Content.RootDirectory = "Content";
-
+            
             // Create the keyboard manager
             keyboardManager = new KeyboardManager(this);
             //assets = new Assets(this);
@@ -112,6 +115,7 @@ namespace Lab
 
             backgroundSoundEffect = new SoundEffect(@"Content\ghostly-drone-cutwav.wav", true);
             menuSoundEffect = new SoundEffect(@"Content\Scary-choir.wav", true);
+            menuSoundEffect.SetVolume(0.0f);
             /*this.score = 300;
             this.name = "Erlangga";
             var task = this.WriteDataToFileAsync("textBrian1.txt", name + "\t" + score + "\n");
@@ -256,6 +260,8 @@ namespace Lab
 
             backgroundSoundEffect.Play();
 
+            spriteBatch = ToDisposeContent(new SpriteBatch(GraphicsDevice));
+
             base.LoadContent();
         }
 
@@ -329,7 +335,7 @@ namespace Lab
                 // pause infinite looping sounds
                 this.pauseBackgroundSound();
                 this.pauseEnemySound();
-                this.resumeMenuSound();
+                this.resumeMenuSound((float)gameTime.ElapsedGameTime.TotalSeconds);
             }
             
 
@@ -474,11 +480,19 @@ namespace Lab
             }
         }
 
-        public void resumeMenuSound()
+        public void resumeMenuSound(float time)
         {
             if (!this.menuSoundEffect.isStarted)
             {
                 this.menuSoundEffect.Play();
+                this.menuSoundEffect.SetVolume(0.0f);
+            }
+            else
+            {
+                float newVol = menuSoundEffect.GetVolume() + time/10;
+                if (newVol > 1) {newVol = 1.0f;}
+                //if (newVol < 1) { Debug.WriteLine(newVol); }
+                this.menuSoundEffect.SetVolume(newVol);
             }
         }
     }
