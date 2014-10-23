@@ -10,7 +10,7 @@ using Windows.UI.Core;
 
 namespace Lab
 {
-    class GameInput
+    public class GameInput
     {
         public Accelerometer accelerometer;
         public CoreWindow window;
