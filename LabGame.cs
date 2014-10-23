@@ -331,7 +331,7 @@ namespace Lab
                 // pause infinite looping sounds
                 this.pauseBackgroundSound();
                 this.pauseEnemySound();
-                this.resumeMenuSound();
+                this.resumeMenuSound((float)gameTime.ElapsedGameTime.TotalSeconds);
             }
             
 
@@ -476,11 +476,19 @@ namespace Lab
             }
         }
 
-        public void resumeMenuSound()
+        public void resumeMenuSound(float time)
         {
             if (!this.menuSoundEffect.isStarted)
             {
                 this.menuSoundEffect.Play();
+                this.menuSoundEffect.SetVolume(0.0f);
+            }
+            else
+            {
+                float newVol = menuSoundEffect.GetVolume() + time / 10;
+                if (newVol > 1) { newVol = 1.0f; }
+                //if (newVol < 1) { Debug.WriteLine(newVol); }
+                this.menuSoundEffect.SetVolume(newVol);
             }
         }
     }
