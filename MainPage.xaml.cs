@@ -87,9 +87,8 @@ namespace Lab
             //game = null;
             //game = new LabGame(this);
             //game.Run(this);
-            game.LoadNewContent();
-
             this.Children.Remove(mainMenu);
+            
             game.started = true;
         }
 

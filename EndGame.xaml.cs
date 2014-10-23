@@ -31,16 +31,18 @@ namespace Lab
         }
         private void RestartGame(object sender, RoutedEventArgs e)
         {
-            //parent.game.name = playerName.Text;
             parent.restartGame();
-            parent.Children.Remove(this);
+            parent.Children.Remove(this);  
         }
         private void goToMainMenu(object sender, RoutedEventArgs e)
         {
             //parent.game.name = playerName.Text;
+           
             parent.restartGame();
             float finderSpeed = parent.game.finderSpeed;
             float followerSpeed = parent.game.followerSpeed;
+            parent.game.name = playerName.Text;
+            parent.game.score = Convert.ToInt32(ScoreText.Text);
             parent.game.started = false;
             parent.mainMenu = new MainMenu(parent);
             parent.mainMenu.cmdStart.Content = "Start";
@@ -48,9 +50,15 @@ namespace Lab
             parent.mainMenu.enemySpeedSld.Value = finderSpeed;
             parent.mainMenu.followerSpeedSld.Value = followerSpeed;
             parent.Children.Add(parent.mainMenu);
+            storingScore(playerName.Text, Convert.ToInt32(ScoreText.Text));
             parent.Children.Remove(this);
+
         }
 
-
+        private void storingScore(string name, int score)
+        {
+            var task = parent.game.WriteDataToFileAsync("textBrian1.txt", name + "\t" + score + "\n");
+            task.ConfigureAwait(false);
+        }
     }
 }
