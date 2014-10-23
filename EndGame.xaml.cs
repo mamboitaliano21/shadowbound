@@ -91,7 +91,7 @@ namespace Lab
         {
             if (score > 0)
             {
-                var task = parent.game.WriteDataToFileAsync("textBrian1.txt", name + "\t" + score + "\n");
+                var task = parent.game.WriteDataToFileAsync(parent.game.filename, name + "\t" + score + "\n");
                 task.ConfigureAwait(false);
             }
             

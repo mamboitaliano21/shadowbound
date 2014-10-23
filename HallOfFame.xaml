@@ -16,26 +16,26 @@
         	<LineBreak/>
         	<Run/>
         </TextBlock>
-        <TextBlock x:Name="player1" Margin="158,163,405,539" TextWrapping="Wrap" FontSize="56" Text="Player1"/>
-        <TextBlock x:Name="score1" Margin="966,163,158,539" TextWrapping="Wrap" FontSize="56" TextAlignment="Right" Text="Score"/>
-        <TextBlock x:Name="player2" Margin="158,229,405,478" TextWrapping="Wrap" FontSize="50" Text="Player1"/>
-        <TextBlock x:Name="score2" Margin="966,229,158,478" TextWrapping="Wrap" FontSize="50" TextAlignment="Right" Text="Score"/>
-        <TextBlock x:Name="player3" Margin="158,290,405,424" TextWrapping="Wrap" FontSize="45" Text="Player1"/>
-        <TextBlock x:Name="score3" Margin="966,290,158,424" TextWrapping="Wrap" FontSize="45" TextAlignment="Right" Text="Score"/>
-        <TextBlock x:Name="player4" Margin="158,344,405,374" TextWrapping="Wrap" FontSize="40" Text="Player1"/>
-        <TextBlock x:Name="score4" Margin="966,344,158,374" TextWrapping="Wrap" FontSize="40" TextAlignment="Right" Text="Score"/>
-        <TextBlock x:Name="player5" Margin="158,394,405,324" TextWrapping="Wrap" FontSize="40" Text="Player1"/>
-        <TextBlock x:Name="score5" Margin="966,394,158,324" TextWrapping="Wrap" FontSize="40" TextAlignment="Right" Text="Score"/>
-        <TextBlock x:Name="player6" Margin="158,444,405,274" TextWrapping="Wrap" FontSize="40" Text="Player1"/>
-        <TextBlock x:Name="score6" Margin="966,444,158,274" TextWrapping="Wrap" FontSize="40" TextAlignment="Right" Text="Score"/>
-        <TextBlock x:Name="player7" Margin="158,494,405,224" TextWrapping="Wrap" FontSize="40" Text="Player1"/>
-        <TextBlock x:Name="score7" Margin="966,494,158,224" TextWrapping="Wrap" FontSize="40" TextAlignment="Right" Text="Score"/>
-        <TextBlock x:Name="player8" Margin="158,545,405,173" TextWrapping="Wrap" FontSize="40" Text="Player1"/>
-        <TextBlock x:Name="score8" Margin="966,545,158,173" TextWrapping="Wrap" FontSize="40" TextAlignment="Right" Text="Score"/>
-        <TextBlock x:Name="player9" Margin="158,595,405,123" TextWrapping="Wrap" FontSize="40" Text="Player1"/>
-        <TextBlock x:Name="score9" Margin="966,595,158,123" TextWrapping="Wrap" FontSize="40" TextAlignment="Right" Text="Score"/>
-        <TextBlock x:Name="player10" Margin="158,645,405,73" TextWrapping="Wrap" FontSize="40" Text="Player1"/>
-        <TextBlock x:Name="score10" Margin="966,645,158,73" TextWrapping="Wrap" FontSize="40" TextAlignment="Right" Text="Score"/>
+        <TextBlock x:Name="player1" Margin="158,163,405,539" TextWrapping="Wrap" FontSize="56" Text="-"/>
+        <TextBlock x:Name="score1" Margin="966,163,158,539" TextWrapping="Wrap" FontSize="56" TextAlignment="Right" Text="-"/>
+        <TextBlock x:Name="player2" Margin="158,229,405,478" TextWrapping="Wrap" FontSize="50" Text="-"/>
+        <TextBlock x:Name="score2" Margin="966,229,158,478" TextWrapping="Wrap" FontSize="50" TextAlignment="Right" Text="-"/>
+        <TextBlock x:Name="player3" Margin="158,290,405,424" TextWrapping="Wrap" FontSize="45" Text="-"/>
+        <TextBlock x:Name="score3" Margin="966,290,158,424" TextWrapping="Wrap" FontSize="45" TextAlignment="Right" Text="-"/>
+        <TextBlock x:Name="player4" Margin="158,344,405,374" TextWrapping="Wrap" FontSize="40" Text="-"/>
+        <TextBlock x:Name="score4" Margin="966,344,158,374" TextWrapping="Wrap" FontSize="40" TextAlignment="Right" Text="-"/>
+        <TextBlock x:Name="player5" Margin="158,394,405,324" TextWrapping="Wrap" FontSize="40" Text="-"/>
+        <TextBlock x:Name="score5" Margin="966,394,158,324" TextWrapping="Wrap" FontSize="40" TextAlignment="Right" Text="-"/>
+        <TextBlock x:Name="player6" Margin="158,444,405,274" TextWrapping="Wrap" FontSize="40" Text="-"/>
+        <TextBlock x:Name="score6" Margin="966,444,158,274" TextWrapping="Wrap" FontSize="40" TextAlignment="Right" Text="-"/>
+        <TextBlock x:Name="player7" Margin="158,494,405,224" TextWrapping="Wrap" FontSize="40" Text="-"/>
+        <TextBlock x:Name="score7" Margin="966,494,158,224" TextWrapping="Wrap" FontSize="40" TextAlignment="Right" Text="-"/>
+        <TextBlock x:Name="player8" Margin="158,545,405,173" TextWrapping="Wrap" FontSize="40" Text="-"/>
+        <TextBlock x:Name="score8" Margin="966,545,158,173" TextWrapping="Wrap" FontSize="40" TextAlignment="Right" Text="-"/>
+        <TextBlock x:Name="player9" Margin="158,595,405,123" TextWrapping="Wrap" FontSize="40" Text="-"/>
+        <TextBlock x:Name="score9" Margin="966,595,158,123" TextWrapping="Wrap" FontSize="40" TextAlignment="Right" Text="-"/>
+        <TextBlock x:Name="player10" Margin="158,645,405,73" TextWrapping="Wrap" FontSize="40" Text="-"/>
+        <TextBlock x:Name="score10" Margin="966,645,158,73" TextWrapping="Wrap" FontSize="40" TextAlignment="Right" Text="-"/>
         <Button  x:FieldModifier="public" x:Name="cmdBack" Content="Back" HorizontalAlignment="Right" Margin="0,25,44,0" VerticalAlignment="Top" Click="GoBack" FontFamily="Franklin Gothic Medium" Width="163" Height="77"/>
     </Grid>
 </Page>

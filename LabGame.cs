@@ -92,6 +92,8 @@ namespace Lab
         public bool started = false;
         public float difficulty;
 
+        public string filename = "highScores.txt";
+
         public SoundEffect backgroundSoundEffect;
         public SoundEffect menuSoundEffect;
 
@@ -116,10 +118,7 @@ namespace Lab
             backgroundSoundEffect = new SoundEffect(@"Content\ghostly-drone-cutwav.wav", true);
             menuSoundEffect = new SoundEffect(@"Content\Scary-choir.wav", true);
             input = new GameInput();
-            /*this.score = 300;
-            this.name = "Erlangga";
-            var task = this.WriteDataToFileAsync("textBrian1.txt", name + "\t" + score + "\n");
-            task.ConfigureAwait(false);*/
+           
         }
 
         public string getAsString(List<Tuple<string, int>> listInput)
@@ -146,14 +145,7 @@ namespace Lab
             
             var folder = ApplicationData.Current.LocalFolder;
             var file = await folder.CreateFileAsync(filename, CreationCollisionOption.OpenIfExists);
-            //var task = this.ReadFileContentsAsync(filename);
-            //task.ConfigureAwait(false);
-
-            //scoreList.Add(Tuple.Create<string, int>(name, score));
-
-            //scoreList.Sort((a, b) => b.Item2.CompareTo(a.Item2));
-            //await FileIO.AppendTextAsync(file, content); //getAsString(scoreList));
-            //this.scoreList.Clear();
+           
             this.scoreList.Add(getTuple(content));
             if (file != null)
             {
@@ -254,7 +246,7 @@ namespace Lab
 
 
 
-                initEffect();
+             initEffect();
             //gameObjects.Add(new EnemyController(this));
             
             
@@ -280,7 +272,7 @@ namespace Lab
 
         protected override void Initialize()
         {
-            Window.Title = "Lab 4";
+            Window.Title = "Shadow Bound";
             
     
             base.Initialize();
