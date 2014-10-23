@@ -73,7 +73,7 @@ namespace Lab
 
         public float followerSpeed = 1.00f;
         public float finderSpeed  = 0.20f;
-        private float enemyCount = 6;
+        private float enemyCount = 1;
 
         // Represents the camera's position and orientation
         public Camera camera;
@@ -482,6 +482,7 @@ namespace Lab
             {
                 this.menuSoundEffect.Play();
                 this.menuSoundEffect.SetVolume(0.0f);
+                
             }
             else
             {
